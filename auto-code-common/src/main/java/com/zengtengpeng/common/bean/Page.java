@@ -1,5 +1,7 @@
 package com.zengtengpeng.common.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,68 +13,60 @@ import java.util.List;
  */
 public class Page implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6879980366025579382L;
-
-	private int total;// 总条数
-
-	private boolean doAount = true; // 是否查询总数 默认是true，首先查询总数。
+	private Integer total;// 总条数
 
 	private List rows; // 返回页面的数据
 
-	private int endIndex = 11;
+	private Integer page = 1;
 
-	private int beginIndex = 0;
+	private Integer pageSize = 10;
 
-	private int page = 1;
-
-	private int pageSize = 10;
-	
-	private Integer totalPage;//总页数
-
+	@JsonIgnore
 	private String startDate;//开始时间
+	@JsonIgnore
 	private String endDate;//结束时间
+	@JsonIgnore
+	private String orderByString;//排序
 
-	private Long updateUserId;//更新用户id
 
-	private String createTimeValue;//创建时间格式化
-
-	private Boolean isPaging=true;//是否分页 true分页
-
-    private String month;
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public Boolean getIsPaging() {
-		return isPaging;
+	public String getOrderByString() {
+		return orderByString;
 	}
 
-	public void setIsPaging(Boolean paging) {
-		isPaging = paging;
+	public void setOrderByString(String orderByString) {
+		this.orderByString = orderByString;
 	}
 
-	public String getCreateTimeValue() {
-		return createTimeValue;
+	public Integer getTotal() {
+		return total;
 	}
 
-	public void setCreateTimeValue(String createTimeValue) {
-		this.createTimeValue = createTimeValue;
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
-	public Long getUpdateUserId() {
-		return updateUserId;
+	public List getRows() {
+		return rows;
 	}
 
-	public void setUpdateUserId(Long updateUserId) {
-		this.updateUserId = updateUserId;
+	public void setRows(List rows) {
+		this.rows = rows;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 
 	public String getStartDate() {
@@ -90,87 +84,4 @@ public class Page implements Serializable {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-
-	public Integer getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(Integer totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-		this.countEndAndIndex();
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-		this.countEndAndIndex();
-	}
-
-	public boolean isDoAount() {
-		return doAount;
-	}
-
-	public void setDoAount(boolean doAount) {
-		this.doAount = doAount;
-	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.totalPage=(int) Math.ceil((double)total/pageSize);
-		this.total = total;
-	}
-
-	public List getRows() {
-		return rows;
-	}
-
-	public void setRows(List lists) {
-		if (lists != null && lists.size() > 0) {
-			Object row = lists.get(0);
-			if (row != null && row instanceof String) {
-				setPageSize((Integer.valueOf((String) row)));
-			}
-		}
-		this.rows = lists;
-	}
-
-	public int getEndIndex() {
-		return endIndex;
-	}
-
-	public void setEndIndex(int endIndex) {
-		this.endIndex = endIndex;
-	}
-
-	public int getBeginIndex() {
-		return beginIndex;
-	}
-
-	public void setBeginIndex(int beginIndex) {
-		this.beginIndex = beginIndex;
-	}
-	
-	
-	private void countEndAndIndex(){
-		//计算oracle 分页所用到的 开始和结束  rownum
-			/* this.endIndex = (this.page * this.pageSize +1);
-			 this.beginIndex = (this.page-1) * this.pageSize + 1;*/
-		//计算mysql
-		this.beginIndex = (this.page-1) * this.pageSize;
-	}
-
 }

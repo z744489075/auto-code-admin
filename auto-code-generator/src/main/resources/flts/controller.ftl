@@ -97,4 +97,26 @@ public class ${tableName}Controller {
 		ExcelUtils.exportExcel("${tableRemarks}",header,list,response,request);
     }
 
+	/**
+	* 跳转到列表页面
+	* @return
+	*/
+	@RequestMapping("/${tableValue}/gotoList")
+	public String gotoList(${tableName} ${tableValue}, HttpServletRequest request, HttpServletResponse response){
+		return "${mobelName}/${dataName}_list";
+	}
+
+	/**
+	* 跳转到详情页面
+	* @return
+	*/
+	@RequestMapping("/${tableValue}/gotoDetail")
+	public String gotoDetail(${tableName} ${tableValue}, HttpServletRequest request, HttpServletResponse response){
+		if(${tableValue}.getId()!=null){
+			request.setAttribute("${dataName}",${tableValue}Service.selectByPrimaryKey(${tableValue}));
+		}else {
+			request.setAttribute("${dataName}",${tableValue});
+		}
+		return "${mobelName}/${dataName}_detail";
+	}
 }

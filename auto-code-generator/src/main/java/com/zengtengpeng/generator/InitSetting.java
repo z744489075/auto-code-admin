@@ -1,14 +1,11 @@
 package com.zengtengpeng.generator;
 
-import com.github.pagehelper.Page;
+import com.zengtengpeng.common.bean.Page;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.*;
-import org.mybatis.generator.api.dom.xml.Attribute;
-import org.mybatis.generator.api.dom.xml.Document;
-import org.mybatis.generator.api.dom.xml.TextElement;
-import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.api.dom.xml.*;
 import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
 import org.springframework.util.StringUtils;
 
@@ -170,6 +167,24 @@ public class InitSetting extends PluginAdapter {
 		XmlElement end = new XmlElement("include"); //$NON-NLS-1$
 		end.addAttribute(new Attribute("refid", "paging.tail")); //$NON-NLS-1$ //$NON-NLS-2$
 		element.addElement(end);*/
+		StringBuffer sb=new StringBuffer();
+		sb.append("  <where>\n");
+
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
+			String javaProperty = introspectedColumn.getJavaProperty();
+			String actualColumnName = introspectedColumn.getActualColumnName();
+			sb.append("\t\t<if test=\"" + javaProperty + "!=null ");
+
+			if (introspectedColumn.getFullyQualifiedJavaType().getShortName().equals("String")) {
+				sb.append("and " + javaProperty + "!=''");
+			}
+
+			sb.append("\">");
+			sb.append(" and " + actualColumnName + " = #{" + javaProperty + ",jdbcType="
+					+ introspectedColumn.getJdbcTypeName() + "}</if>\n");
+		}
+		sb.append(" \t</where> \n <if test=\"orderByString!=null and orderByString!=''\"> \n\t ${orderByString} \n </if>");
+		element.addElement(new TextElement(sb.toString()));
 		return super.sqlMapSelectAllElementGenerated(element, introspectedTable);
 	}
 

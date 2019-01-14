@@ -26,7 +26,7 @@
 
     <dependencies>
         <dependency>
-            <artifactId>auto-code-admin</artifactId>
+            <artifactId>auto-code-common</artifactId>
             <groupId>com.zengtengpeng</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

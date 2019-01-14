@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="~{common/common-head.html::common-head}"></div>
+
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span>
+	系统管理
+	<span class="c-gray en">&gt;</span>
+	栏目管理
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+	<div class="text-c">
+		<input type="text" name="" placeholder="栏目名称、id" style="width:250px" class="input-text">
+		<button name=""  class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+		<a class="btn btn-primary radius" onclick="system_category_add('添加资讯','system-category-add.html')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加栏目</a>
+		</span>
+		<span class="r">共有数据：<strong>54</strong> 条</span>
+	</div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="80">id</th>
+					<th width="80">名称</th>
+					<th width="20">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--<tr class="text-c">
+					<td><input type="checkbox" name="" value=""></td>
+					<td>1</td>
+					<td>1</td>
+					<td class="text-l">一级栏目</td>
+					<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_category_edit('栏目编辑','system-category-add.html','1','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="system_category_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>-->
+			</tbody>
+		</table>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+
+<nav th:include="~{common/common-footer.html::common-footer}"></nav>
+ <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" th:src="@{/static/lib/My97DatePicker/4.8/WdatePicker.js}"></script>
+<script type="text/javascript" th:src="@{/static/lib/datatables/1.10.0/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/lib/laypage/1.2/laypage.js}"></script>
+<script type="text/javascript"  th:inline="javascript">
+    /*<![CDATA[*/
+    var rootPath = /*[[@{/}]]*/ '';
+    /*]]>*/
+$('.table-sort').dataTable({
+    "processing": true,//刷新的那个对话框
+    "serverSide": true,//服务器端获取数据
+    "searching" : false,
+    "ordering":false,
+	"lengthChange":false,// 是否显示分页下拉列表，默认true
+    ajax: function (data, callback, settings) {
+        //封装请求参数
+        var param = {};
+        param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+        param.page = (data.start / data.length)+1;//当前页码
+        //console.log(param);
+        //ajax请求数据
+		$.post(rootPath+"/userBorrowTender/selectAll",param,function (data) {
+            var returnData = {};
+            // returnData.draw = json.data.draw;
+            returnData.recordsTotal = data.data.total;//返回数据全部记录
+            returnData.recordsFiltered = data.data.total;//后台不实现过滤功能，每次查询均视作全部结果
+            returnData.data = data.data.rows;//返回的数据列表
+            callback(returnData);
+        })
+    },
+    "columns": [
+        { "data": "id","render": function ( data, type, row ) {
+                return "<input type='checkbox' name='onDutyToId'  value='" + data + "'>";
+            } },
+        { "data": "id" },
+        { "data": "btitle" },
+		{"data":"id","render": function ( data, type, row ) {
+                return '<a title="编辑" href="javascript:;" onclick="system_category_edit(\'栏目编辑\',\'system-category-add.html\',\'1\',\'700\',\'480\')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>\n' +
+                    '\t\t\t\t\t\t<a title="删除" href="javascript:;" onclick="system_category_del(this,\'1\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+            }}
+    ]
+});
+/*系统-栏目-添加*/
+function system_category_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-编辑*/
+function system_category_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-栏目-删除*/
+function system_category_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '',
+			dataType: 'json',
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+</script>
+</body>
+</html>

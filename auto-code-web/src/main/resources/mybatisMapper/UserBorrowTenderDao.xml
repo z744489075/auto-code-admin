@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etiaolong.newYear.dao.UserBorrowTenderDao">
+  <resultMap id="BaseResultMap" type="com.etiaolong.newYear.bean.UserBorrowTender">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="bid" jdbcType="INTEGER" property="bid" />
+    <result column="buser_id" jdbcType="INTEGER" property="buserId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="tender_type" jdbcType="TINYINT" property="tenderType" />
+    <result column="auto_tender_id" jdbcType="INTEGER" property="autoTenderId" />
+    <result column="money" jdbcType="BIGINT" property="money" />
+    <result column="deduction_money" jdbcType="INTEGER" property="deductionMoney" />
+    <result column="deductionid" jdbcType="INTEGER" property="deductionid" />
+    <result column="repayment_money" jdbcType="BIGINT" property="repaymentMoney" />
+    <result column="repayment_interest" jdbcType="INTEGER" property="repaymentInterest" />
+    <result column="paid_money" jdbcType="BIGINT" property="paidMoney" />
+    <result column="paid_interest" jdbcType="INTEGER" property="paidInterest" />
+    <result column="wait_money" jdbcType="BIGINT" property="waitMoney" />
+    <result column="wait_interest" jdbcType="INTEGER" property="waitInterest" />
+    <result column="overdue_interest" jdbcType="INTEGER" property="overdueInterest" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="addip" jdbcType="VARCHAR" property="addip" />
+    <result column="btitle" jdbcType="VARCHAR" property="btitle" />
+    <result column="bapr" jdbcType="DECIMAL" property="bapr" />
+    <result column="additional_apr" jdbcType="DECIMAL" property="additionalApr" />
+    <result column="additionalid" jdbcType="INTEGER" property="additionalid" />
+    <result column="additional_money" jdbcType="INTEGER" property="additionalMoney" />
+    <result column="bloan_life" jdbcType="SMALLINT" property="bloanLife" />
+    <result column="bloan_life_type" jdbcType="TINYINT" property="bloanLifeType" />
+    <result column="first_repayment_date" jdbcType="DATE" property="firstRepaymentDate" />
+    <result column="end_repayment_date" jdbcType="DATE" property="endRepaymentDate" />
+    <result column="accrual_date" jdbcType="DATE" property="accrualDate" />
+    <result column="repayment_type" jdbcType="TINYINT" property="repaymentType" />
+    <result column="buy_id" jdbcType="INTEGER" property="buyId" />
+    <result column="additional_date" jdbcType="TIMESTAMP" property="additionalDate" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_borrow_tender
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.etiaolong.newYear.bean.UserBorrowTender" useGeneratedKeys="true">
+    insert into user_borrow_tender (user_id, bid, buser_id, 
+      status, tender_type, auto_tender_id, 
+      money, deduction_money, deductionid, 
+      repayment_money, repayment_interest, paid_money, 
+      paid_interest, wait_money, wait_interest, 
+      overdue_interest, addtime, addip, 
+      btitle, bapr, additional_apr, 
+      additionalid, additional_money, bloan_life, 
+      bloan_life_type, first_repayment_date, end_repayment_date, 
+      accrual_date, repayment_type, buy_id, 
+      additional_date)
+    values (#{userId,jdbcType=INTEGER}, #{bid,jdbcType=INTEGER}, #{buserId,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{tenderType,jdbcType=TINYINT}, #{autoTenderId,jdbcType=INTEGER}, 
+      #{money,jdbcType=BIGINT}, #{deductionMoney,jdbcType=INTEGER}, #{deductionid,jdbcType=INTEGER}, 
+      #{repaymentMoney,jdbcType=BIGINT}, #{repaymentInterest,jdbcType=INTEGER}, #{paidMoney,jdbcType=BIGINT}, 
+      #{paidInterest,jdbcType=INTEGER}, #{waitMoney,jdbcType=BIGINT}, #{waitInterest,jdbcType=INTEGER}, 
+      #{overdueInterest,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, #{addip,jdbcType=VARCHAR}, 
+      #{btitle,jdbcType=VARCHAR}, #{bapr,jdbcType=DECIMAL}, #{additionalApr,jdbcType=DECIMAL}, 
+      #{additionalid,jdbcType=INTEGER}, #{additionalMoney,jdbcType=INTEGER}, #{bloanLife,jdbcType=SMALLINT}, 
+      #{bloanLifeType,jdbcType=TINYINT}, #{firstRepaymentDate,jdbcType=DATE}, #{endRepaymentDate,jdbcType=DATE}, 
+      #{accrualDate,jdbcType=DATE}, #{repaymentType,jdbcType=TINYINT}, #{buyId,jdbcType=INTEGER}, 
+      #{additionalDate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.etiaolong.newYear.bean.UserBorrowTender">
+    update user_borrow_tender
+    set user_id = #{userId,jdbcType=INTEGER},
+      bid = #{bid,jdbcType=INTEGER},
+      buser_id = #{buserId,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      tender_type = #{tenderType,jdbcType=TINYINT},
+      auto_tender_id = #{autoTenderId,jdbcType=INTEGER},
+      money = #{money,jdbcType=BIGINT},
+      deduction_money = #{deductionMoney,jdbcType=INTEGER},
+      deductionid = #{deductionid,jdbcType=INTEGER},
+      repayment_money = #{repaymentMoney,jdbcType=BIGINT},
+      repayment_interest = #{repaymentInterest,jdbcType=INTEGER},
+      paid_money = #{paidMoney,jdbcType=BIGINT},
+      paid_interest = #{paidInterest,jdbcType=INTEGER},
+      wait_money = #{waitMoney,jdbcType=BIGINT},
+      wait_interest = #{waitInterest,jdbcType=INTEGER},
+      overdue_interest = #{overdueInterest,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      addip = #{addip,jdbcType=VARCHAR},
+      btitle = #{btitle,jdbcType=VARCHAR},
+      bapr = #{bapr,jdbcType=DECIMAL},
+      additional_apr = #{additionalApr,jdbcType=DECIMAL},
+      additionalid = #{additionalid,jdbcType=INTEGER},
+      additional_money = #{additionalMoney,jdbcType=INTEGER},
+      bloan_life = #{bloanLife,jdbcType=SMALLINT},
+      bloan_life_type = #{bloanLifeType,jdbcType=TINYINT},
+      first_repayment_date = #{firstRepaymentDate,jdbcType=DATE},
+      end_repayment_date = #{endRepaymentDate,jdbcType=DATE},
+      accrual_date = #{accrualDate,jdbcType=DATE},
+      repayment_type = #{repaymentType,jdbcType=TINYINT},
+      buy_id = #{buyId,jdbcType=INTEGER},
+      additional_date = #{additionalDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, user_id, bid, buser_id, status, tender_type, auto_tender_id, money, deduction_money, 
+    deductionid, repayment_money, repayment_interest, paid_money, paid_interest, wait_money, 
+    wait_interest, overdue_interest, addtime, addip, btitle, bapr, additional_apr, additionalid, 
+    additional_money, bloan_life, bloan_life_type, first_repayment_date, end_repayment_date, 
+    accrual_date, repayment_type, buy_id, additional_date
+    from user_borrow_tender
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, bid, buser_id, status, tender_type, auto_tender_id, money, deduction_money, 
+    deductionid, repayment_money, repayment_interest, paid_money, paid_interest, wait_money, 
+    wait_interest, overdue_interest, addtime, addip, btitle, bapr, additional_apr, additionalid, 
+    additional_money, bloan_life, bloan_life_type, first_repayment_date, end_repayment_date, 
+    accrual_date, repayment_type, buy_id, additional_date
+    from user_borrow_tender
+      <where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="userId!=null "> and user_id = #{userId,jdbcType=INTEGER}</if>
+		<if test="bid!=null "> and bid = #{bid,jdbcType=INTEGER}</if>
+		<if test="buserId!=null "> and buser_id = #{buserId,jdbcType=INTEGER}</if>
+		<if test="status!=null "> and status = #{status,jdbcType=TINYINT}</if>
+		<if test="tenderType!=null "> and tender_type = #{tenderType,jdbcType=TINYINT}</if>
+		<if test="autoTenderId!=null "> and auto_tender_id = #{autoTenderId,jdbcType=INTEGER}</if>
+		<if test="money!=null "> and money = #{money,jdbcType=BIGINT}</if>
+		<if test="deductionMoney!=null "> and deduction_money = #{deductionMoney,jdbcType=INTEGER}</if>
+		<if test="deductionid!=null "> and deductionid = #{deductionid,jdbcType=INTEGER}</if>
+		<if test="repaymentMoney!=null "> and repayment_money = #{repaymentMoney,jdbcType=BIGINT}</if>
+		<if test="repaymentInterest!=null "> and repayment_interest = #{repaymentInterest,jdbcType=INTEGER}</if>
+		<if test="paidMoney!=null "> and paid_money = #{paidMoney,jdbcType=BIGINT}</if>
+		<if test="paidInterest!=null "> and paid_interest = #{paidInterest,jdbcType=INTEGER}</if>
+		<if test="waitMoney!=null "> and wait_money = #{waitMoney,jdbcType=BIGINT}</if>
+		<if test="waitInterest!=null "> and wait_interest = #{waitInterest,jdbcType=INTEGER}</if>
+		<if test="overdueInterest!=null "> and overdue_interest = #{overdueInterest,jdbcType=INTEGER}</if>
+		<if test="addtime!=null "> and addtime = #{addtime,jdbcType=TIMESTAMP}</if>
+		<if test="addip!=null and addip!=''"> and addip = #{addip,jdbcType=VARCHAR}</if>
+		<if test="btitle!=null and btitle!=''"> and btitle = #{btitle,jdbcType=VARCHAR}</if>
+		<if test="bapr!=null "> and bapr = #{bapr,jdbcType=DECIMAL}</if>
+		<if test="additionalApr!=null "> and additional_apr = #{additionalApr,jdbcType=DECIMAL}</if>
+		<if test="additionalid!=null "> and additionalid = #{additionalid,jdbcType=INTEGER}</if>
+		<if test="additionalMoney!=null "> and additional_money = #{additionalMoney,jdbcType=INTEGER}</if>
+		<if test="bloanLife!=null "> and bloan_life = #{bloanLife,jdbcType=SMALLINT}</if>
+		<if test="bloanLifeType!=null "> and bloan_life_type = #{bloanLifeType,jdbcType=TINYINT}</if>
+		<if test="firstRepaymentDate!=null "> and first_repayment_date = #{firstRepaymentDate,jdbcType=DATE}</if>
+		<if test="endRepaymentDate!=null "> and end_repayment_date = #{endRepaymentDate,jdbcType=DATE}</if>
+		<if test="accrualDate!=null "> and accrual_date = #{accrualDate,jdbcType=DATE}</if>
+		<if test="repaymentType!=null "> and repayment_type = #{repaymentType,jdbcType=TINYINT}</if>
+		<if test="buyId!=null "> and buy_id = #{buyId,jdbcType=INTEGER}</if>
+		<if test="additionalDate!=null "> and additional_date = #{additionalDate,jdbcType=TIMESTAMP}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <select id="queryUserBorrowTenderByCondition" resultMap="BaseResultMap">
+    select id,user_id,bid,buser_id,status,tender_type,auto_tender_id,money,deduction_money,deductionid,repayment_money,repayment_interest,paid_money,paid_interest,wait_money,wait_interest,overdue_interest,addtime,addip,btitle,bapr,additional_apr,additionalid,additional_money,bloan_life,bloan_life_type,first_repayment_date,end_repayment_date,accrual_date,repayment_type,buy_id,additional_date
+ 	from  user_borrow_tender 
+	<where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="userId!=null "> and user_id = #{userId,jdbcType=INTEGER}</if>
+		<if test="bid!=null "> and bid = #{bid,jdbcType=INTEGER}</if>
+		<if test="buserId!=null "> and buser_id = #{buserId,jdbcType=INTEGER}</if>
+		<if test="status!=null "> and status = #{status,jdbcType=TINYINT}</if>
+		<if test="tenderType!=null "> and tender_type = #{tenderType,jdbcType=TINYINT}</if>
+		<if test="autoTenderId!=null "> and auto_tender_id = #{autoTenderId,jdbcType=INTEGER}</if>
+		<if test="money!=null "> and money = #{money,jdbcType=BIGINT}</if>
+		<if test="deductionMoney!=null "> and deduction_money = #{deductionMoney,jdbcType=INTEGER}</if>
+		<if test="deductionid!=null "> and deductionid = #{deductionid,jdbcType=INTEGER}</if>
+		<if test="repaymentMoney!=null "> and repayment_money = #{repaymentMoney,jdbcType=BIGINT}</if>
+		<if test="repaymentInterest!=null "> and repayment_interest = #{repaymentInterest,jdbcType=INTEGER}</if>
+		<if test="paidMoney!=null "> and paid_money = #{paidMoney,jdbcType=BIGINT}</if>
+		<if test="paidInterest!=null "> and paid_interest = #{paidInterest,jdbcType=INTEGER}</if>
+		<if test="waitMoney!=null "> and wait_money = #{waitMoney,jdbcType=BIGINT}</if>
+		<if test="waitInterest!=null "> and wait_interest = #{waitInterest,jdbcType=INTEGER}</if>
+		<if test="overdueInterest!=null "> and overdue_interest = #{overdueInterest,jdbcType=INTEGER}</if>
+		<if test="addtime!=null "> and addtime = #{addtime,jdbcType=TIMESTAMP}</if>
+		<if test="addip!=null and addip!=''"> and addip = #{addip,jdbcType=VARCHAR}</if>
+		<if test="btitle!=null and btitle!=''"> and btitle = #{btitle,jdbcType=VARCHAR}</if>
+		<if test="bapr!=null "> and bapr = #{bapr,jdbcType=DECIMAL}</if>
+		<if test="additionalApr!=null "> and additional_apr = #{additionalApr,jdbcType=DECIMAL}</if>
+		<if test="additionalid!=null "> and additionalid = #{additionalid,jdbcType=INTEGER}</if>
+		<if test="additionalMoney!=null "> and additional_money = #{additionalMoney,jdbcType=INTEGER}</if>
+		<if test="bloanLife!=null "> and bloan_life = #{bloanLife,jdbcType=SMALLINT}</if>
+		<if test="bloanLifeType!=null "> and bloan_life_type = #{bloanLifeType,jdbcType=TINYINT}</if>
+		<if test="firstRepaymentDate!=null "> and first_repayment_date = #{firstRepaymentDate,jdbcType=DATE}</if>
+		<if test="endRepaymentDate!=null "> and end_repayment_date = #{endRepaymentDate,jdbcType=DATE}</if>
+		<if test="accrualDate!=null "> and accrual_date = #{accrualDate,jdbcType=DATE}</if>
+		<if test="repaymentType!=null "> and repayment_type = #{repaymentType,jdbcType=TINYINT}</if>
+		<if test="buyId!=null "> and buy_id = #{buyId,jdbcType=INTEGER}</if>
+		<if test="additionalDate!=null "> and additional_date = #{additionalDate,jdbcType=TIMESTAMP}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <update id="updateUserBorrowTenderByKeyWithNotNull">
+    update  	user_borrow_tender 
+	<set>
+		<if test="userId!=null ">user_id = #{userId,jdbcType=INTEGER}, </if>
+		<if test="bid!=null ">bid = #{bid,jdbcType=INTEGER}, </if>
+		<if test="buserId!=null ">buser_id = #{buserId,jdbcType=INTEGER}, </if>
+		<if test="status!=null ">status = #{status,jdbcType=TINYINT}, </if>
+		<if test="tenderType!=null ">tender_type = #{tenderType,jdbcType=TINYINT}, </if>
+		<if test="autoTenderId!=null ">auto_tender_id = #{autoTenderId,jdbcType=INTEGER}, </if>
+		<if test="money!=null ">money = #{money,jdbcType=BIGINT}, </if>
+		<if test="deductionMoney!=null ">deduction_money = #{deductionMoney,jdbcType=INTEGER}, </if>
+		<if test="deductionid!=null ">deductionid = #{deductionid,jdbcType=INTEGER}, </if>
+		<if test="repaymentMoney!=null ">repayment_money = #{repaymentMoney,jdbcType=BIGINT}, </if>
+		<if test="repaymentInterest!=null ">repayment_interest = #{repaymentInterest,jdbcType=INTEGER}, </if>
+		<if test="paidMoney!=null ">paid_money = #{paidMoney,jdbcType=BIGINT}, </if>
+		<if test="paidInterest!=null ">paid_interest = #{paidInterest,jdbcType=INTEGER}, </if>
+		<if test="waitMoney!=null ">wait_money = #{waitMoney,jdbcType=BIGINT}, </if>
+		<if test="waitInterest!=null ">wait_interest = #{waitInterest,jdbcType=INTEGER}, </if>
+		<if test="overdueInterest!=null ">overdue_interest = #{overdueInterest,jdbcType=INTEGER}, </if>
+		<if test="addtime!=null ">addtime = #{addtime,jdbcType=TIMESTAMP}, </if>
+		<if test="addip!=null and addip!=''">addip = #{addip,jdbcType=VARCHAR}, </if>
+		<if test="btitle!=null and btitle!=''">btitle = #{btitle,jdbcType=VARCHAR}, </if>
+		<if test="bapr!=null ">bapr = #{bapr,jdbcType=DECIMAL}, </if>
+		<if test="additionalApr!=null ">additional_apr = #{additionalApr,jdbcType=DECIMAL}, </if>
+		<if test="additionalid!=null ">additionalid = #{additionalid,jdbcType=INTEGER}, </if>
+		<if test="additionalMoney!=null ">additional_money = #{additionalMoney,jdbcType=INTEGER}, </if>
+		<if test="bloanLife!=null ">bloan_life = #{bloanLife,jdbcType=SMALLINT}, </if>
+		<if test="bloanLifeType!=null ">bloan_life_type = #{bloanLifeType,jdbcType=TINYINT}, </if>
+		<if test="firstRepaymentDate!=null ">first_repayment_date = #{firstRepaymentDate,jdbcType=DATE}, </if>
+		<if test="endRepaymentDate!=null ">end_repayment_date = #{endRepaymentDate,jdbcType=DATE}, </if>
+		<if test="accrualDate!=null ">accrual_date = #{accrualDate,jdbcType=DATE}, </if>
+		<if test="repaymentType!=null ">repayment_type = #{repaymentType,jdbcType=TINYINT}, </if>
+		<if test="buyId!=null ">buy_id = #{buyId,jdbcType=INTEGER}, </if>
+		<if test="additionalDate!=null ">additional_date = #{additionalDate,jdbcType=TIMESTAMP} </if>
+ 	</set>
+	where id=#{id}
+  </update>
+</mapper>

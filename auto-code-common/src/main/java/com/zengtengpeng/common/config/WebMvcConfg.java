@@ -24,7 +24,7 @@ public class WebMvcConfg implements WebMvcConfigurer{
      * @return
      */
     @Bean
-    GlobalInterceptor blobalInterceptor() {
+    GlobalInterceptor globalInterceptor() {
         return new GlobalInterceptor();
     }
 
@@ -34,7 +34,7 @@ public class WebMvcConfg implements WebMvcConfigurer{
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(blobalInterceptor()).excludePathPatterns("/static/**");
+        registry.addInterceptor(globalInterceptor()).excludePathPatterns("/static/**");
     }
 
     @Override
