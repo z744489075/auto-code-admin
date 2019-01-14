@@ -35,7 +35,14 @@
         $(function () {
             init(rootPath);
         })
-
+        var myAlert=function (msg) {
+            layer.alert(msg);
+        }
+        var myConfirm=function (msg,callback) {
+            layer.confirm(msg, function (index) {
+                callback(index);
+            });
+        }
     </script>
     <style>
         .table>tbody>tr>td{

@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{common/common-head.html::common-head}"></div>
-
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
@@ -16,28 +15,31 @@
 </nav>
 <div class="page-container">
     <div class="text-c">
-        <input type="text" name="id" id="id" placeholder="id" style="width:150px" class="input-text">
-        <input type="text" name="btitle" id="btitle" placeholder="标题" style="width:150px" class="input-text">
-        <input type="text" name="btitle" id="startDate" placeholder="开始时间" style="width:150px" class="input-text">-
-        <input type="text" name="btitle" id="endDate" placeholder="结束时间" style="width:150px" class="input-text">
+        <form id="dataForm"  >
+            <input type="text" name="id" id="id" placeholder="id" style="width:150px" class="input-text">
+            <input type="text" name="btitle" id="btitle" placeholder="标题" style="width:150px" class="input-text">
+            <input type="text" name="startDate" id="startDate" placeholder="开始时间" style="width:150px" class="input-text">-
+            <input type="text" name="endDate" id="endDate" placeholder="结束时间" style="width:150px" class="input-text">
+        </form>
         <button name="" class="btn btn-success" onclick="loadMyData()" data-type="reload"><i class="Hui-iconfont">&#xe665;</i>
             搜索
         </button>
     </div>
-    <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
-    <script type="text/html" id="toolbar-data">
-        <a class="btn btn-primary radius" onclick="system_category_add('添加资讯','system-category-add.html')"
-           href="javascript:void(0)"><i class="Hui-iconfont">&#xe600;</i> 添加栏目</a>
-        <a href="javascript:void(0)" onclick="datadel()" class="btn btn-danger radius"><i
-                class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-    </script>
     <div class="mt-20">
         <table id="table-data" lay-filter="table-data"></table>
     </div>
 </div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="toolbar-data">
+    <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
+    <a class="btn btn-primary radius" onclick="system_category_add('新增数据','system-category-add.html')"
+       href="javascript:void(0)"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
+    <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
+            class="Hui-iconfont">&#xe640;</i> 导出</a>
+</script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" th:inline="javascript">
     var table;
@@ -79,10 +81,16 @@
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
+                myConfirm("确定要删除吗?",function (index) {
                     obj.del();
+                    $.post(rootPath+"/userBorrowTender/deleteByPrimaryKey",{"id":data.id},function (data) {
+                        myAlert("删除成功");
+                        setTimeout(function () {
+                            loadMyData()
+                        },2000)
+                    });
                     layer.close(index);
-                });
+                })
             } else if (obj.event === 'edit') {
                 layer.prompt({
                     formType: 2
@@ -106,7 +114,8 @@
             elem: '#endDate'
             ,type: 'datetime'
         });
-    })
+    });
+
     function loadMyData() {
         table.reload("table-data",{
             where: {
@@ -119,6 +128,10 @@
                 curr: 1 //重新从第 1 页开始
             }
         });
+    }
+    //导出
+    function exports() {
+        window.location.href=rootPath+"userBorrowTender/export?"+$("#dataForm").serialize()
     }
 
     /*系统-栏目-添加*/

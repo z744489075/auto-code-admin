@@ -80,7 +80,6 @@ public class UserBorrowTenderController {
 
 	/**
 	* 导出数据
-	* @param tests 参数
 	* @return
 	*/
 	@RequestMapping("/userBorrowTender/export")
@@ -91,7 +90,7 @@ public class UserBorrowTenderController {
         header.put("userId", "投资人ID");
         header.put("bid", "标的编号");
         header.put("buserId", "借款人ID");
-        header.put("status", "状态: 0.已投资  1.已满标 2.已流标 0：投资中，1、计息中，2，已流标  3，还款中 4，已完成;9:已债转：10：债转中");
+        header.put("status", "状态");
         header.put("tenderType", "来源: 1.手动投标，2.自动投标");
         header.put("autoTenderId", "自动投标ID");
         header.put("money", "投标金额（包含抵扣红包金额）");

@@ -21,6 +21,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Font;
+import org.springframework.util.StringUtils;
 
 /**
  * excel 解析工具类 2015年7月7日
@@ -52,6 +53,9 @@ public class ExcelUtils {
             HSSFWorkbook workbook = new HSSFWorkbook();
 
             // 生成一个表格
+            if(StringUtils.isEmpty(title)){
+                title="data";
+            }
             HSSFSheet sheet = workbook.createSheet(title);
 
             // 设置表格默认列宽度为15个字节
