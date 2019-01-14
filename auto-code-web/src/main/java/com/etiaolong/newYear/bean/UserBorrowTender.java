@@ -163,6 +163,11 @@ public class UserBorrowTender extends Page {
      */
     private Date additionalDate;
 
+    /**
+     * 创建时间
+     */
+    private Date createDate;
+
     public Integer getId() {
         return id;
     }
@@ -424,6 +429,15 @@ public class UserBorrowTender extends Page {
         this.additionalDate = additionalDate;
     }
 
+    @JsonIgnore
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public String getAddtime_() {
         return DateUtils.formatDateTime(addtime);
     }
@@ -442,5 +456,9 @@ public class UserBorrowTender extends Page {
 
     public String getAdditionalDate_() {
         return DateUtils.formatDateTime(additionalDate);
+    }
+
+    public String getCreateDate_() {
+        return DateUtils.formatDateTime(createDate);
     }
 }

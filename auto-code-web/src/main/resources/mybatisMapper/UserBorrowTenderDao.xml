@@ -34,6 +34,7 @@
     <result column="repayment_type" jdbcType="TINYINT" property="repaymentType" />
     <result column="buy_id" jdbcType="INTEGER" property="buyId" />
     <result column="additional_date" jdbcType="TIMESTAMP" property="additionalDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_borrow_tender
@@ -50,7 +51,7 @@
       additionalid, additional_money, bloan_life, 
       bloan_life_type, first_repayment_date, end_repayment_date, 
       accrual_date, repayment_type, buy_id, 
-      additional_date)
+      additional_date, create_date)
     values (#{userId,jdbcType=INTEGER}, #{bid,jdbcType=INTEGER}, #{buserId,jdbcType=INTEGER}, 
       #{status,jdbcType=TINYINT}, #{tenderType,jdbcType=TINYINT}, #{autoTenderId,jdbcType=INTEGER}, 
       #{money,jdbcType=BIGINT}, #{deductionMoney,jdbcType=INTEGER}, #{deductionid,jdbcType=INTEGER}, 
@@ -61,7 +62,7 @@
       #{additionalid,jdbcType=INTEGER}, #{additionalMoney,jdbcType=INTEGER}, #{bloanLife,jdbcType=SMALLINT}, 
       #{bloanLifeType,jdbcType=TINYINT}, #{firstRepaymentDate,jdbcType=DATE}, #{endRepaymentDate,jdbcType=DATE}, 
       #{accrualDate,jdbcType=DATE}, #{repaymentType,jdbcType=TINYINT}, #{buyId,jdbcType=INTEGER}, 
-      #{additionalDate,jdbcType=TIMESTAMP})
+      #{additionalDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.etiaolong.newYear.bean.UserBorrowTender">
     update user_borrow_tender
@@ -95,7 +96,8 @@
       accrual_date = #{accrualDate,jdbcType=DATE},
       repayment_type = #{repaymentType,jdbcType=TINYINT},
       buy_id = #{buyId,jdbcType=INTEGER},
-      additional_date = #{additionalDate,jdbcType=TIMESTAMP}
+      additional_date = #{additionalDate,jdbcType=TIMESTAMP},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -103,7 +105,7 @@
     deductionid, repayment_money, repayment_interest, paid_money, paid_interest, wait_money, 
     wait_interest, overdue_interest, addtime, addip, btitle, bapr, additional_apr, additionalid, 
     additional_money, bloan_life, bloan_life_type, first_repayment_date, end_repayment_date, 
-    accrual_date, repayment_type, buy_id, additional_date
+    accrual_date, repayment_type, buy_id, additional_date, create_date
     from user_borrow_tender
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -112,7 +114,7 @@
     deductionid, repayment_money, repayment_interest, paid_money, paid_interest, wait_money, 
     wait_interest, overdue_interest, addtime, addip, btitle, bapr, additional_apr, additionalid, 
     additional_money, bloan_life, bloan_life_type, first_repayment_date, end_repayment_date, 
-    accrual_date, repayment_type, buy_id, additional_date
+    accrual_date, repayment_type, buy_id, additional_date, create_date
     from user_borrow_tender
       <where>
 		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
@@ -132,7 +134,7 @@
 		<if test="waitMoney!=null "> and wait_money = #{waitMoney,jdbcType=BIGINT}</if>
 		<if test="waitInterest!=null "> and wait_interest = #{waitInterest,jdbcType=INTEGER}</if>
 		<if test="overdueInterest!=null "> and overdue_interest = #{overdueInterest,jdbcType=INTEGER}</if>
-		<if test="addtime!=null "> and addtime = #{addtime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and addtime BETWEEN #{startDate} and #{endDate}</if>
 		<if test="addip!=null and addip!=''"> and addip = #{addip,jdbcType=VARCHAR}</if>
 		<if test="btitle!=null and btitle!=''"> and btitle = #{btitle,jdbcType=VARCHAR}</if>
 		<if test="bapr!=null "> and bapr = #{bapr,jdbcType=DECIMAL}</if>
@@ -147,13 +149,14 @@
 		<if test="repaymentType!=null "> and repayment_type = #{repaymentType,jdbcType=TINYINT}</if>
 		<if test="buyId!=null "> and buy_id = #{buyId,jdbcType=INTEGER}</if>
 		<if test="additionalDate!=null "> and additional_date = #{additionalDate,jdbcType=TIMESTAMP}</if>
+		<if test="createDate!=null "> and create_date = #{createDate,jdbcType=TIMESTAMP}</if>
  	</where> 
  <if test="orderByString!=null and orderByString!=''"> 
 	 ${orderByString} 
  </if>
   </select>
   <select id="queryUserBorrowTenderByCondition" resultMap="BaseResultMap">
-    select id,user_id,bid,buser_id,status,tender_type,auto_tender_id,money,deduction_money,deductionid,repayment_money,repayment_interest,paid_money,paid_interest,wait_money,wait_interest,overdue_interest,addtime,addip,btitle,bapr,additional_apr,additionalid,additional_money,bloan_life,bloan_life_type,first_repayment_date,end_repayment_date,accrual_date,repayment_type,buy_id,additional_date
+    select id,user_id,bid,buser_id,status,tender_type,auto_tender_id,money,deduction_money,deductionid,repayment_money,repayment_interest,paid_money,paid_interest,wait_money,wait_interest,overdue_interest,addtime,addip,btitle,bapr,additional_apr,additionalid,additional_money,bloan_life,bloan_life_type,first_repayment_date,end_repayment_date,accrual_date,repayment_type,buy_id,additional_date,create_date
  	from  user_borrow_tender 
 	<where>
 		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
@@ -173,7 +176,7 @@
 		<if test="waitMoney!=null "> and wait_money = #{waitMoney,jdbcType=BIGINT}</if>
 		<if test="waitInterest!=null "> and wait_interest = #{waitInterest,jdbcType=INTEGER}</if>
 		<if test="overdueInterest!=null "> and overdue_interest = #{overdueInterest,jdbcType=INTEGER}</if>
-		<if test="addtime!=null "> and addtime = #{addtime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and addtime BETWEEN #{startDate} and #{endDate}</if>
 		<if test="addip!=null and addip!=''"> and addip = #{addip,jdbcType=VARCHAR}</if>
 		<if test="btitle!=null and btitle!=''"> and btitle = #{btitle,jdbcType=VARCHAR}</if>
 		<if test="bapr!=null "> and bapr = #{bapr,jdbcType=DECIMAL}</if>
@@ -188,6 +191,7 @@
 		<if test="repaymentType!=null "> and repayment_type = #{repaymentType,jdbcType=TINYINT}</if>
 		<if test="buyId!=null "> and buy_id = #{buyId,jdbcType=INTEGER}</if>
 		<if test="additionalDate!=null "> and additional_date = #{additionalDate,jdbcType=TIMESTAMP}</if>
+		<if test="createDate!=null "> and create_date = #{createDate,jdbcType=TIMESTAMP}</if>
  	</where> 
  <if test="orderByString!=null and orderByString!=''"> 
 	 ${orderByString} 
@@ -226,7 +230,8 @@
 		<if test="accrualDate!=null ">accrual_date = #{accrualDate,jdbcType=DATE}, </if>
 		<if test="repaymentType!=null ">repayment_type = #{repaymentType,jdbcType=TINYINT}, </if>
 		<if test="buyId!=null ">buy_id = #{buyId,jdbcType=INTEGER}, </if>
-		<if test="additionalDate!=null ">additional_date = #{additionalDate,jdbcType=TIMESTAMP} </if>
+		<if test="additionalDate!=null ">additional_date = #{additionalDate,jdbcType=TIMESTAMP}, </if>
+		<if test="createDate!=null ">create_date = #{createDate,jdbcType=TIMESTAMP} </if>
  	</set>
 	where id=#{id}
   </update>

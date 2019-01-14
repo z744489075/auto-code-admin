@@ -119,6 +119,7 @@ public class UserBorrowTenderController {
         header.put("repaymentType", "还款类型");
         header.put("buyId", "购买id（冗余）");
 		header.put("additionalDate_", "加息起息时间");
+		header.put("createDate_", "创建时间");
 		ExcelUtils.exportExcel("",header,list,response,request);
     }
 

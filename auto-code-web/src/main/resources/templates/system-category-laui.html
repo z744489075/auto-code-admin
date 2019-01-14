@@ -16,7 +16,10 @@
 </nav>
 <div class="page-container">
     <div class="text-c">
-        <input type="text" name="id" id="id" placeholder="栏目名称" style="width:100px" class="input-text">
+        <input type="text" name="id" id="id" placeholder="id" style="width:150px" class="input-text">
+        <input type="text" name="btitle" id="btitle" placeholder="标题" style="width:150px" class="input-text">
+        <input type="text" name="btitle" id="startDate" placeholder="开始时间" style="width:150px" class="input-text">-
+        <input type="text" name="btitle" id="endDate" placeholder="结束时间" style="width:150px" class="input-text">
         <button name="" class="btn btn-success" onclick="loadMyData()" data-type="reload"><i class="Hui-iconfont">&#xe665;</i>
             搜索
         </button>
@@ -93,11 +96,24 @@
             }
         });
     });
-
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#startDate'
+            ,type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endDate'
+            ,type: 'datetime'
+        });
+    })
     function loadMyData() {
         table.reload("table-data",{
             where: {
-                id: $("#id").val()
+                id: $("#id").val(),
+                btitle: $("#btitle").val(),
+                startDate:$("#startDate").val(),
+                endDate:$("#endDate").val()
             }
             , page: {
                 curr: 1 //重新从第 1 页开始

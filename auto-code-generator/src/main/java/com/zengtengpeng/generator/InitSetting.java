@@ -169,19 +169,31 @@ public class InitSetting extends PluginAdapter {
 		element.addElement(end);*/
 		StringBuffer sb=new StringBuffer();
 		sb.append("  <where>\n");
-
+		Boolean b=true;
 		for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
 			String javaProperty = introspectedColumn.getJavaProperty();
 			String actualColumnName = introspectedColumn.getActualColumnName();
-			sb.append("\t\t<if test=\"" + javaProperty + "!=null ");
+			if(b&&(javaProperty.equals("createDate")||javaProperty.equals("createTime")||javaProperty.equals("addtime")||javaProperty.equals("addTime"))) {
+				b=!b;
+				sb.append("\t\t<if test=\" startDate!=null and startDate!='' and endDate!=null and endDate!='' ");
 
-			if (introspectedColumn.getFullyQualifiedJavaType().getShortName().equals("String")) {
-				sb.append("and " + javaProperty + "!=''");
+				sb.append("\">");
+				if("TIMESTAMP".equals(introspectedColumn.getJdbcTypeName())){
+					sb.append(" and " + actualColumnName + " BETWEEN #{startDate} and #{endDate}</if>\n");
+				}else {
+					sb.append(" and left(" + actualColumnName + ",10) BETWEEN left(#{startDate},10) and left(#{endDate},10)</if>\n");
+				}
+			}else {
+				sb.append("\t\t<if test=\"" + javaProperty + "!=null ");
+
+				if (introspectedColumn.getFullyQualifiedJavaType().getShortName().equals("String")) {
+					sb.append("and " + javaProperty + "!=''");
+				}
+
+				sb.append("\">");
+				sb.append(" and " + actualColumnName + " = #{" + javaProperty + ",jdbcType="
+						+ introspectedColumn.getJdbcTypeName() + "}</if>\n");
 			}
-
-			sb.append("\">");
-			sb.append(" and " + actualColumnName + " = #{" + javaProperty + ",jdbcType="
-					+ introspectedColumn.getJdbcTypeName() + "}</if>\n");
 		}
 		sb.append(" \t</where> \n <if test=\"orderByString!=null and orderByString!=''\"> \n\t ${orderByString} \n </if>");
 		element.addElement(new TextElement(sb.toString()));
@@ -216,18 +228,30 @@ public class InitSetting extends PluginAdapter {
 
 		sb.append(" \tfrom  "+introspectedTable.getTableConfiguration().getTableName()+" \n\t<where>\n");
 
-		for (IntrospectedColumn introspectedColumn : allColumns) {
+		Boolean b=true;
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
 			String javaProperty = introspectedColumn.getJavaProperty();
 			String actualColumnName = introspectedColumn.getActualColumnName();
-			sb.append("\t\t<if test=\"" + javaProperty + "!=null ");
-			
-			if (introspectedColumn.getFullyQualifiedJavaType().getShortName().equals("String")) {
-				sb.append("and " + javaProperty + "!=''");
+			if(b&&(javaProperty.equals("createDate")||javaProperty.equals("createTime")||javaProperty.equals("addtime")||javaProperty.equals("addTime"))) {
+				b=!b;
+				sb.append("\t\t<if test=\" startDate!=null and startDate!='' and endDate!=null and endDate!='' ");
+
+				sb.append("\">");
+				if("TIMESTAMP".equals(introspectedColumn.getJdbcTypeName())){
+					sb.append(" and " + actualColumnName + " BETWEEN #{startDate} and #{endDate}</if>\n");
+				}else {
+					sb.append(" and left(" + actualColumnName + ",10) BETWEEN left(#{startDate},10) and left(#{endDate},10)</if>\n");
+				}
+			}else {
+				sb.append("\t\t<if test=\"" + javaProperty + "!=null ");
+
+				if (introspectedColumn.getFullyQualifiedJavaType().getShortName().equals("String")) {
+					sb.append("and " + javaProperty + "!=''");
+				}
+				sb.append("\">");
+				sb.append(" and " + actualColumnName + " = #{" + javaProperty + ",jdbcType="
+						+ introspectedColumn.getJdbcTypeName() + "}</if>\n");
 			}
-			
-			sb.append("\">");
-			sb.append(" and " + actualColumnName + " = #{" + javaProperty + ",jdbcType="
-					+ introspectedColumn.getJdbcTypeName() + "}</if>\n");
 		}
 		sb.append(" \t</where> \n <if test=\"orderByString!=null and orderByString!=''\"> \n\t ${orderByString} \n </if>");
 		el.addElement(new TextElement(sb.toString()));

@@ -18,8 +18,8 @@ public class AutoCodeMain {
 	public static void main(String[] args) throws Exception {
 
 		List<String> dataNames= Arrays.asList("user_borrow_tender");
-		create("E:\\resource\\workspaceJDB\\auto-code-admin\\auto-code-web","com.etiaolong.newYear","jdbc:mysql://localhost:3336/test_etl_bank",
-				"test_etl_bank","Ty9lx_nKB4T2DO",dataNames);
+		create("E:\\resource\\workspaceJDB\\auto-code-admin\\auto-code-web","com.etiaolong.newYear","jdbc:mysql://localhost:3306/auto_code",
+				"root","111111",dataNames);
 	}
 
 	/**
