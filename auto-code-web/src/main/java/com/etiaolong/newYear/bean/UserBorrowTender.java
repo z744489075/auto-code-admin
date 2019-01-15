@@ -5,12 +5,16 @@ import com.zengtengpeng.common.bean.Page;
 import com.zengtengpeng.common.utils.DateUtils;
 import java.math.BigDecimal;
 import java.util.Date;
+import org.springframework.util.StringUtils;
 
 /**
-* 
+* 测试生成代码
 * @author zengtp
 */
 public class UserBorrowTender extends Page {
+    /**
+     * 测试生成代码
+     */
     private Integer id;
 
     /**
@@ -29,13 +33,12 @@ public class UserBorrowTender extends Page {
     private Integer buserId;
 
     /**
-     * 状态: 0.已投资  1.已满标 2.已流标
-0：投资中，1、计息中，2，已流标  3，还款中 4，已完成;9:已债转：10：债转中
+     * {"0":"投资中","1":"计息中","2":"已流标","3":"还款中","4":"已完成","9":"已债转","10":"债转中"}
      */
     private Byte status;
 
     /**
-     * 来源: 1.手动投标，2.自动投标
+     * {"1":"手动投标","2":"自动投标"}
      */
     private Byte tenderType;
 
@@ -129,7 +132,7 @@ public class UserBorrowTender extends Page {
     private Short bloanLife;
 
     /**
-     * 借款类型【0：月标，1：天标】
+     * {"0":"月标","1":"天标"}
      */
     private Byte bloanLifeType;
 
@@ -438,8 +441,51 @@ public class UserBorrowTender extends Page {
         this.createDate = createDate;
     }
 
+    public String getStatus_() {
+        if(StringUtils.isEmpty(status)){
+             return "";
+        }else if(status.equals(0)){
+             return "投资中";
+        }else if(status.equals(1)){
+             return "计息中";
+        }else if(status.equals(2)){
+             return "已流标";
+        }else if(status.equals(3)){
+             return "还款中";
+        }else if(status.equals(4)){
+             return "已完成";
+        }else if(status.equals(9)){
+             return "已债转";
+        }else if(status.equals(10)){
+             return "债转中";
+        }
+        return "";
+    }
+
+    public String getTenderType_() {
+        if(StringUtils.isEmpty(tenderType)){
+             return "";
+        }else if(tenderType.equals(1)){
+             return "手动投标";
+        }else if(tenderType.equals(2)){
+             return "自动投标";
+        }
+        return "";
+    }
+
     public String getAddtime_() {
         return DateUtils.formatDateTime(addtime);
+    }
+
+    public String getBloanLifeType_() {
+        if(StringUtils.isEmpty(bloanLifeType)){
+             return "";
+        }else if(bloanLifeType.equals(0)){
+             return "月标";
+        }else if(bloanLifeType.equals(1)){
+             return "天标";
+        }
+        return "";
     }
 
     public String getFirstRepaymentDate_() {

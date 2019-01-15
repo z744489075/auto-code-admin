@@ -80,18 +80,19 @@ public class UserBorrowTenderController {
 
 	/**
 	* 导出数据
+	* @param tests 参数
 	* @return
 	*/
 	@RequestMapping("/userBorrowTender/export")
 	public void export(UserBorrowTender userBorrowTender,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<UserBorrowTender> list= userBorrowTenderService.export(userBorrowTender);
 		Map<String, String> header = new LinkedHashMap<>();
-        header.put("id", "");
+        header.put("id", "测试生成代码");
         header.put("userId", "投资人ID");
         header.put("bid", "标的编号");
         header.put("buserId", "借款人ID");
-        header.put("status", "状态");
-        header.put("tenderType", "来源: 1.手动投标，2.自动投标");
+        header.put("status", "{"0":"投资中","1":"计息中","2":"已流标","3":"还款中","4":"已完成","9":"已债转","10":"债转中"}");
+        header.put("tenderType", "{"1":"手动投标","2":"自动投标"}");
         header.put("autoTenderId", "自动投标ID");
         header.put("money", "投标金额（包含抵扣红包金额）");
         header.put("deductionMoney", "抵扣金额（抵扣券）");
@@ -111,7 +112,7 @@ public class UserBorrowTenderController {
         header.put("additionalid", "加息券ID");
         header.put("additionalMoney", "在还款成功时，额外加息部分的金额");
         header.put("bloanLife", "借款期限");
-        header.put("bloanLifeType", "借款类型【0：月标，1：天标】");
+        header.put("bloanLifeType", "{"0":"月标","1":"天标"}");
 		header.put("firstRepaymentDate_", "预计首次还款日期");
 		header.put("endRepaymentDate_", "预计最后一次还款日期（预计结束日期）");
 		header.put("accrualDate_", "起息日（满标审核日期）");
@@ -119,7 +120,7 @@ public class UserBorrowTenderController {
         header.put("buyId", "购买id（冗余）");
 		header.put("additionalDate_", "加息起息时间");
 		header.put("createDate_", "创建时间");
-		ExcelUtils.exportExcel("",header,list,response,request);
+		ExcelUtils.exportExcel("测试生成代码",header,list,response,request);
     }
 
 	/**
