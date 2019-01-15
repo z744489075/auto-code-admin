@@ -15,6 +15,7 @@
         </commentGenerator> -->
         <commentGenerator type="com.zengtengpeng.generator.MyCommentGenerator" >
             <property name="suppressAllComments" value="true"/>
+            <property name="mergeable" value="true"></property>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="${jdbcUrl}"  userId="${user}"

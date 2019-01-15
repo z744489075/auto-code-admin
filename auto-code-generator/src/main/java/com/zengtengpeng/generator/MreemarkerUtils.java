@@ -17,12 +17,7 @@ import java.util.Map;
 public class MreemarkerUtils {
 	static Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
 	static {
-		try {
-			cfg.setDirectoryForTemplateLoading(new File(MreemarkerUtils.class.getResource("/").getPath(),
-					"flts"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			cfg.setClassLoaderForTemplateLoading(MreemarkerUtils.class.getClassLoader(),"flts");
 	}
 
 	/**
@@ -37,8 +32,8 @@ public class MreemarkerUtils {
 		createJavaFile("controller", null, parentJavaPath, param);
 		createJavaFile("service", null, parentJavaPath, param);
 		createJavaFile("service", "Impl", parentJavaPath, param);
-//		createPageFile("list_page",parentResourcesPath,param);
-//		createPageFile("detail_page",parentResourcesPath,param);
+		createPageFile("list_page",parentResourcesPath,param);
+		createPageFile("detail_page",parentResourcesPath,param);
 	}
 
 	private static void createJavaFile(String fltName, String child, String parentJavaPath, Map<String, Object> param) {

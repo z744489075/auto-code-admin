@@ -46,7 +46,7 @@ public class ${tableName}Controller {
 	@RequestMapping("/${tableValue}/save")
 	@ResponseBody
 	public DataRes save(${tableName} ${tableValue}, HttpServletRequest request, HttpServletResponse response){
-		if(${tableValue}.getId()==null){
+		if(${tableValue}.get${primaryKey.javaProperty?cap_first}()==null){
 			return DataRes.success(${tableValue}Service.insert(${tableValue}));
 		}
 		return DataRes.success(${tableValue}Service.updateByPrimaryKey(${tableValue}));
@@ -117,7 +117,7 @@ public class ${tableName}Controller {
 	*/
 	@RequestMapping("/${tableValue}/gotoDetail")
 	public String gotoDetail(${tableName} ${tableValue}, HttpServletRequest request, HttpServletResponse response){
-		if(${tableValue}.getId()!=null){
+		if(${tableValue}.get${primaryKey.javaProperty?cap_first}()!=null){
 			request.setAttribute("${dataName}",${tableValue}Service.selectByPrimaryKey(${tableValue}));
 		}else {
 			request.setAttribute("${dataName}",${tableValue});

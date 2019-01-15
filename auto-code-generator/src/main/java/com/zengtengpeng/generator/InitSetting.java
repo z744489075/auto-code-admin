@@ -59,6 +59,8 @@ public class InitSetting extends PluginAdapter {
 		if(StringUtils.isEmpty(remarks)){
 			remarks=introspectedColumn.getRemarks();
 		}
+		//主键
+		param.put("primaryKey",introspectedColumn);
 		topLevelClass.addAnnotation("/**" + "\n* " + remarks
 				+ "\n* @author zengtp" + "\n*/");
 		topLevelClass.addImportedType("com.zengtengpeng.common.utils.DateUtils");
@@ -279,7 +281,14 @@ public class InitSetting extends PluginAdapter {
 			sb.append(" </if>\n");
 		}
 		sb.append(" \t</set>\n");
-		sb.append("\twhere id=#{id}");
+		List<IntrospectedColumn> primaryKeyColumns = introspectedTable.getPrimaryKeyColumns();
+		IntrospectedColumn introspectedColumn=null;
+		if(primaryKeyColumns!=null&&primaryKeyColumns.size()>0){
+			introspectedColumn = primaryKeyColumns.get(0);
+		}else{
+			introspectedColumn=allColumns.get(0);
+		}
+		sb.append("\twhere "+introspectedColumn.getActualColumnName()+"=#{"+introspectedColumn.getJavaProperty()+"}");
 		
 		update.addElement(new TextElement(sb.toString()));
 		parentElement.addElement(update);

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengtengpeng.test.dao.TestAutoCode2Dao">
+  <resultMap id="BaseResultMap" type="com.zengtengpeng.test.bean.TestAutoCode2">
+    <id column="code_id" jdbcType="INTEGER" property="codeId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="push_time" jdbcType="TIMESTAMP" property="pushTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="descc" jdbcType="LONGVARCHAR" property="descc" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from test_auto_code2
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zengtengpeng.test.bean.TestAutoCode2">
+    insert into test_auto_code2 ( name, age,
+      status, push_time, create_time, 
+      descc)
+    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{pushTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{descc,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zengtengpeng.test.bean.TestAutoCode2">
+    update test_auto_code2
+    set name = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      push_time = #{pushTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      descc = #{descc,jdbcType=LONGVARCHAR}
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select code_id, name, age, status, push_time, create_time, descc
+    from test_auto_code2
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select code_id, name, age, status, push_time, create_time, descc
+    from test_auto_code2
+      <where>
+		<if test="codeId!=null "> and code_id = #{codeId,jdbcType=INTEGER}</if>
+		<if test="name!=null and name!=''"> and name = #{name,jdbcType=VARCHAR}</if>
+		<if test="age!=null "> and age = #{age,jdbcType=INTEGER}</if>
+		<if test="status!=null "> and status = #{status,jdbcType=INTEGER}</if>
+		<if test="pushTime!=null "> and push_time = #{pushTime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="descc!=null and descc!=''"> and descc = #{descc,jdbcType=LONGVARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <select id="queryTestAutoCode2ByCondition" resultMap="BaseResultMap">
+    select code_id,name,age,status,push_time,create_time,descc
+ 	from  test_auto_code2 
+	<where>
+		<if test="codeId!=null "> and code_id = #{codeId,jdbcType=INTEGER}</if>
+		<if test="name!=null and name!=''"> and name = #{name,jdbcType=VARCHAR}</if>
+		<if test="age!=null "> and age = #{age,jdbcType=INTEGER}</if>
+		<if test="status!=null "> and status = #{status,jdbcType=INTEGER}</if>
+		<if test="pushTime!=null "> and push_time = #{pushTime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="descc!=null and descc!=''"> and descc = #{descc,jdbcType=LONGVARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <update id="updateTestAutoCode2ByKeyWithNotNull">
+    update  	test_auto_code2 
+	<set>
+		<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR}, </if>
+		<if test="age!=null ">age = #{age,jdbcType=INTEGER}, </if>
+		<if test="status!=null ">status = #{status,jdbcType=INTEGER}, </if>
+		<if test="pushTime!=null ">push_time = #{pushTime,jdbcType=TIMESTAMP}, </if>
+		<if test="createTime!=null ">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
+		<if test="descc!=null and descc!=''">descc = #{descc,jdbcType=LONGVARCHAR} </if>
+ 	</set>
+	where code_id=#{codeId}
+  </update>
+</mapper>

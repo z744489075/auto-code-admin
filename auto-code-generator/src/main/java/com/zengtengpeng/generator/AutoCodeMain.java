@@ -17,7 +17,7 @@ import java.util.*;
 public class AutoCodeMain {
 	public static void main(String[] args) throws Exception {
 
-		List<String> dataNames= Arrays.asList("test_auto_code");
+		List<String> dataNames= Arrays.asList("test_auto_code2");
 		create("E:\\resource\\workspaceJDB\\auto-code-admin\\auto-code-web","com.zengtengpeng.test","jdbc:mysql://localhost:3306/auto_code",
 				"root","111111",dataNames);
 	}
