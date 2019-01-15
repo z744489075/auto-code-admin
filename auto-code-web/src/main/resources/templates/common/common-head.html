@@ -22,6 +22,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/lib/layui/css/layui.css}" />
     <script type="text/javascript" th:src="@{/static/static/h-ui/js/H-ui.min.js}"></script>
     <script type="text/javascript" th:src="@{/static/static/h-ui.admin/js/H-ui.admin.js}"></script>
+
+
+    <script type="text/javascript" th:src="@{/static/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/static/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+    <script type="text/javascript" th:src="@{/static/lib/jquery.validation/1.14.0/messages_zh.js}"></script>
     <!--[if IE 6]>
     <script type="text/javascript" th:src="@{/static/lib/DD_belatedPNG_0.0.8a-min.js}" ></script>
     <script>DD_belatedPNG.fix('*');</script>
@@ -35,14 +40,38 @@
         $(function () {
             init(rootPath);
         })
-        var myAlert=function (msg) {
+        function myAlert(msg) {
             layer.alert(msg);
         }
-        var myConfirm=function (msg,callback) {
+        function myConfirm(msg,callback) {
             layer.confirm(msg, function (index) {
                 callback(index);
             });
         }
+
+        function loads(){
+            window.location.reload();
+        }
+        function myback(){
+            window.history.go(-1);
+        }
+
+        $.fn.serializeObject = function()
+        {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
     </script>
     <style>
         .table>tbody>tr>td{

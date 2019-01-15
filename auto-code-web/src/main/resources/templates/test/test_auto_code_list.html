@@ -6,11 +6,9 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
     <span class="c-gray en">&gt;</span>
-    首页
-    <span class="c-gray en">&gt;</span>
-    栏目管理
+    测试代码生成
     <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-       href="javascript:location.replace(location.href);" title="刷新">
+       href="javascript:loads()" title="刷新">
         <i class="Hui-iconfont">&#xe68f;</i></a>
 </nav>
 <div class="page-container">
@@ -21,7 +19,7 @@
                     <input type="text" name="id" id="id" placeholder="id" class="layui-input">
                 </div>
                 <div class="layui-inline">
-                    <input type="text" name="btitle" id="btitle" placeholder="标题"  class="layui-input">
+                    <input type="text" name="name" id="name" placeholder="名称"  class="layui-input">
                 </div>
 
                 <div class="layui-inline">
@@ -32,13 +30,13 @@
                 </div>
 
                 <div class="layui-inline">
-                <label class="layui-form-label">行内选择框</label>
+                <label class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
                     <select name="status" id="status">
                         <option value="">请选择</option>
-                        <option value="0">投资中</option>
-                        <option value="1">计息中</option>
-                        <option value="4">已完成</option>
+                        <option value="0">禁用</option>
+                        <option value="1">启动</option>
+                        <option value="2">删除</option>
                     </select>
                 </div>
                     <input type="button" name="" class="layui-btn" onclick="loadMyData()" data-type="reload" th:value="搜索" />
@@ -56,7 +54,7 @@
 </script>
 <script type="text/html" id="toolbar-data">
     <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
-    <a class="btn btn-primary radius"   th:href="@{/index/testList3}"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
+    <a class="btn btn-primary radius"   th:href="@{/testAutoCode/gotoDetail}"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
     <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
             class="Hui-iconfont">&#xe640;</i> 导出</a>
 </script>
@@ -68,19 +66,22 @@
         //但是，如果你的HTML是动态生成的，自动渲染就会失效
         //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
         form.render();
-
         table = layui.table;
         //第一个实例
         table.render({
             elem: '#table-data'
             , toolbar: '#toolbar-data'
-            , url: rootPath + "/userBorrowTender/selectAll" //数据接口
+            , url: rootPath + "/testAutoCode/selectAll" //数据接口
             , method: "post"
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'id', title: 'ID', type: "checkbox"}
+                {field: 'id', title: 'id', type: "checkbox"}
                 ,{field: 'id', title: 'id'}
-                ,{field: 'btitle', title: '标题'}
+                ,{field: 'name', title: '名称'}
+                ,{field: 'age', title: '年龄'}
+                ,{field: 'status_', title: '状态'}
+                ,{field: 'pushTime_', title: '发布时间'}
+                ,{field: 'createTime_', title: '创建时间'}
                 ,{fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
             ]],
             parseData: function (res) { //res 即为原始返回的数据
@@ -100,7 +101,6 @@
                 , statusCode: 0 //规定成功的状态码，默认：0
             }
         });
-
         //监听行工具事件
         table.on('tool(table-data)', function (obj) {
             var data = obj.data;
@@ -108,7 +108,7 @@
             if (obj.event === 'del') {
                 myConfirm("确定要删除吗?",function (index) {
                     obj.del();
-                    $.post(rootPath+"/userBorrowTender/deleteByPrimaryKey",{"id":data.id},function (data) {
+                    $.post(rootPath+"/testAutoCode/deleteByPrimaryKey",{"id":data.id},function (data) {
                         myAlert("删除成功");
                         setTimeout(function () {
                             loadMyData()
@@ -117,18 +117,9 @@
                     layer.close(index);
                 })
             } else if (obj.event === 'edit') {
-                layer.prompt({
-                    formType: 2
-                    , value: data.email
-                }, function (value, index) {
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
-                });
+                window.location.href=rootPath+"testAutoCode/gotoDetail?id="+data.id;
             }
         });
-
         var laydate = layui.laydate;
         laydate.render({
             elem: '#startDate'
@@ -139,7 +130,6 @@
             ,type: 'datetime'
         });
     });
-
     function loadMyData() {
         table.reload("table-data",{
             where: $("#dataForm").serializeObject()
@@ -150,13 +140,9 @@
     }
     //导出
     function exports() {
-        window.location.href=rootPath+"userBorrowTender/export?"+$("#dataForm").serialize()
+        window.location.href=rootPath+"testAutoCode/export?"+$("#dataForm").serialize()
     }
 
-    /*系统-栏目-添加*/
-    function system_category_add(title, url, w, h) {
-        layer_show(title, url, w, h);
-    }
 </script>
 </body>
 </html>

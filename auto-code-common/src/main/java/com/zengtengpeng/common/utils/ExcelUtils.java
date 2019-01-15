@@ -41,7 +41,7 @@ public class ExcelUtils {
      *
      * @param title   标题
      * @param headers 头文件必须是map集合
-     * @param dataset 内容 可以是bean也可以是map，如果是bean,bean字段必须和headers里面的键相匹配。
+     * @param dataset 内容 可以是bean也可以是map，如果是bean,bean字段必须和headers里面的键相匹配。(可以是嵌套类 如 user.role.name继续内部取值操作)
      *                如果是map则key必须和headers里面的键相匹配
      * @param out     输出流
      */

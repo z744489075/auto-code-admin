@@ -6,14 +6,19 @@ import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.*;
-import org.mybatis.generator.api.dom.xml.*;
+import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.Document;
+import org.mybatis.generator.api.dom.xml.TextElement;
+import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * mybatis 自动生成代码初始化设置
@@ -39,6 +44,7 @@ public class InitSetting extends PluginAdapter {
 	public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
+		Map<String, Object> param=new HashMap<>();
 		topLevelClass.setSuperClass(Page.class.getName());
 		topLevelClass.addImportedType(new FullyQualifiedJavaType(Page.class.getName()));
 		List<IntrospectedColumn> allColumns = introspectedTable.getAllColumns();
@@ -60,6 +66,7 @@ public class InitSetting extends PluginAdapter {
 		topLevelClass.addImportedType("com.fasterxml.jackson.annotation.JsonIgnore");
 		topLevelClass.addImportedType("org.springframework.util.StringUtils");
 		//循环所以字段.如果有类型为date形式的.则增加格式化化方法 TIMESTAMP DATE
+		Map cons=new HashMap();
 		for (IntrospectedColumn allColumn : allColumns) {
 
 			//日期转换
@@ -89,18 +96,23 @@ public class InitSetting extends PluginAdapter {
 				method.addBodyLine("if(StringUtils.isEmpty("+allColumn.getJavaProperty()+")){");
 				method.addBodyLine(" return \"\";");
 				for (Map.Entry me : map.entrySet()) {
+					if("name".equals(me.getKey())){
+						continue;
+					}
 					method.addBodyLine("}else if("+allColumn.getJavaProperty()+".equals("+me.getKey()+")){");
 					method.addBodyLine(" return \""+me.getValue()+"\";");
 				}
 				method.addBodyLine("}");
 				method.addBodyLine("return \"\";");
 				topLevelClass.addMethod(method);
+				cons.put(allColumn.getJavaProperty(),map);
 			} catch (Exception e) {
 				logger.info("字段->{}注释->{}不是json忽略转换",allColumn.getJavaProperty(),remarks1);
 			}
 
 		}
 
+		param.put("cons",cons);
 		for (Method method : topLevelClass.getMethods()) {
 
 			if(method.getName().startsWith("get")&&"Date".equalsIgnoreCase(method.getReturnType().getShortName())){
@@ -113,7 +125,7 @@ public class InitSetting extends PluginAdapter {
 		//begin 生成controller,service
 		JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = this.getContext().getJavaClientGeneratorConfiguration();
 		String parentJavaPath=javaClientGeneratorConfiguration.getTargetProject();
-		Map<String, Object> param=new HashMap<>();
+
 		String targetPackage = javaClientGeneratorConfiguration.getTargetPackage();
 		String tableName = introspectedTable.getTableConfiguration().getDomainObjectName();
 		String substring = targetPackage.substring(0, targetPackage.lastIndexOf("."));

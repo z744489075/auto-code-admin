@@ -22,6 +22,16 @@ public class IndexController {
     public String testList11(){
         return "system-category-laui";
     }
+    @RequestMapping("/index/testList2")
+    public String testList2(){
+        return "admin-add";
+    }
+    @RequestMapping("/index/testList3")
+    public String testList3(){
+        return "admin-add-laui";
+    }
+
+
     @RequestMapping("/index/testData")
     @ResponseBody
     public List<String> testList1(){
