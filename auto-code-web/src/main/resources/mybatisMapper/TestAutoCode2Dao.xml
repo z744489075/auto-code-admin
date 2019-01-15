@@ -15,10 +15,10 @@
     where code_id = #{codeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zengtengpeng.test.bean.TestAutoCode2">
-    insert into test_auto_code2 ( name, age,
+    insert into test_auto_code2 (code_id, name, age, 
       status, push_time, create_time, 
       descc)
-    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+    values (#{codeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{pushTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
       #{descc,jdbcType=LONGVARCHAR})
   </insert>

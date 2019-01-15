@@ -2,6 +2,7 @@ package com.zengtengpeng.generator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zengtengpeng.common.bean.Page;
+import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -37,6 +38,23 @@ public class InitSetting extends PluginAdapter {
 		return super.modelExampleClassGenerated(topLevelClass, introspectedTable);
 	}
 
+	/**
+	 * xml覆盖生成
+	 * @param sqlMap
+	 * @param introspectedTable
+	 * @return
+	 */
+	@Override
+	public boolean sqlMapGenerated(GeneratedXmlFile sqlMap, IntrospectedTable introspectedTable) {
+		try {
+			java.lang.reflect.Field field = sqlMap.getClass().getDeclaredField("isMergeable");
+			field.setAccessible(true);
+			field.setBoolean(sqlMap, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 	/**
 	 * 生成bean时调用
 	 */
