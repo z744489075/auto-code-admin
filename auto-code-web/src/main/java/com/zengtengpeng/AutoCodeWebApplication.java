@@ -9,6 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AutoCodeWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AutoCodeSysApplication.class, args);
+        SpringApplication.run(AutoCodeWebApplication.class, args);
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengtengpeng.sys.dao.SysAuthDao">
+  <resultMap id="BaseResultMap" type="com.zengtengpeng.sys.bean.SysAuth">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parent_auth_id" jdbcType="INTEGER" property="parentAuthId" />
+    <result column="parent_auth_ids" jdbcType="VARCHAR" property="parentAuthIds" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="href" jdbcType="VARCHAR" property="href" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="show" jdbcType="INTEGER" property="show" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_auth
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKey" parameterType="com.zengtengpeng.sys.bean.SysAuth">
+    update sys_auth
+    set parent_auth_id = #{parentAuthId,jdbcType=INTEGER},
+      parent_auth_ids = #{parentAuthIds,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      href = #{href,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      show = #{show,jdbcType=INTEGER},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, parent_auth_id, parent_auth_ids, name, sort, href, icon, show, create_user_id, 
+    create_time, update_user_id, update_time
+    from sys_auth
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, parent_auth_id, parent_auth_ids, name, sort, href, icon, show, create_user_id, 
+    create_time, update_user_id, update_time
+    from sys_auth
+      <where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="parentAuthId!=null "> and parent_auth_id = #{parentAuthId,jdbcType=INTEGER}</if>
+		<if test="parentAuthIds!=null and parentAuthIds!=''"> and parent_auth_ids = #{parentAuthIds,jdbcType=VARCHAR}</if>
+		<if test="name!=null and name!=''"> and name = #{name,jdbcType=VARCHAR}</if>
+		<if test="sort!=null "> and sort = #{sort,jdbcType=INTEGER}</if>
+		<if test="href!=null and href!=''"> and href = #{href,jdbcType=VARCHAR}</if>
+		<if test="icon!=null and icon!=''"> and icon = #{icon,jdbcType=VARCHAR}</if>
+		<if test="show!=null "> and show = #{show,jdbcType=INTEGER}</if>
+		<if test="createUserId!=null "> and create_user_id = #{createUserId,jdbcType=INTEGER}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="updateUserId!=null "> and update_user_id = #{updateUserId,jdbcType=INTEGER}</if>
+		<if test="updateTime!=null "> and update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <select id="querySysAuthByCondition" resultMap="BaseResultMap">
+    select id,parent_auth_id,parent_auth_ids,name,sort,href,icon,show,create_user_id,create_time,update_user_id,update_time
+ 	from  sys_auth 
+	<where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="parentAuthId!=null "> and parent_auth_id = #{parentAuthId,jdbcType=INTEGER}</if>
+		<if test="parentAuthIds!=null and parentAuthIds!=''"> and parent_auth_ids = #{parentAuthIds,jdbcType=VARCHAR}</if>
+		<if test="name!=null and name!=''"> and name = #{name,jdbcType=VARCHAR}</if>
+		<if test="sort!=null "> and sort = #{sort,jdbcType=INTEGER}</if>
+		<if test="href!=null and href!=''"> and href = #{href,jdbcType=VARCHAR}</if>
+		<if test="icon!=null and icon!=''"> and icon = #{icon,jdbcType=VARCHAR}</if>
+		<if test="show!=null "> and show = #{show,jdbcType=INTEGER}</if>
+		<if test="createUserId!=null "> and create_user_id = #{createUserId,jdbcType=INTEGER}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="updateUserId!=null "> and update_user_id = #{updateUserId,jdbcType=INTEGER}</if>
+		<if test="updateTime!=null "> and update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    insert into sys_auth (parent_auth_id,parent_auth_ids,name,sort,href,icon,show,create_user_id,create_time,update_user_id,update_time)
+ values ( #{parentAuthId,jdbcType=INTEGER}, #{parentAuthIds,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{href,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{show,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateSysAuthByKeyWithNotNull">
+    update  	sys_auth 
+	<set>
+		<if test="parentAuthId!=null ">parent_auth_id = #{parentAuthId,jdbcType=INTEGER}, </if>
+		<if test="parentAuthIds!=null and parentAuthIds!=''">parent_auth_ids = #{parentAuthIds,jdbcType=VARCHAR}, </if>
+		<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR}, </if>
+		<if test="sort!=null ">sort = #{sort,jdbcType=INTEGER}, </if>
+		<if test="href!=null and href!=''">href = #{href,jdbcType=VARCHAR}, </if>
+		<if test="icon!=null and icon!=''">icon = #{icon,jdbcType=VARCHAR}, </if>
+		<if test="show!=null ">show = #{show,jdbcType=INTEGER}, </if>
+		<if test="createUserId!=null ">create_user_id = #{createUserId,jdbcType=INTEGER}, </if>
+		<if test="createTime!=null ">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
+		<if test="updateUserId!=null ">update_user_id = #{updateUserId,jdbcType=INTEGER}, </if>
+		<if test="updateTime!=null ">update_time = #{updateTime,jdbcType=TIMESTAMP}, </if>
+ 	</set>
+	where id=#{id}
+  </update>
+</mapper>

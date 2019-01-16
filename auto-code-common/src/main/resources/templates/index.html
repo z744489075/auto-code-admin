@@ -3,7 +3,7 @@
 <head>
     <div th:replace="~{common/common-head.html::common-head}"></div>
 </head>
-<body>
+<body >
 <header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
         <div class="container-fluid cl">
@@ -109,9 +109,9 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-                    <li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-                    <li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+                    <li><a th:data-href="@{/sysRole/gotoList}" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+                    <li><a th:data-href="@{/sysAuth/gotoList}" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
+                    <li><a th:data-href="@{/sysUser/gotoList}" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
                 </ul>
             </dd>
         </dl>

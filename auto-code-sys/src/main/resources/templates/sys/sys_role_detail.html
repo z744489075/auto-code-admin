@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{common/common-head.html::common-head}"></div>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span>
+    后台角色
+    <span class="c-gray en">&gt;</span>
+    编辑
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:loads();" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+    <form class="layui-form layui-form-pane" action="">
+        <input type="hidden" name="id" th:value="${sys_role.id }" />
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" id="name" maxlength="100" lay-verify="required" autocomplete="off"
+                               placeholder="请输入角色名称" class="layui-input" th:value="${sys_role.name}" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+
+                            <select name="status" id="status">
+                                <option value="">请选择状态</option>
+		                                <option value="0" th:selected="${sys_role.status==0}">启用</option>
+		                                <option value="1" th:selected="${sys_role.status==1}">禁用</option>
+                            </select>
+                        </select>
+                    </div>
+                </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">创建者</label>
+                <div class="layui-input-block">
+                    <input type="number" name="createUserId" id="createUserId" maxlength="10" lay-verify="number" autocomplete="off"
+                           placeholder="请输入创建者" class="layui-input" th:value="${sys_role.createUserId}" >
+                </div>
+            </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">创建时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required"
+                               th:value="${sys_role.createTime_}">
+                    </div>
+                </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">更新者</label>
+                <div class="layui-input-block">
+                    <input type="number" name="updateUserId" id="updateUserId" maxlength="10" lay-verify="number" autocomplete="off"
+                           placeholder="请输入更新者" class="layui-input" th:value="${sys_role.updateUserId}" >
+                </div>
+            </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">更新时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="updateTime" id="updateTime" autocomplete="off" class="layui-input" lay-verify="required"
+                               th:value="${sys_role.updateTime_}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否删除</label>
+                    <div class="layui-input-block">
+
+                            <select name="dels" id="dels">
+                                <option value="">请选择是否删除</option>
+		                                <option value="0" th:selected="${sys_role.dels==0}">正常</option>
+		                                <option value="1" th:selected="${sys_role.dels==1}">删除</option>
+                            </select>
+                        </select>
+                    </div>
+                </div>
+        <div class="layui-form-item" style="text-align: center">
+            <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysRole/save')}">
+            <button class="layui-btn" lay-submit="" lay-filter="save-data">提交</button>
+            </span>
+            <input type="button" class="layui-btn"  onclick="myback()" value="返回" />
+        </div>
+    </form>
+</div>
+<!--
+<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        form.render();
+
+
+           laydate.render({
+               elem: '#createTime'
+               , type: 'datetime'
+           });
+           laydate.render({
+               elem: '#updateTime'
+               , type: 'datetime'
+           });
+
+        //自定义验证规则
+        form.verify({});
+
+        //监听提交
+        form.on('submit(save-data)', function (data) {
+            $.post(rootPath+"sysRole/save",data.field,function (data) {
+                if(data.code==0){
+                    myAlert("保存成功");
+                    setTimeout(function () {
+                        myback();
+                    },2000)
+                }else{
+                    myAlert("保存失败->"+data.message)
+                }
+            });
+            return false
+        });
+
+    });
+</script>
+
+</body>
+</html>

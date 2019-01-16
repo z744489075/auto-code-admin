@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengtengpeng.sys.dao.SysUserDao">
+  <resultMap id="BaseResultMap" type="com.zengtengpeng.sys.bean.SysUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remarks" jdbcType="LONGVARCHAR" property="remarks" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKey" parameterType="com.zengtengpeng.sys.bean.SysUser">
+    update sys_user
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, login_name, password, no, name, email, mobile, status, create_user_id, 
+    create_time, update_user_id, update_time, remarks
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, login_name, password, no, name, email, mobile, status, create_user_id, 
+    create_time, update_user_id, update_time, remarks
+    from sys_user
+      <where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="loginName!=null and loginName!=''"> and login_name = #{loginName,jdbcType=VARCHAR}</if>
+		<if test="password!=null and password!=''"> and password = #{password,jdbcType=VARCHAR}</if>
+		<if test="no!=null and no!=''"> and no = #{no,jdbcType=VARCHAR}</if>
+		<if test="name!=null and name!=''"> and name = #{name,jdbcType=VARCHAR}</if>
+		<if test="email!=null and email!=''"> and email = #{email,jdbcType=VARCHAR}</if>
+		<if test="mobile!=null and mobile!=''"> and mobile = #{mobile,jdbcType=VARCHAR}</if>
+		<if test="status!=null "> and status = #{status,jdbcType=INTEGER}</if>
+		<if test="createUserId!=null and createUserId!=''"> and create_user_id = #{createUserId,jdbcType=VARCHAR}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="updateUserId!=null and updateUserId!=''"> and update_user_id = #{updateUserId,jdbcType=VARCHAR}</if>
+		<if test="updateTime!=null "> and update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
+		<if test="remarks!=null and remarks!=''"> and remarks = #{remarks,jdbcType=LONGVARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <select id="querySysUserByCondition" resultMap="BaseResultMap">
+    select id,login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks
+ 	from  sys_user 
+	<where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="loginName!=null and loginName!=''"> and login_name = #{loginName,jdbcType=VARCHAR}</if>
+		<if test="password!=null and password!=''"> and password = #{password,jdbcType=VARCHAR}</if>
+		<if test="no!=null and no!=''"> and no = #{no,jdbcType=VARCHAR}</if>
+		<if test="name!=null and name!=''"> and name = #{name,jdbcType=VARCHAR}</if>
+		<if test="email!=null and email!=''"> and email = #{email,jdbcType=VARCHAR}</if>
+		<if test="mobile!=null and mobile!=''"> and mobile = #{mobile,jdbcType=VARCHAR}</if>
+		<if test="status!=null "> and status = #{status,jdbcType=INTEGER}</if>
+		<if test="createUserId!=null and createUserId!=''"> and create_user_id = #{createUserId,jdbcType=VARCHAR}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="updateUserId!=null and updateUserId!=''"> and update_user_id = #{updateUserId,jdbcType=VARCHAR}</if>
+		<if test="updateTime!=null "> and update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
+		<if test="remarks!=null and remarks!=''"> and remarks = #{remarks,jdbcType=LONGVARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    insert into sys_user (login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks)
+ values ( #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateSysUserByKeyWithNotNull">
+    update  	sys_user 
+	<set>
+		<if test="loginName!=null and loginName!=''">login_name = #{loginName,jdbcType=VARCHAR}, </if>
+		<if test="password!=null and password!=''">password = #{password,jdbcType=VARCHAR}, </if>
+		<if test="no!=null and no!=''">no = #{no,jdbcType=VARCHAR}, </if>
+		<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR}, </if>
+		<if test="email!=null and email!=''">email = #{email,jdbcType=VARCHAR}, </if>
+		<if test="mobile!=null and mobile!=''">mobile = #{mobile,jdbcType=VARCHAR}, </if>
+		<if test="status!=null ">status = #{status,jdbcType=INTEGER}, </if>
+		<if test="createUserId!=null and createUserId!=''">create_user_id = #{createUserId,jdbcType=VARCHAR}, </if>
+		<if test="createTime!=null ">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
+		<if test="updateUserId!=null and updateUserId!=''">update_user_id = #{updateUserId,jdbcType=VARCHAR}, </if>
+		<if test="updateTime!=null ">update_time = #{updateTime,jdbcType=TIMESTAMP}, </if>
+		<if test="remarks!=null and remarks!=''">remarks = #{remarks,jdbcType=LONGVARCHAR}, </if>
+ 	</set>
+	where id=#{id}
+  </update>
+</mapper>
