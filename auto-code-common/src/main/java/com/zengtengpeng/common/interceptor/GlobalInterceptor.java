@@ -1,6 +1,8 @@
 package com.zengtengpeng.common.interceptor;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,9 @@ public class GlobalInterceptor implements HandlerInterceptor {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         Pass annotation = method.getAnnotation(Pass.class);
+        Map map=new HashMap();
+        map.put("/testAutoCode2/gotoDetail","222");
+        request.getSession().setAttribute("userAuth",null);
 		return true;
 
        /* // 后台用户都要已admin开头,前台用户要以/front 开头
