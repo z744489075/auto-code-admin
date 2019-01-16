@@ -24,7 +24,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <artifactId>auto-code-common</artifactId>
+      <artifactId>auto-code-sys</artifactId>
       <groupId>com.zengtengpeng</groupId>
       <version>1.0-SNAPSHOT</version>
     </dependency>

@@ -16,6 +16,7 @@
     <modules>
         <module>auto-code-common</module>
         <module>auto-code-web</module>
+        <module>auto-code-sys</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -88,11 +89,7 @@
             <version>1.2.10</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.zengtengpeng</groupId>
-            <artifactId>auto-code</artifactId>
-            <version>1.0.5</version>
-        </dependency>
+
 
     </dependencies>
     <build>
