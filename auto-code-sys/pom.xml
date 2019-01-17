@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <artifactId>auto-code-sys</artifactId>
+    <groupId>com.zengtengpeng</groupId>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

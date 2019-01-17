@@ -49,7 +49,7 @@ public class SysAuth extends Page {
     /**
      * {"name":"是否显示","0":"显示","1":"不显示"}
      */
-    private Integer show;
+    private Integer shows;
 
     /**
      * 创建者
@@ -127,12 +127,12 @@ public class SysAuth extends Page {
         this.icon = icon == null ? null : icon.trim();
     }
 
-    public Integer getShow() {
-        return show;
+    public Integer getShows() {
+        return shows;
     }
 
-    public void setShow(Integer show) {
-        this.show = show;
+    public void setShows(Integer shows) {
+        this.shows = shows;
     }
 
     public Integer getCreateUserId() {
@@ -169,12 +169,12 @@ public class SysAuth extends Page {
         this.updateTime = updateTime;
     }
 
-    public String getShow_() {
-        if(StringUtils.isEmpty(show)){
+    public String getShows_() {
+        if(StringUtils.isEmpty(shows)){
              return "";
-        }else if(show.equals(0)){
+        }else if(shows.equals(0)){
              return "显示";
-        }else if(show.equals(1)){
+        }else if(shows.equals(1)){
              return "不显示";
         }
         return "";

@@ -49,7 +49,7 @@ public class SysUserController {
 		if(sysUser.getId()==null){
 			return DataRes.success(sysUserService.insert(sysUser));
 		}
-		return DataRes.success(sysUserService.updateByPrimaryKey(sysUser));
+		return DataRes.success(sysUserService.update(sysUser));
 	}
 
     /**
@@ -68,8 +68,8 @@ public class SysUserController {
 	*/
 	@RequestMapping("/sysUser/querySysUserByCondition")
 	@ResponseBody
-	public DataRes querySysUserByCondition(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysUserService.querySysUserByCondition(sysUser));
+	public DataRes queryByCondition(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
+    	return DataRes.success(sysUserService.queryByCondition(sysUser));
     }
 
    /**
@@ -80,7 +80,7 @@ public class SysUserController {
 	@RequestMapping("/sysUser/selectAll")
 	@ResponseBody
 	public DataRes selectAll(SysUser sysUser,HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysUserService.selectAll(sysUser));
+    	return DataRes.success(sysUserService.selectAllByPaging(sysUser));
     }
 
 	/**
@@ -90,7 +90,7 @@ public class SysUserController {
 	*/
 	@RequestMapping("/sysUser/export")
 	public void export(SysUser sysUser,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<SysUser> list= sysUserService.export(sysUser);
+		List<SysUser> list= sysUserService.selectAll(sysUser);
 		Map<String, String> header = new LinkedHashMap<>();
         header.put("id", "后台管理员");
         header.put("loginName", "登录名");

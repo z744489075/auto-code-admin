@@ -49,7 +49,7 @@ public class SysRoleController {
 		if(sysRole.getId()==null){
 			return DataRes.success(sysRoleService.insert(sysRole));
 		}
-		return DataRes.success(sysRoleService.updateByPrimaryKey(sysRole));
+		return DataRes.success(sysRoleService.update(sysRole));
 	}
 
     /**
@@ -68,8 +68,8 @@ public class SysRoleController {
 	*/
 	@RequestMapping("/sysRole/querySysRoleByCondition")
 	@ResponseBody
-	public DataRes querySysRoleByCondition(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysRoleService.querySysRoleByCondition(sysRole));
+	public DataRes queryByCondition(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
+    	return DataRes.success(sysRoleService.queryByCondition(sysRole));
     }
 
    /**
@@ -80,7 +80,7 @@ public class SysRoleController {
 	@RequestMapping("/sysRole/selectAll")
 	@ResponseBody
 	public DataRes selectAll(SysRole sysRole,HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysRoleService.selectAll(sysRole));
+    	return DataRes.success(sysRoleService.selectAllByPaging(sysRole));
     }
 
 	/**
@@ -90,7 +90,7 @@ public class SysRoleController {
 	*/
 	@RequestMapping("/sysRole/export")
 	public void export(SysRole sysRole,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<SysRole> list= sysRoleService.export(sysRole);
+		List<SysRole> list= sysRoleService.selectAll(sysRole);
 		Map<String, String> header = new LinkedHashMap<>();
         header.put("id", "后台角色");
         header.put("name", "角色名称");

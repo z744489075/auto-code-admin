@@ -20,22 +20,6 @@
     delete from sys_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <update id="updateByPrimaryKey" parameterType="com.zengtengpeng.sys.bean.SysUser">
-    update sys_user
-    set login_name = #{loginName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      no = #{no,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      create_user_id = #{createUserId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_user_id = #{updateUserId,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, login_name, password, no, name, email, mobile, status, create_user_id, 
     create_time, update_user_id, update_time, remarks
@@ -65,7 +49,7 @@
 	 ${orderByString} 
  </if>
   </select>
-  <select id="querySysUserByCondition" resultMap="BaseResultMap">
+  <select id="queryByCondition" resultMap="BaseResultMap">
     select id,login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks
  	from  sys_user 
 	<where>
@@ -91,7 +75,7 @@
     insert into sys_user (login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks)
  values ( #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=LONGVARCHAR})
   </insert>
-  <update id="updateSysUserByKeyWithNotNull">
+  <update id="update">
     update  	sys_user 
 	<set>
 		<if test="loginName!=null and loginName!=''">login_name = #{loginName,jdbcType=VARCHAR}, </if>

@@ -15,17 +15,6 @@
     delete from sys_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <update id="updateByPrimaryKey" parameterType="com.zengtengpeng.sys.bean.SysRole">
-    update sys_role
-    set name = #{name,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      create_user_id = #{createUserId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_user_id = #{updateUserId,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      dels = #{dels,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, name, status, create_user_id, create_time, update_user_id, update_time, 
     dels
@@ -50,7 +39,7 @@
 	 ${orderByString} 
  </if>
   </select>
-  <select id="querySysRoleByCondition" resultMap="BaseResultMap">
+  <select id="queryByCondition" resultMap="BaseResultMap">
     select id,name,status,create_user_id,create_time,update_user_id,update_time,dels
  	from  sys_role 
 	<where>
@@ -71,7 +60,7 @@
     insert into sys_role (name,status,create_user_id,create_time,update_user_id,update_time,dels)
  values ( #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{dels,jdbcType=INTEGER})
   </insert>
-  <update id="updateSysRoleByKeyWithNotNull">
+  <update id="update">
     update  	sys_role 
 	<set>
 		<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR}, </if>

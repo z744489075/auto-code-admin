@@ -84,9 +84,9 @@ function init(root){
     };
 
 })(jQuery);
-$(function () {
+/*$(function () {
     layer.closeAll();
-});
+});*/
 $(document).on("click", "img.verify-code", refreshImage);
 }
 

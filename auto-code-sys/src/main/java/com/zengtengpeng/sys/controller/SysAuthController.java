@@ -49,7 +49,7 @@ public class SysAuthController {
 		if(sysAuth.getId()==null){
 			return DataRes.success(sysAuthService.insert(sysAuth));
 		}
-		return DataRes.success(sysAuthService.updateByPrimaryKey(sysAuth));
+		return DataRes.success(sysAuthService.update(sysAuth));
 	}
 
     /**
@@ -68,8 +68,8 @@ public class SysAuthController {
 	*/
 	@RequestMapping("/sysAuth/querySysAuthByCondition")
 	@ResponseBody
-	public DataRes querySysAuthByCondition(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysAuthService.querySysAuthByCondition(sysAuth));
+	public DataRes queryByCondition(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
+    	return DataRes.success(sysAuthService.queryByCondition(sysAuth));
     }
 
    /**
@@ -79,8 +79,9 @@ public class SysAuthController {
 	*/
 	@RequestMapping("/sysAuth/selectAll")
 	@ResponseBody
-	public DataRes selectAll(SysAuth sysAuth,HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysAuthService.selectAll(sysAuth));
+	public DataRes selectAll(HttpServletRequest request, HttpServletResponse response){
+		SysAuth sysAuth=new SysAuth();
+		return DataRes.success(sysAuthService.selectAll(sysAuth));
     }
 
 	/**
@@ -90,7 +91,7 @@ public class SysAuthController {
 	*/
 	@RequestMapping("/sysAuth/export")
 	public void export(SysAuth sysAuth,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<SysAuth> list= sysAuthService.export(sysAuth);
+		List<SysAuth> list= sysAuthService.selectAll(sysAuth);
 		Map<String, String> header = new LinkedHashMap<>();
         header.put("id", "后台权限");
         header.put("parentAuthId", "父id");
@@ -99,7 +100,7 @@ public class SysAuthController {
         header.put("sort", "排序");
         header.put("href", "链接");
         header.put("icon", "图标");
-		header.put("show_", "{\"name\":\"是否显示\",\"0\":\"显示\",\"1\":\"不显示\"}");
+		header.put("shows_", "{\"name\":\"是否显示\",\"0\":\"显示\",\"1\":\"不显示\"}");
         header.put("createUserId", "创建者");
 		header.put("createTime_", "创建时间");
         header.put("updateUserId", "更新者");
@@ -113,8 +114,10 @@ public class SysAuthController {
 	*/
 	@RequestMapping("/sysAuth/gotoList")
 	public String gotoList(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
+//		return "sys/tree";
 		return "sys/sys_auth_list";
 	}
+
 
 	/**
 	* 跳转到详情页面
