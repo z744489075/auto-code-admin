@@ -19,12 +19,44 @@
     delete from sys_auth
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    <select id="queryByRole" resultMap="BaseResultMap">
+        SELECT   a.`id`,
+          a.`parent_auth_id`,
+          a.`parent_auth_ids`,
+          a.`name`,
+          a.`sort`,
+          a.`href`,
+          a.`icon`,
+          a.`shows`,
+          a.`create_user_id`,
+          a.`create_time`,
+          a.`update_user_id`,
+          a.`update_time` FROM `sys_auth` a,`sys_role_auth` ra,`sys_role` r
+          WHERE a.`id`=ra.`sys_auth_id` AND ra.`sys_role_id`=r.`id`
+          AND r.`id`=#{id}
+    </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, parent_auth_id, parent_auth_ids, name, sort, href, icon, shows, create_user_id, 
     create_time, update_user_id, update_time
     from sys_auth
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <insert id="insertBatch">
+        INSERT INTO `auto_code`.`sys_role_auth` (
+          `sys_auth_id`,
+          `sys_role_id`,
+          `create_time`
+        )
+        VALUES
+        <foreach collection="auths" item="a" separator=",">
+            (
+            #{a},
+            #{roleId},
+            NOW()
+            )
+        </foreach>
+
+    </insert>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, parent_auth_id, parent_auth_ids, name, sort, href, icon, shows, create_user_id, 
     create_time, update_user_id, update_time

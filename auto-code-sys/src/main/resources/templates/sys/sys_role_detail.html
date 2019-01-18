@@ -24,56 +24,17 @@
                                placeholder="请输入角色名称" class="layui-input" th:value="${sys_role.name}" >
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item" pane="">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
-
-                            <select name="status" id="status">
-                                <option value="">请选择状态</option>
-		                                <option value="0" th:selected="${sys_role.status==0}">启用</option>
-		                                <option value="1" th:selected="${sys_role.status==1}">禁用</option>
-                            </select>
-                        </select>
+                        <input type="radio" name="status" value="0" lay-verify="required" title="启用" th:checked="${sys_role.status==0 ||sys_role.status==null}">
+                        <input type="radio" name="status" value="1" lay-verify="required" title="禁用" th:checked="${sys_role.status==1}">
                     </div>
                 </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">创建者</label>
-                <div class="layui-input-block">
-                    <input type="number" name="createUserId" id="createUserId" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入创建者" class="layui-input" th:value="${sys_role.createUserId}" >
-                </div>
-            </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建时间</label>
+                <div class="layui-form-item"  pane="">
+                    <label class="layui-form-label">选择权限</label>
                     <div class="layui-input-block">
-                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${sys_role.createTime_}">
-                    </div>
-                </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">更新者</label>
-                <div class="layui-input-block">
-                    <input type="number" name="updateUserId" id="updateUserId" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入更新者" class="layui-input" th:value="${sys_role.updateUserId}" >
-                </div>
-            </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">更新时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="updateTime" id="updateTime" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${sys_role.updateTime_}">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">是否删除</label>
-                    <div class="layui-input-block">
-
-                            <select name="dels" id="dels">
-                                <option value="">请选择是否删除</option>
-		                                <option value="0" th:selected="${sys_role.dels==0}">正常</option>
-		                                <option value="1" th:selected="${sys_role.dels==1}">删除</option>
-                            </select>
-                        </select>
+                        <div id="LAY-auth-tree-index"></div>
                     </div>
                 </div>
         <div class="layui-form-item" style="text-align: center">
@@ -87,14 +48,19 @@
 <!--
 <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<script>
-    layui.use(['form', 'layedit', 'laydate'], function () {
+<script th:inline="javascript">
+    layui.config({
+        base: rootPath+'static/lib/layui/extend/'
+    }).extend({
+        authtree: 'authtree'
+    });
+    layui.use(['form','authtree', 'layedit', 'laydate'], function () {
         var form = layui.form
                 , layer = layui.layer
                 , layedit = layui.layedit
                 , laydate = layui.laydate;
         form.render();
-
+        var authtree = layui.authtree;
 
            laydate.render({
                elem: '#createTime'
@@ -110,6 +76,8 @@
 
         //监听提交
         form.on('submit(save-data)', function (data) {
+            var authids = authtree.getChecked('#LAY-auth-tree-index');
+            data.field["auths"]=authids;
             $.post(rootPath+"sysRole/save",data.field,function (data) {
                 if(data.code==0){
                     myAlert("保存成功");
@@ -122,7 +90,24 @@
             });
             return false
         });
-
+        $.post(rootPath+'sysRole/detail',{id:[[${sys_role.id}]]},function (data) {
+            var trees = authtree.listConvert(data.data.data, {
+                primaryKey: 'id'
+                ,startPid: 0
+                ,parentKey: 'parentAuthId'
+                ,nameKey: 'name'
+                ,valueKey: 'id'
+                ,checkedKey: data.data.ck
+                ,disabledKey: []
+            });
+            // 如果页面中多个树共存，需要注意 layfilter 需要不一样
+            authtree.render('#LAY-auth-tree-index', trees, {
+                inputname: 'authids[]',
+                layfilter: 'lay-check-convert-auth',
+                // openall: true,
+                autowidth: true
+            });
+        })
     });
 </script>
 

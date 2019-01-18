@@ -50,6 +50,7 @@ public class SysAuthController {
 	@ResponseBody
 	public DataRes save(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
 		sysAuth.setIcon("layui-icon "+sysAuth.getIcon());
+		sysAuth.setParentAuthId(sysAuth.getParentAuthId()==null?0:sysAuth.getParentAuthId());
 		if(sysAuth.getId()==null){
 			sysAuth.setCreateTime(new Date());
 			return DataRes.success(sysAuthService.insert(sysAuth));

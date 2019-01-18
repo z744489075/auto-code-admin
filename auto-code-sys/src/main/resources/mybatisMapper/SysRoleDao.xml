@@ -21,6 +21,10 @@
     from sys_role
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <delete id="deletAuths">
+
+      DELETE FROM sys_role_auth WHERE sys_role_id=#{id}
+    </delete>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, name, status, create_user_id, create_time, update_user_id, update_time, 
     dels
@@ -57,19 +61,15 @@
  </if>
   </select>
   <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-    insert into sys_role (name,status,create_user_id,create_time,update_user_id,update_time,dels)
- values ( #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{dels,jdbcType=INTEGER})
+    insert into sys_role (name,status,create_user_id,update_user_id,dels)
+ values ( #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{updateUserId,jdbcType=INTEGER}, #{dels,jdbcType=INTEGER})
   </insert>
   <update id="update">
     update  	sys_role 
 	<set>
 		<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR}, </if>
 		<if test="status!=null ">status = #{status,jdbcType=INTEGER}, </if>
-		<if test="createUserId!=null ">create_user_id = #{createUserId,jdbcType=INTEGER}, </if>
-		<if test="createTime!=null ">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
 		<if test="updateUserId!=null ">update_user_id = #{updateUserId,jdbcType=INTEGER}, </if>
-		<if test="updateTime!=null ">update_time = #{updateTime,jdbcType=TIMESTAMP}, </if>
-		<if test="dels!=null ">dels = #{dels,jdbcType=INTEGER}, </if>
  	</set>
 	where id=#{id}
   </update>

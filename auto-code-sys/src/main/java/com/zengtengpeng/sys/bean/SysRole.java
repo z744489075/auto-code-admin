@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zengtengpeng.common.bean.Page;
 import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.util.StringUtils;
 
 /**
@@ -50,6 +52,16 @@ public class SysRole extends Page {
      * {"name":"是否删除","0":"正常","1":"删除"}
      */
     private Integer dels;
+
+    private List<SysAuth> sysAuths;
+
+    public List<SysAuth> getSysAuths() {
+        return sysAuths;
+    }
+
+    public void setSysAuths(List<SysAuth> sysAuths) {
+        this.sysAuths = sysAuths;
+    }
 
     public Integer getId() {
         return id;

@@ -22,6 +22,10 @@ public class SysAuth extends Page {
      * 父id
      */
     private Integer parentAuthId;
+    /**
+     * 父id
+     */
+    private Integer pid;
 
     /**
      * 所有父id
@@ -77,6 +81,10 @@ public class SysAuth extends Page {
 
     public List<SysAuth> getChildren() {
         return children;
+    }
+
+    public Integer getPid() {
+        return parentAuthId;
     }
 
     public void setChildren(List<SysAuth> children) {

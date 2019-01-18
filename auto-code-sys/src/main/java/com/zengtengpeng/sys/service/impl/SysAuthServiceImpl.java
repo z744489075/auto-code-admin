@@ -2,6 +2,7 @@ package com.zengtengpeng.sys.service.impl;
 
 import javax.annotation.Resource;
 
+import com.zengtengpeng.sys.bean.SysRole;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.zengtengpeng.common.utils.PagingUtils;
@@ -21,5 +22,10 @@ public class SysAuthServiceImpl implements SysAuthService {
     @Override
     public SysAuthDao initDao() {
         return sysAuthDao;
+    }
+
+    @Override
+    public List<SysAuth> queryByRole(SysRole sysRole) {
+        return sysAuthDao.queryByRole(sysRole);
     }
 }

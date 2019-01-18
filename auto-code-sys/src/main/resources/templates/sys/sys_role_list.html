@@ -31,28 +31,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="layui-inline" style="display: none">
-                    <input type="text" name="createUserId" id="createUserId" placeholder="创建者" class="layui-input">
-                </div>
-                <div class="layui-inline"  >
-                    <input type="text" name="createTime" id="createTime" placeholder="创建时间" class="layui-input">
-                </div>
-                <div class="layui-inline" style="display: none">
-                    <input type="text" name="updateUserId" id="updateUserId" placeholder="更新者" class="layui-input">
-                </div>
-                <div class="layui-inline"  style="display: none">
-                    <input type="text" name="updateTime" id="updateTime" placeholder="更新时间" class="layui-input">
-                </div>
-                <div class="layui-inline" style="display: none">
-                    <label class="layui-form-label">是否删除</label>
-                    <div class="layui-input-inline">
-                        <select name="dels" id="dels">
-                            <option value="">请选择是否删除</option>
-                                <option value="0">正常</option>
-                                <option value="1">删除</option>
-                        </select>
-                    </div>
-                </div>
+
                 <div class="layui-inline">
                     <input type="text" name="startDate" id="startDate" placeholder="开始时间" class="layui-input">
                 </div>
@@ -76,8 +55,8 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     </span>
 
-    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysRole/deleteByPrimaryKey')}">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysRole/save')}">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >状态修改</a>
     </span>
 </script>
 <script type="text/html" id="toolbar-data">
@@ -107,18 +86,14 @@
             , url: rootPath + "sysRole/selectAll" //数据接口
             , method: "post"
             , page: true //开启分页
-            , cols: [[ //表头
+            , cols: [ [ //表头
                 {field: 'id', title: 'id', type: "checkbox"}
                 ,{field: 'id', title: '后台角色'}
                 ,{field: 'name', title: '角色名称'}
                 ,{field: 'status_', title: '状态'}
-                ,{field: 'createUserId', title: '创建者'}
                 ,{field: 'createTime_', title: '创建时间'}
-                ,{field: 'updateUserId', title: '更新者'}
-                ,{field: 'updateTime_', title: '更新时间'}
-                ,{field: 'dels_', title: '是否删除'}
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
-            ]],
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
+            ] ],
             parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": res.code, //解析接口状态
@@ -141,13 +116,12 @@
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'del') {
-                myConfirm("确定要删除吗?", function (index) {
-                    obj.del();
-                    $.post(rootPath + "sysRole/deleteByPrimaryKey", {"id": data.id}, function (data) {
-                        myAlert("删除成功");
-                        setTimeout(function () {
-                            loadMyData()
-                        }, 2000)
+                var status=data.status==0?"1":"0";
+
+                var text=status==0?"确定要启用该角色吗?":"确定要关闭该角色吗?";
+                myConfirm(text, function (index) {
+                    $.post(rootPath + "sysRole/updateStatus", {"id": data.id,"status":status}, function (data) {
+                        loadMyData()
                     });
                     layer.close(index);
                 })

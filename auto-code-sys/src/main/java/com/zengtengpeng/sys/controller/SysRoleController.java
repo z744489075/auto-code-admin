@@ -2,16 +2,19 @@ package com.zengtengpeng.sys.controller;
 
 import javax.annotation.Resource;
 
+import com.zengtengpeng.common.annotation.Auth;
 import com.zengtengpeng.common.utils.ExcelUtils;
-import org.springframework.ui.Model;
+import com.zengtengpeng.sys.bean.SysAuth;
+import com.zengtengpeng.sys.service.SysAuthService;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.zengtengpeng.common.bean.DataRes;
-import java.util.List;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
+import java.util.*;
+
 import com.zengtengpeng.sys.bean.SysRole;
 import com.zengtengpeng.sys.service.SysRoleService;
 import org.springframework.stereotype.Controller;
@@ -26,16 +29,19 @@ public class SysRoleController {
 	
 	@Resource
 	private SysRoleService sysRoleService;
+	@Resource
+	private SysAuthService sysAuthService;
 
 	/**
-	 * 删除
+	 * 修改状态
 	 * @param sysRole
 	 * @return
 	 */
-	@RequestMapping("/sysRole/deleteByPrimaryKey")
+	@RequestMapping("/sysRole/updateStatus")
 	@ResponseBody
-	public DataRes deleteByPrimaryKey(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
-		return DataRes.success(sysRoleService.deleteByPrimaryKey(sysRole));
+	@Auth("sysRole/save")
+	public DataRes updateStatus(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
+		return DataRes.success(sysRoleService.update(sysRole));
 	}
 
     /**
@@ -45,11 +51,11 @@ public class SysRoleController {
 	 */
 	@RequestMapping("/sysRole/save")
 	@ResponseBody
-	public DataRes save(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
+	public DataRes save( @RequestParam(value = "auths[]",required=false) List<String> auths,SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		if(sysRole.getId()==null){
-			return DataRes.success(sysRoleService.insert(sysRole));
+			return DataRes.success(sysRoleService.insert(sysRole,auths));
 		}
-		return DataRes.success(sysRoleService.update(sysRole));
+		return DataRes.success(sysRoleService.update(sysRole,auths));
 	}
 
     /**
@@ -85,7 +91,6 @@ public class SysRoleController {
 
 	/**
 	* 导出数据
-	* @param tests 参数
 	* @return
 	*/
 	@RequestMapping("/sysRole/export")
@@ -117,6 +122,7 @@ public class SysRoleController {
 	* @return
 	*/
 	@RequestMapping("/sysRole/gotoDetail")
+	@Auth("sysRole/save")
 	public String gotoDetail(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		if(sysRole.getId()!=null){
 			request.setAttribute("sys_role",sysRoleService.selectByPrimaryKey(sysRole));
@@ -125,4 +131,24 @@ public class SysRoleController {
 		}
 		return "sys/sys_role_detail";
 	}
+
+	@RequestMapping("/sysRole/detail")
+	@Auth("sysRole/save")
+	@ResponseBody
+	public DataRes detail(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
+		SysAuth sysAuth=new SysAuth();
+		sysAuth.setOrderByString(" order by sort asc");
+		List<SysAuth> t = sysAuthService.selectAll(sysAuth);
+		List<SysAuth> csa= sysAuthService.queryByRole(sysRole);
+		Map map=new HashMap();
+		map.put("data",t);
+		List<Integer> ck=new ArrayList<>();
+		csa.forEach(tt->{
+			ck.add(tt.getId());
+		});
+		map.put("ck",ck);
+		return DataRes.success(map);
+	}
+
+
 }

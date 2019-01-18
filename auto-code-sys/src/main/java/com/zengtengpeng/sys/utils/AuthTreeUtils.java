@@ -18,7 +18,7 @@ public class AuthTreeUtils {
         ArrayList<SysAuth> root=new ArrayList<>();
         ArrayList<SysAuth> child=new ArrayList<>();
         sysAuths.forEach(t->{
-            if(t.getParentAuthId()==null){
+            if(t.getParentAuthId()==null||t.getParentAuthId()==0){
                 root.add(t);
             }else {
                 child.add(t);
