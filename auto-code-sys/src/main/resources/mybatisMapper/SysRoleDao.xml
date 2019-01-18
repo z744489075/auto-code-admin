@@ -15,6 +15,12 @@
     delete from sys_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    <select id="queryByUser" resultMap="BaseResultMap">
+        SELECT r.`id`,r.`name`,r.`status`,r.`create_user_id`,r.`create_time`,
+        r.`update_user_id`,r.`update_time` FROM `sys_user` u,`sys_user_role` ur,`sys_role` r
+        WHERE u.`id`=ur.`sys_user_id` AND r.`id`=ur.`sys_role_id`
+        AND u.`id`=#{id}
+    </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, name, status, create_user_id, create_time, update_user_id, update_time, 
     dels

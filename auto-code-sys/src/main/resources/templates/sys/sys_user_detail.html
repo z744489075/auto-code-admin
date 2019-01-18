@@ -66,6 +66,12 @@
                         <input type="radio" name="status" value="1" lay-verify="required" title="禁用" th:checked="${sys_user.status==1}">
                     </div>
                 </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">角色</label>
+                    <div class="layui-input-block" >
+                        <input type="checkbox" th:each="s : ${sr}" th:name="roles"  th:value="${s.id}" th:title="${s.name}" th:checked="${#arrays.contains(usr,s.id)}">
+                    </div>
+                </div>
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">备注信息</label>
                     <div class="layui-input-block">
@@ -107,6 +113,11 @@
 
         //监听提交
         form.on('submit(save-data)', function (data) {
+            var roles=[];
+            $("input[name='roles']:checked").each(function () {
+                roles.push(this.value);
+            })
+            data.field['roles']=roles;
             $.post(rootPath+"sysUser/save",data.field,function (data) {
                 if(data.code==0){
                     myAlert("保存成功");

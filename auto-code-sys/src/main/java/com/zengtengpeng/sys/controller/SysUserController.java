@@ -4,14 +4,18 @@ import javax.annotation.Resource;
 
 import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysRole;
+import com.zengtengpeng.sys.service.SysRoleService;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.zengtengpeng.common.bean.DataRes;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,6 +33,8 @@ public class SysUserController {
 	
 	@Resource
 	private SysUserService sysUserService;
+	@Resource
+	private SysRoleService sysRoleService;
 
 	/**
 	 * 删除
@@ -54,14 +60,14 @@ public class SysUserController {
 	 */
 	@RequestMapping("/sysUser/save")
 	@ResponseBody
-	public DataRes save(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
+	public DataRes save(@RequestParam(value = "roles[]",required=false) List<String> roles,SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 	    if(!StringUtils.isEmpty(sysUser.getPassword())){
 	        sysUser.setPassword(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()));
         }
 		if(sysUser.getId()==null){
-			return DataRes.success(sysUserService.insert(sysUser));
+			return DataRes.success(sysUserService.insert(sysUser,roles));
 		}
-		return DataRes.success(sysUserService.update(sysUser));
+		return DataRes.success(sysUserService.update(sysUser,roles));
 	}
 
     /**
@@ -135,11 +141,21 @@ public class SysUserController {
 	@RequestMapping("/sysUser/gotoDetail")
 	@Auth("sysUser/save")
 	public String gotoDetail(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
+		SysRole t=new SysRole();
+		t.setStatus(0);
+		List<SysRole> sysRoles = sysRoleService.selectAll(t);
+		List<SysRole>  usr=new ArrayList<>();
+		request.setAttribute("sr",sysRoles);
 		if(sysUser.getId()!=null){
 			request.setAttribute("sys_user",sysUserService.selectByPrimaryKey(sysUser));
+			//查询所有可用的权限
+			usr= sysRoleService.queryByUser(sysUser);
 		}else {
 			request.setAttribute("sys_user",sysUser);
 		}
+		ArrayList<Integer> usrid=new ArrayList<>();
+		usr.forEach(tt-> usrid.add(tt.getId()));
+		request.setAttribute("usr",usrid);
 		return "sys/sys_user_detail";
 	}
 }

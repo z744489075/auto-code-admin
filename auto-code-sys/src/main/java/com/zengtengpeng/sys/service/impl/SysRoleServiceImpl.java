@@ -3,6 +3,7 @@ package com.zengtengpeng.sys.service.impl;
 import javax.annotation.Resource;
 
 import com.zengtengpeng.sys.bean.SysAuth;
+import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.dao.SysAuthDao;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -46,4 +47,8 @@ public class SysRoleServiceImpl implements SysRoleService {
         return update;
     }
 
+    @Override
+    public List<SysRole> queryByUser(SysUser sysUser) {
+        return sysRoleDao.queryByUser(sysUser);
+    }
 }
