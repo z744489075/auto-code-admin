@@ -72,8 +72,11 @@
  </if>
   </select>
   <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-    insert into sys_user (login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks)
- values ( #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=LONGVARCHAR})
+    insert into sys_user (login_name,password,no,name,email,mobile,status,create_user_id,update_user_id,remarks)
+ values ( #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR},
+  #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+  #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER},
+   #{updateUserId,jdbcType=INTEGER},  #{remarks,jdbcType=LONGVARCHAR})
   </insert>
   <update id="update">
     update  	sys_user 
@@ -85,8 +88,6 @@
 		<if test="email!=null and email!=''">email = #{email,jdbcType=VARCHAR}, </if>
 		<if test="mobile!=null and mobile!=''">mobile = #{mobile,jdbcType=VARCHAR}, </if>
 		<if test="status!=null ">status = #{status,jdbcType=INTEGER}, </if>
-		<if test="createUserId!=null ">create_user_id = #{createUserId,jdbcType=INTEGER}, </if>
-		<if test="createTime!=null ">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
 		<if test="updateUserId!=null ">update_user_id = #{updateUserId,jdbcType=INTEGER}, </if>
 		<if test="updateTime!=null ">update_time = #{updateTime,jdbcType=TIMESTAMP}, </if>
 		<if test="remarks!=null and remarks!=''">remarks = #{remarks,jdbcType=LONGVARCHAR}, </if>

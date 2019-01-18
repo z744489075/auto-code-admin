@@ -3,7 +3,10 @@ package com.zengtengpeng.sys.controller;
 import javax.annotation.Resource;
 
 import com.zengtengpeng.common.utils.ExcelUtils;
+import com.zengtengpeng.sys.bean.SysRole;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +41,12 @@ public class SysUserController {
 		return DataRes.success(sysUserService.deleteByPrimaryKey(sysUser));
 	}
 
+	@RequestMapping("/sysUser/updateStatus")
+	@ResponseBody
+	@Auth("sysUser/save")
+	public DataRes updateStatus(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
+		return DataRes.success(sysUserService.update(sysUser));
+	}
     /**
 	 * 保存 如果id存在则修改否则新增
 	 * @param sysUser
@@ -46,6 +55,9 @@ public class SysUserController {
 	@RequestMapping("/sysUser/save")
 	@ResponseBody
 	public DataRes save(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
+	    if(!StringUtils.isEmpty(sysUser.getPassword())){
+	        sysUser.setPassword(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()));
+        }
 		if(sysUser.getId()==null){
 			return DataRes.success(sysUserService.insert(sysUser));
 		}
@@ -94,7 +106,6 @@ public class SysUserController {
 		Map<String, String> header = new LinkedHashMap<>();
         header.put("id", "后台管理员");
         header.put("loginName", "登录名");
-        header.put("password", "密码");
         header.put("no", "工号");
         header.put("name", "姓名");
         header.put("email", "邮箱");

@@ -27,8 +27,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-block">
-                        <input type="text" name="password" id="password" maxlength="32" lay-verify="required" autocomplete="off"
-                               placeholder="请输入密码" class="layui-input" th:value="${sys_user.password}" >
+                        <input type="password" name="password" id="password" maxlength="32"  autocomplete="off"
+                               placeholder="请输入密码(修改时不填写密码则不修改)" class="layui-input"  >
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -59,43 +59,11 @@
                                placeholder="请输入手机" class="layui-input" th:value="${sys_user.mobile}" >
                     </div>
                 </div>
-                <div class="layui-form-item">
+                <div class="layui-form-item" pane="">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
-
-                            <select name="status" id="status">
-                                <option value="">请选择状态</option>
-		                                <option value="0" th:selected="${sys_user.status==0}">启用</option>
-		                                <option value="1" th:selected="${sys_user.status==1}">禁用</option>
-                            </select>
-                    </div>
-                </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">创建者</label>
-                <div class="layui-input-block">
-                    <input type="number" name="createUserId" id="createUserId" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入创建者" class="layui-input" th:value="${sys_user.createUserId}" >
-                </div>
-            </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${sys_user.createTime_}">
-                    </div>
-                </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">更新者</label>
-                <div class="layui-input-block">
-                    <input type="number" name="updateUserId" id="updateUserId" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入更新者" class="layui-input" th:value="${sys_user.updateUserId}" >
-                </div>
-            </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">更新时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="updateTime" id="updateTime" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${sys_user.updateTime_}">
+                        <input type="radio" name="status" value="0" lay-verify="required" title="启用" th:checked="${sys_user.status==0 ||sys_user.status==null}">
+                        <input type="radio" name="status" value="1" lay-verify="required" title="禁用" th:checked="${sys_user.status==1}">
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
@@ -144,7 +112,7 @@
                     myAlert("保存成功");
                     setTimeout(function () {
                         myback("sysUser/gotoList");
-                    },2000)
+                    },alertTime)
                 }else{
                     myAlert("保存失败->"+data.message)
                 }

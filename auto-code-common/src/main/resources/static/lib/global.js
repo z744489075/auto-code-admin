@@ -73,11 +73,9 @@ function init(root){
             },
             beforeSend:function(XHR){
                 //提交前回调方法
-                $('body').append("<div id='ajaxInfo' style=''>正在加载,请稍后...</div>");
             },
             complete:function(XHR, TS){
                 //请求完成后回调函数 (请求成功或失败之后均调用)。
-                $("#ajaxInfo").remove();;
             }
         });
         return _ajax(_opt);
