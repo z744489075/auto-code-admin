@@ -54,7 +54,7 @@ public class SysUser extends Page {
     /**
      * 创建者
      */
-    private String createUserId;
+    private Integer createUserId;
 
     /**
      * 创建时间
@@ -64,7 +64,7 @@ public class SysUser extends Page {
     /**
      * 更新者
      */
-    private String updateUserId;
+    private Integer updateUserId;
 
     /**
      * 更新时间
@@ -140,12 +140,12 @@ public class SysUser extends Page {
         this.status = status;
     }
 
-    public String getCreateUserId() {
+    public Integer getCreateUserId() {
         return createUserId;
     }
 
-    public void setCreateUserId(String createUserId) {
-        this.createUserId = createUserId == null ? null : createUserId.trim();
+    public void setCreateUserId(Integer createUserId) {
+        this.createUserId = createUserId;
     }
 
     @JsonIgnore
@@ -157,12 +157,12 @@ public class SysUser extends Page {
         this.createTime = createTime;
     }
 
-    public String getUpdateUserId() {
+    public Integer getUpdateUserId() {
         return updateUserId;
     }
 
-    public void setUpdateUserId(String updateUserId) {
-        this.updateUserId = updateUserId == null ? null : updateUserId.trim();
+    public void setUpdateUserId(Integer updateUserId) {
+        this.updateUserId = updateUserId;
     }
 
     @JsonIgnore

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AutoCodeTest {
     public static void main(String[] args) {
-        List<String> dataNames= Arrays.asList("sys_user","sys_role","sys_auth");
+        List<String> dataNames= Arrays.asList("sys_user");
         StartCode startCode=new StartCode();
         startCode.setJdbc("jdbc:mysql://localhost:3306/auto_code");
         startCode.setUser("root");

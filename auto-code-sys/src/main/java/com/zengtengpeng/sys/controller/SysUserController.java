@@ -15,7 +15,7 @@ import java.util.Map;
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.service.SysUserService;
 import org.springframework.stereotype.Controller;
-
+import com.zengtengpeng.common.annotation.Auth;
 /**
  * 
  * @author zengtp
@@ -122,6 +122,7 @@ public class SysUserController {
 	* @return
 	*/
 	@RequestMapping("/sysUser/gotoDetail")
+	@Auth("sysUser/save")
 	public String gotoDetail(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		if(sysUser.getId()!=null){
 			request.setAttribute("sys_user",sysUserService.selectByPrimaryKey(sysUser));

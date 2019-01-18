@@ -10,9 +10,9 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remarks" jdbcType="LONGVARCHAR" property="remarks" />
   </resultMap>
@@ -39,9 +39,9 @@
 		<if test="email!=null and email!=''"> and email = #{email,jdbcType=VARCHAR}</if>
 		<if test="mobile!=null and mobile!=''"> and mobile = #{mobile,jdbcType=VARCHAR}</if>
 		<if test="status!=null "> and status = #{status,jdbcType=INTEGER}</if>
-		<if test="createUserId!=null and createUserId!=''"> and create_user_id = #{createUserId,jdbcType=VARCHAR}</if>
+		<if test="createUserId!=null "> and create_user_id = #{createUserId,jdbcType=INTEGER}</if>
 		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
-		<if test="updateUserId!=null and updateUserId!=''"> and update_user_id = #{updateUserId,jdbcType=VARCHAR}</if>
+		<if test="updateUserId!=null "> and update_user_id = #{updateUserId,jdbcType=INTEGER}</if>
 		<if test="updateTime!=null "> and update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
 		<if test="remarks!=null and remarks!=''"> and remarks = #{remarks,jdbcType=LONGVARCHAR}</if>
  	</where> 
@@ -61,9 +61,9 @@
 		<if test="email!=null and email!=''"> and email = #{email,jdbcType=VARCHAR}</if>
 		<if test="mobile!=null and mobile!=''"> and mobile = #{mobile,jdbcType=VARCHAR}</if>
 		<if test="status!=null "> and status = #{status,jdbcType=INTEGER}</if>
-		<if test="createUserId!=null and createUserId!=''"> and create_user_id = #{createUserId,jdbcType=VARCHAR}</if>
+		<if test="createUserId!=null "> and create_user_id = #{createUserId,jdbcType=INTEGER}</if>
 		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
-		<if test="updateUserId!=null and updateUserId!=''"> and update_user_id = #{updateUserId,jdbcType=VARCHAR}</if>
+		<if test="updateUserId!=null "> and update_user_id = #{updateUserId,jdbcType=INTEGER}</if>
 		<if test="updateTime!=null "> and update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
 		<if test="remarks!=null and remarks!=''"> and remarks = #{remarks,jdbcType=LONGVARCHAR}</if>
  	</where> 
@@ -73,7 +73,7 @@
   </select>
   <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into sys_user (login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks)
- values ( #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=LONGVARCHAR})
+ values ( #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=LONGVARCHAR})
   </insert>
   <update id="update">
     update  	sys_user 
@@ -85,9 +85,9 @@
 		<if test="email!=null and email!=''">email = #{email,jdbcType=VARCHAR}, </if>
 		<if test="mobile!=null and mobile!=''">mobile = #{mobile,jdbcType=VARCHAR}, </if>
 		<if test="status!=null ">status = #{status,jdbcType=INTEGER}, </if>
-		<if test="createUserId!=null and createUserId!=''">create_user_id = #{createUserId,jdbcType=VARCHAR}, </if>
+		<if test="createUserId!=null ">create_user_id = #{createUserId,jdbcType=INTEGER}, </if>
 		<if test="createTime!=null ">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
-		<if test="updateUserId!=null and updateUserId!=''">update_user_id = #{updateUserId,jdbcType=VARCHAR}, </if>
+		<if test="updateUserId!=null ">update_user_id = #{updateUserId,jdbcType=INTEGER}, </if>
 		<if test="updateTime!=null ">update_time = #{updateTime,jdbcType=TIMESTAMP}, </if>
 		<if test="remarks!=null and remarks!=''">remarks = #{remarks,jdbcType=LONGVARCHAR}, </if>
  	</set>

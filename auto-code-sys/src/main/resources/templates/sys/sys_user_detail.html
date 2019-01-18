@@ -20,7 +20,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">登录名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="loginName" id="loginName" maxlength="100" lay-verify="required" autocomplete="off"
+                        <input type="text" name="loginName" id="loginName" maxlength="50" lay-verify="required" autocomplete="off"
                                placeholder="请输入登录名" class="layui-input" th:value="${sys_user.loginName}" >
                     </div>
                 </div>
@@ -41,21 +41,21 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="name" id="name" maxlength="100" lay-verify="required" autocomplete="off"
+                        <input type="text" name="name" id="name" maxlength="50" lay-verify="required" autocomplete="off"
                                placeholder="请输入姓名" class="layui-input" th:value="${sys_user.name}" >
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" id="email" maxlength="200" lay-verify="required" autocomplete="off"
+                        <input type="text" name="email" id="email" maxlength="50" lay-verify="required" autocomplete="off"
                                placeholder="请输入邮箱" class="layui-input" th:value="${sys_user.email}" >
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">手机</label>
                     <div class="layui-input-block">
-                        <input type="text" name="mobile" id="mobile" maxlength="200" lay-verify="required" autocomplete="off"
+                        <input type="text" name="mobile" id="mobile" maxlength="11" lay-verify="required" autocomplete="off"
                                placeholder="请输入手机" class="layui-input" th:value="${sys_user.mobile}" >
                     </div>
                 </div>
@@ -68,16 +68,15 @@
 		                                <option value="0" th:selected="${sys_user.status==0}">启用</option>
 		                                <option value="1" th:selected="${sys_user.status==1}">禁用</option>
                             </select>
-                        </select>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建者</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="createUserId" id="createUserId" maxlength="64" lay-verify="required" autocomplete="off"
-                               placeholder="请输入创建者" class="layui-input" th:value="${sys_user.createUserId}" >
-                    </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">创建者</label>
+                <div class="layui-input-block">
+                    <input type="number" name="createUserId" id="createUserId" maxlength="10" lay-verify="number" autocomplete="off"
+                           placeholder="请输入创建者" class="layui-input" th:value="${sys_user.createUserId}" >
                 </div>
+            </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">创建时间</label>
                     <div class="layui-input-block">
@@ -85,13 +84,13 @@
                                th:value="${sys_user.createTime_}">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">更新者</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="updateUserId" id="updateUserId" maxlength="64" lay-verify="required" autocomplete="off"
-                               placeholder="请输入更新者" class="layui-input" th:value="${sys_user.updateUserId}" >
-                    </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">更新者</label>
+                <div class="layui-input-block">
+                    <input type="number" name="updateUserId" id="updateUserId" maxlength="10" lay-verify="number" autocomplete="off"
+                           placeholder="请输入更新者" class="layui-input" th:value="${sys_user.updateUserId}" >
                 </div>
+            </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">更新时间</label>
                     <div class="layui-input-block">
