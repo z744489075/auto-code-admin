@@ -3,12 +3,15 @@ package com.zengtengpeng.sys.controller;
 import javax.annotation.Resource;
 
 import com.zengtengpeng.common.utils.ExcelUtils;
+import com.zengtengpeng.sys.utils.AuthTreeUtils;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.zengtengpeng.common.bean.DataRes;
+
+import java.util.Date;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -46,9 +49,12 @@ public class SysAuthController {
 	@RequestMapping("/sysAuth/save")
 	@ResponseBody
 	public DataRes save(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
+		sysAuth.setIcon("layui-icon "+sysAuth.getIcon());
 		if(sysAuth.getId()==null){
+			sysAuth.setCreateTime(new Date());
 			return DataRes.success(sysAuthService.insert(sysAuth));
 		}
+		sysAuth.setUpdateTime(new Date());
 		return DataRes.success(sysAuthService.update(sysAuth));
 	}
 
@@ -73,7 +79,7 @@ public class SysAuthController {
     }
 
    /**
-	* 分页查询
+	* 查询
 	* @param sysAuth 参数
 	* @return
 	*/
@@ -81,7 +87,22 @@ public class SysAuthController {
 	@ResponseBody
 	public DataRes selectAll(HttpServletRequest request, HttpServletResponse response){
 		SysAuth sysAuth=new SysAuth();
+		sysAuth.setOrderByString(" order by sort asc");
 		return DataRes.success(sysAuthService.selectAll(sysAuth));
+    }
+   /**
+	* 查询树
+	* @param sysAuth 参数
+	* @return
+	*/
+	@RequestMapping("/sysAuth/tree")
+	@ResponseBody
+	public List<SysAuth> selectTree(HttpServletRequest request, HttpServletResponse response){
+		SysAuth sysAuth=new SysAuth();
+		sysAuth.setOrderByString(" order by sort asc");
+		List<SysAuth> sysAuths = sysAuthService.selectAll(sysAuth);
+		List<SysAuth> recurve = AuthTreeUtils.recurve(sysAuths);
+		return recurve;
     }
 
 	/**

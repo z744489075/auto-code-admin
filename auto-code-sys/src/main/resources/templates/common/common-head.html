@@ -24,9 +24,6 @@
     <script type="text/javascript" th:src="@{/static/static/h-ui.admin/js/H-ui.admin.js}"></script>
 
 
-    <script type="text/javascript" th:src="@{/static/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
-    <script type="text/javascript" th:src="@{/static/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
-    <script type="text/javascript" th:src="@{/static/lib/jquery.validation/1.14.0/messages_zh.js}"></script>
     <!--[if IE 6]>
     <script type="text/javascript" th:src="@{/static/lib/DD_belatedPNG_0.0.8a-min.js}" ></script>
     <script>DD_belatedPNG.fix('*');</script>
@@ -52,8 +49,12 @@
         function loads(){
             window.location.reload();
         }
-        function myback(){
-            window.history.go(-1);
+        function myback(url){
+            if(url){
+                window.location.href=rootPath+url;
+            }else {
+                window.history.go(-1);
+            }
         }
 
         $.fn.serializeObject = function()

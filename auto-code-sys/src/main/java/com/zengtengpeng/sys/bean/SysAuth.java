@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zengtengpeng.common.bean.Page;
 import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.util.StringUtils;
 
 /**
@@ -70,6 +72,16 @@ public class SysAuth extends Page {
      * 更新时间
      */
     private Date updateTime;
+
+    private List<SysAuth> children;
+
+    public List<SysAuth> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysAuth> children) {
+        this.children = children;
+    }
 
     public Integer getId() {
         return id;

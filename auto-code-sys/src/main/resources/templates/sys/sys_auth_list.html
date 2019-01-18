@@ -28,6 +28,9 @@
     <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysAuth/save')}">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     </span>
+    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysAuth/save')}">
+    <a class="layui-btn layui-btn-xs" lay-event="add">新增</a>
+    </span>
 
     <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysAuth/deleteByPrimaryKey')}">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -36,7 +39,7 @@
 <script type="text/html" id="toolbar-data">
     <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
     <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysAuth/save')}">
-    <a class="btn btn-primary radius" th:href="@{/sysAuth/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
+    <a class="btn btn-primary radius" th:href="@{/sysAuth/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增根节点</a>
     </span>
 </script>
 <!--请在下方写此页面业务相关的脚本-->
@@ -53,6 +56,7 @@
         ptable=treeGrid.render({
             id:tableId
             ,elem: '#'+tableId
+            , toolbar: '#toolbar-data'
             ,url:rootPath+'sysAuth/selectAll'
             ,cellMinWidth: 100
             ,idField:'id'//必須字段
@@ -62,7 +66,7 @@
             ,heightRemove:[".dHead",10]//不计算的高度,表格设定的是固定高度，此项不生效
             ,height:'100%'
             ,isFilter:false
-            ,iconOpen:true//是否显示图标【默认显示】
+            ,iconOpen:false//是否显示图标【默认显示】
             ,isOpenDefault:true//节点默认是展开还是折叠【默认展开】
             ,loading:true
             ,sort:false
@@ -71,11 +75,14 @@
             ,cols: [ [
                 {type:'numbers'}
                 ,{type:'checkbox'}
-                ,{field:'name', width:300, title: '菜单名称'}
+                ,{field:'name', width:300, title: '菜单名称',templet: function(d){
+                    return "<i class=\""+d.icon+"\"></i>"+d.name;
+                }}
                 ,{field:'id',width:100, title: 'id'}
                 ,{field:'sort', title: '排序'}
                 ,{field:'createTime_', title: '创建时间'}
-                ,{width:100,title: '操作', align:'center',toolbar: '#barDemo'}
+                ,{field:'shows_', title: '显示'}
+                ,{title: '操作', align:'center',toolbar: '#barDemo'}
             ] ]
             ,parseData:function (res) {//数据加载后回调
                 return res;
@@ -109,6 +116,8 @@
                 })
             } else if (obj.event === 'edit') {
                 window.location.href = rootPath + "sysAuth/gotoDetail?id=" + data.id;
+            } else if (obj.event === 'add') {
+                window.location.href = rootPath + "sysAuth/gotoDetail?parentAuthId=" + data.id;
             }
         });
     });

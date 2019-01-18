@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{common/common-head.html::common-head}"></div>
+    <style>
+    </style>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
@@ -15,95 +17,63 @@
 </nav>
 <div class="page-container">
     <form class="layui-form layui-form-pane" action="">
-        <input type="hidden" name="id" th:value="${sys_auth.id }" />
+        <input type="hidden" name="id" th:value="${sys_auth.id }"/>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">父id</label>
-                <div class="layui-input-block">
-                    <input type="number" name="parentAuthId" id="parentAuthId" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入父id" class="layui-input" th:value="${sys_auth.parentAuthId}" >
-                </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">父id</label>
+            <div class="layui-input-block">
+               <input type="number" name="parentAuthId" id="parentAuthId" maxlength="10"
+                       autocomplete="off"
+                       placeholder="请输入父id" class="layui-input" lay-filter="tree" th:value="${sys_auth.parentAuthId}">
             </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">所有父id</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="parentAuthIds" id="parentAuthIds" maxlength="2,000" lay-verify="required" autocomplete="off"
-                               placeholder="请输入所有父id" class="layui-input" th:value="${sys_auth.parentAuthIds}" >
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">名称</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="name" id="name" maxlength="100" lay-verify="required" autocomplete="off"
-                               placeholder="请输入名称" class="layui-input" th:value="${sys_auth.name}" >
-                    </div>
-                </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">排序</label>
-                <div class="layui-input-block">
-                    <input type="number" name="sort" id="sort" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入排序" class="layui-input" th:value="${sys_auth.sort}" >
-                </div>
-            </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">链接</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="href" id="href" maxlength="2,000" lay-verify="required" autocomplete="off"
-                               placeholder="请输入链接" class="layui-input" th:value="${sys_auth.href}" >
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">图标</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="icon" id="icon" maxlength="100" lay-verify="required" autocomplete="off"
-                               placeholder="请输入图标" class="layui-input" th:value="${sys_auth.icon}" >
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">是否显示</label>
-                    <div class="layui-input-block">
+        </div>
 
-                            <select name="shows" id="shows">
-                                <option value="">请选择是否显示</option>
-		                                <option value="0" th:selected="${sys_auth.shows==0}">显示</option>
-		                                <option value="1" th:selected="${sys_auth.shows==1}">不显示</option>
-                            </select>
-                        </select>
-                    </div>
-                </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">创建者</label>
-                <div class="layui-input-block">
-                    <input type="number" name="createUserId" id="createUserId" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入创建者" class="layui-input" th:value="${sys_auth.createUserId}" >
-                </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" id="name" maxlength="100" lay-verify="required" autocomplete="off"
+                       placeholder="请输入名称" class="layui-input" th:value="${sys_auth.name}">
             </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${sys_auth.createTime_}">
-                    </div>
-                </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">更新者</label>
-                <div class="layui-input-block">
-                    <input type="number" name="updateUserId" id="updateUserId" maxlength="10" lay-verify="number" autocomplete="off"
-                           placeholder="请输入更新者" class="layui-input" th:value="${sys_auth.updateUserId}" >
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="sort" id="sort" maxlength="10" lay-verify="number" autocomplete="off"
+                       placeholder="请输入排序" class="layui-input" th:value="${sys_auth.sort}">
             </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">更新时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="updateTime" id="updateTime" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${sys_auth.updateTime_}">
-                    </div>
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">链接</label>
+            <div class="layui-input-block">
+                <input type="text" name="href" id="href" maxlength="2000" lay-verify="required" autocomplete="off"
+                       placeholder="请输入链接" class="layui-input" th:value="${sys_auth.href}">
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">图标</label>
+            <div class="layui-input-block">
+                <input type="text" name="icon" id="icon" maxlength="100" lay-verify="required" autocomplete="off"
+                       placeholder="请输入图标" class="layui-input" th:value="${sys_auth.icon}">
+            </div>
+        </div>
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">是否显示</label>
+            <div class="layui-input-block">
+
+                <!--<select name="shows" id="shows">
+                    <option value="">请选择是否显示</option>
+                    <option value="0" th:selected="${sys_auth.shows==0}" >显示</option>
+                    <option value="1" th:selected="${sys_auth.shows==1}">不显示</option>
+                </select>-->
+                <input type="radio" name="shows" value="0" lay-verify="required" title="显示" th:checked="${sys_auth.shows==0 || sys_auth.shows==null}">
+                <input type="radio" name="shows" value="1" lay-verify="required" title="不显示" th:checked="${sys_auth.shows==1}">
+            </div>
+        </div>
         <div class="layui-form-item" style="text-align: center">
             <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysAuth/save')}">
             <button class="layui-btn" lay-submit="" lay-filter="save-data">提交</button>
             </span>
-            <input type="button" class="layui-btn"  onclick="myback()" value="返回" />
+            <input type="button" class="layui-btn" onclick="myback()" value="返回"/>
         </div>
     </form>
 </div>
@@ -111,36 +81,94 @@
 <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function () {
+    layui.config({
+        base: rootPath + 'static/lib/layui/extend/'
+    }).extend({
+        iconPicker: 'iconPicker'
+        ,treeSelect: 'treeSelect'
+    });
+
+    layui.use(['form', 'layedit', 'laydate', 'iconPicker','treeSelect'], function () {
         var form = layui.form
-                , layer = layui.layer
-                , layedit = layui.layedit
-                , laydate = layui.laydate;
+            , laydate = layui.laydate;
+        var iconPicker = layui.iconPicker;
+        var treeSelect= layui.treeSelect;
         form.render();
 
+        treeSelect.render({
+            // 选择器
+            elem: '#parentAuthId',
+            // 数据
+            data: rootPath+"sysAuth/tree",
+            // 异步加载方式：get/post，默认get
+            type: 'get',
+            // 占位符
+            placeholder: '请选择父节点',
+            // 是否开启搜索功能：true/false，默认false
+            search: true,
+            // 一些可定制的样式
+            style: {
+                folder: {
+                    enable: true
+                },
+                line: {
+                    enable: true
+                }
+            },
+            // 点击回调
+            click: function(d){
+            },
+            // 加载完成后的回调函数
+            success: function (d) {
+//                选中节点，根据id筛选
+                if( $("#parentAuthId").val()){
+                    treeSelect.checkNode('tree', $("#parentAuthId").val());
+                }
+            }
+        });
 
-           laydate.render({
-               elem: '#createTime'
-               , type: 'datetime'
-           });
-           laydate.render({
-               elem: '#updateTime'
-               , type: 'datetime'
-           });
+        iconPicker.render({
+            // 选择器，推荐使用input
+            elem: '#icon',
+            // 数据类型：fontClass/unicode，推荐使用fontClass
+            type: 'fontClass',
+            // 是否开启搜索：true/false
+            search: true,
+            // 是否开启分页
+            page: true,
+            // 每页显示数量，默认12
+            limit: 24,
+            // 点击回调
+            click: function (data) {
+            },
+            // 渲染成功后的回调
+            success: function(d) {
+                $('#icon').val('layui-icon-username');
+            }
+        });
+
+        laydate.render({
+            elem: '#createTime'
+            , type: 'datetime'
+        });
+        laydate.render({
+            elem: '#updateTime'
+            , type: 'datetime'
+        });
 
         //自定义验证规则
         form.verify({});
 
         //监听提交
         form.on('submit(save-data)', function (data) {
-            $.post(rootPath+"sysAuth/save",data.field,function (data) {
-                if(data.code==0){
+            $.post(rootPath + "sysAuth/save", data.field, function (data) {
+                if (data.code == 0) {
                     myAlert("保存成功");
                     setTimeout(function () {
-                        myback();
-                    },2000)
-                }else{
-                    myAlert("保存失败->"+data.message)
+                        myback("sysAuth/gotoList");
+                    }, 2000)
+                } else {
+                    myAlert("保存失败->" + data.message)
                 }
             });
             return false

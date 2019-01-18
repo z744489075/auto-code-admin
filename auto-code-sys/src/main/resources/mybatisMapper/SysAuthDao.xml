@@ -70,7 +70,8 @@
   </select>
   <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into sys_auth (parent_auth_id,parent_auth_ids,name,sort,href,icon,shows,create_user_id,create_time,update_user_id,update_time)
- values ( #{parentAuthId,jdbcType=INTEGER}, #{parentAuthIds,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{href,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{shows,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+ values ( #{parentAuthId,jdbcType=INTEGER}, #{parentAuthIds,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{href,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{shows,jdbcType=INTEGER},
+ #{createUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="update">
     update  	sys_auth 
