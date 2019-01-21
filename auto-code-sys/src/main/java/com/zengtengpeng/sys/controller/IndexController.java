@@ -1,5 +1,6 @@
 package com.zengtengpeng.sys.controller;
 
+import com.zengtengpeng.common.annotation.Pass;
 import com.zengtengpeng.sys.bean.SysAuth;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,11 @@ public class IndexController {
      * @return
      */
     @RequestMapping("/index/gotoIndex")
+    @Pass
     public String gotoIndex(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
         return "index";
     }
+
+
+
 }
