@@ -21,4 +21,11 @@ public interface SysAuthDao extends BaseDao<SysAuth> {
      * @return
      */
     List<SysAuth> queryByRole(SysRole sysRole);
+
+    /**
+     * 查询用户权限
+     * @param userId
+     * @return
+     */
+    List<SysAuth> queryByUser(Integer userId);
 }

@@ -3,11 +3,15 @@ package com.zengtengpeng.sys.controller;
 import com.zengtengpeng.common.annotation.Pass;
 import com.zengtengpeng.common.annotation.ResponseCode;
 import com.zengtengpeng.common.bean.DataRes;
+import com.zengtengpeng.sys.bean.SysAuth;
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.constant.SessionConstant;
+import com.zengtengpeng.sys.service.SysAuthService;
 import com.zengtengpeng.sys.service.SysUserService;
+import com.zengtengpeng.sys.utils.AuthTreeUtils;
 import com.zengtengpeng.sys.utils.RandomCodeUtil;
 import com.zengtengpeng.sys.utils.UserUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +31,11 @@ public class LoginController {
 
     @Resource
     private SysUserService sysUserService;
+    @Resource
+    private SysAuthService sysAuthService;
+
+    @Value("${auto.code.admin}")
+    private String admin;
     /**
      * 跳转到登录页面
      * @return
@@ -48,6 +57,16 @@ public class LoginController {
         // 绘制验证码图片
         RandomCodeUtil.createValidateCode(response, rand);
     }
+    /**
+     * 跳转到登录页面
+     * @return
+     */
+    @RequestMapping("/login/loginout")
+    @Pass
+    public String loginout(HttpSession session){
+        UserUtils.removeUser(session);
+        return "login";
+    }
 
     /**
      * 跳转到登录页面
@@ -55,7 +74,8 @@ public class LoginController {
      */
     @RequestMapping("/login/login")
     @ResponseBody
-    public DataRes gotoLogin(SysUser sysUser, HttpServletRequest request){
+    @Pass
+    public DataRes login(SysUser sysUser, HttpServletRequest request){
 
         if(!RandomCodeUtil.isValidImageVerifyCode(request,"verifyCode")){
             return DataRes.error(ResponseCode.LOGIN_IMAGECODE.code(),ResponseCode.LOGIN_IMAGECODE.desc());
@@ -68,7 +88,21 @@ public class LoginController {
             if (!data.getPassword().equals(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()))){
                return DataRes.error(ResponseCode.LOGIN_UNPASSWORD.code(),ResponseCode.LOGIN_UNPASSWORD.desc());
             }
-            UserUtils.loginUser(data,request.getSession());
+            List<SysAuth> recurve;
+            //如果是超级管理员查询所有的权限
+            if(admin.equals(sysUser.getLoginName())){
+                SysAuth sysAuth=new SysAuth();
+                sysAuth.setOrderByString(" order by sort asc");
+                List<SysAuth> sysAuths = sysAuthService.selectAll(sysAuth);
+                recurve = AuthTreeUtils.recurve(sysAuths);
+            }else{
+                List<SysAuth> sysAuths = sysAuthService.queryByUser(data.getId());
+                recurve = AuthTreeUtils.recurve(sysAuths);
+            }
+
+            HttpSession session = request.getSession();
+            session.setAttribute("auths",recurve);
+            UserUtils.loginUser(data, session);
             return DataRes.success(data);
         }else {
            return DataRes.error(ResponseCode.LOGIN_UNUSERNAME.code(),ResponseCode.LOGIN_UNUSERNAME.desc());

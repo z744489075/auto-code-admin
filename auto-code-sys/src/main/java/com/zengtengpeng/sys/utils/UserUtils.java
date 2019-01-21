@@ -29,4 +29,12 @@ public class UserUtils {
         }
         return null;
     }
+
+    /**
+     * 移除用户登录
+     * @param session
+     */
+    public static void removeUser(HttpSession session) {
+        session.removeAttribute(SessionConstant.sysUserSession);
+    }
 }

@@ -28,4 +28,9 @@ public class SysAuthServiceImpl implements SysAuthService {
     public List<SysAuth> queryByRole(SysRole sysRole) {
         return sysAuthDao.queryByRole(sysRole);
     }
+
+    @Override
+    public List<SysAuth> queryByUser(Integer userId) {
+        return sysAuthDao.queryByUser(userId);
+    }
 }

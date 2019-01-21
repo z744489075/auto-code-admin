@@ -57,6 +57,26 @@
         </foreach>
 
     </insert>
+    <select id="queryByUser" resultMap="BaseResultMap">
+        SELECT
+          a.`id`,
+          a.`parent_auth_id`,
+          a.`parent_auth_ids`,
+          a.`name`,
+          a.`sort`,
+          a.`href`,
+          a.`icon`,
+          a.`shows`,
+          a.`create_user_id`,
+          a.`create_time`,
+          a.`update_user_id`,
+          a.`update_time`
+        FROM
+          `sys_auth` a,`sys_role_auth` ra,`sys_role` sr,`sys_user_role` us
+          WHERE a.`id`=ra.`sys_auth_id` AND ra.`sys_role_id`=sr.`id` AND sr.`id`=us.`sys_role_id`
+          AND us.`sys_user_id`=#{value}
+          order by a.sort asc
+    </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, parent_auth_id, parent_auth_ids, name, sort, href, icon, shows, create_user_id, 
     create_time, update_user_id, update_time
@@ -110,15 +130,15 @@
 	<set>
 		<if test="parentAuthId!=null ">parent_auth_id = #{parentAuthId,jdbcType=INTEGER}, </if>
 		<if test="parentAuthIds!=null and parentAuthIds!=''">parent_auth_ids = #{parentAuthIds,jdbcType=VARCHAR}, </if>
-		<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR}, </if>
+		<if test="name!=null and name!=''">`name` = #{name,jdbcType=VARCHAR}, </if>
 		<if test="sort!=null ">sort = #{sort,jdbcType=INTEGER}, </if>
-		<if test="href!=null and href!=''">href = #{href,jdbcType=VARCHAR}, </if>
 		<if test="icon!=null and icon!=''">icon = #{icon,jdbcType=VARCHAR}, </if>
 		<if test="shows!=null ">shows = #{shows,jdbcType=INTEGER}, </if>
 		<if test="createUserId!=null ">create_user_id = #{createUserId,jdbcType=INTEGER}, </if>
 		<if test="createTime!=null ">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
 		<if test="updateUserId!=null ">update_user_id = #{updateUserId,jdbcType=INTEGER}, </if>
 		<if test="updateTime!=null ">update_time = #{updateTime,jdbcType=TIMESTAMP}, </if>
+        href = #{href,jdbcType=VARCHAR}
  	</set>
 	where id=#{id}
   </update>

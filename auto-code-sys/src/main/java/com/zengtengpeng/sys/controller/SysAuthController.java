@@ -2,6 +2,7 @@ package com.zengtengpeng.sys.controller;
 
 import javax.annotation.Resource;
 
+import com.zengtengpeng.common.annotation.Auth;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.utils.AuthTreeUtils;
 import org.springframework.ui.Model;
@@ -98,6 +99,7 @@ public class SysAuthController {
 	*/
 	@RequestMapping("/sysAuth/tree")
 	@ResponseBody
+	@Auth("sysAuth/selectAll")
 	public List<SysAuth> selectTree(HttpServletRequest request, HttpServletResponse response){
 		SysAuth sysAuth=new SysAuth();
 		sysAuth.setOrderByString(" order by sort asc");
@@ -146,6 +148,7 @@ public class SysAuthController {
 	* @return
 	*/
 	@RequestMapping("/sysAuth/gotoDetail")
+	@Auth("sysAuth/save")
 	public String gotoDetail(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
 		if(sysAuth.getId()!=null){
 			request.setAttribute("sys_auth",sysAuthService.selectByPrimaryKey(sysAuth));

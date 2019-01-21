@@ -13,4 +13,11 @@ public interface SysAuthService extends  BaseService<SysAuth, SysAuthDao> {
      * @return
      */
     List<SysAuth> queryByRole(SysRole sysRole);
+
+    /**
+     * 查询用户权限
+     * @param userId
+     * @return
+     */
+    List<SysAuth> queryByUser(Integer userId);
 }

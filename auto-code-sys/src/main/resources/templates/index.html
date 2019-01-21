@@ -12,27 +12,21 @@
             <nav class="nav navbar-nav">
                 <ul class="cl">
                     <li class="dropDown dropDown_hover">
-                    <li class="navbar-levelone current"><a href="javascript:void(0)">平台</a></li>
-                    <li class="navbar-levelone"><a href="javascript:void(0)">商城</a></li>
-                    <li class="navbar-levelone"><a href="javascript:void(0)">财务</a></li>
-                    <li class="navbar-levelone"><a href="javascript:void(0)">手机</a></li>
-                    <li class="navbar-levelone"><a href="javascript:void(0)">手机</a></li>
-                    </li>
+                    <li th:each="auth,authStat:${session.auths}"  th:class="${authStat.first}?'navbar-levelone current':'navbar-levelone'" > <a href="javascript:void(0)" th:text="${auth.name}"></a></li>
                 </ul>
             </nav>
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
-                    <li>超级管理员</li>
+                    <li th:text="${session.sysUserSession?.name}"></li>
                     <li class="dropDown dropDown_hover">
                         <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:void(0)" onClick="myselfinfo()">个人信息</a></li>
-                            <li><a href="#">切换账户</a></li>
-                            <li><a href="#">退出</a></li>
+                            <li><a th:href="@{/login/loginout}">退出</a></li>
                         </ul>
                     </li>
-                    <li id="Hui-msg"><a href="#" title="消息"><span class="badge badge-danger">1</span><i
-                            class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a></li>
+                    <!--<li id="Hui-msg"><a href="#" title="消息"><span class="badge badge-danger">1</span><i
+                            class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a></li>-->
                     <li id="Hui-skin" class="dropDown right dropDown_hover"><a href="javascript:void(0)" class="dropDown_A"
                                                                                title="换肤"><i class="Hui-iconfont"
                                                                                              style="font-size:18px">&#xe62a;</i></a>
@@ -51,7 +45,7 @@
     </div>
 </header>
 <aside class="Hui-aside">
-    <div class="menu_dropdown bk_2">
+    <!--<div class="menu_dropdown bk_2">
         <dl>
             <dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
@@ -141,21 +135,9 @@
                 </ul>
             </dd>
         </dl>
-    </div>
-
-    <div class="menu_dropdown bk_2" style="display:none">
-        <dl >
-            <dt><i class="Hui-iconfont">&#xe616;</i> 二级导航1<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">三级导航</a></li>
-                </ul>
-            </dd>
-        </dl>
-    </div>
-
-    <div class="menu_dropdown bk_2" style="display:none">
-        <dl >
+    </div>-->
+   <!-- <div class="menu_dropdown bk_2" >
+        <dl>
             <dt><i class="Hui-iconfont">&#xe616;</i> 二级导航2<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
@@ -163,30 +145,19 @@
                 </ul>
             </dd>
         </dl>
-    </div>
-
-    <div class="menu_dropdown bk_2" style="display:none">
-        <dl >
-            <dt><i class="Hui-iconfont">&#xe616;</i> 二级导航3<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">三级导航</a></li>
-                </ul>
-            </dd>
-        </dl>
-    </div>
-
-    <div class="menu_dropdown bk_2" style="display:none">
-        <dl >
-            <dt><i class="Hui-iconfont">&#xe616;</i> 二级导航4<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">三级导航</a></li>
-                </ul>
-            </dd>
-        </dl>
-    </div>
-
+        <li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)"><i class="Hui-iconfont">&#xe616;</i>三级导航</a></li>
+    </div>-->
+        <div class="menu_dropdown bk_2" th:each="auth:${session.auths}">
+            <dl th:if="${#strings.isEmpty(a1.href) and a1.shows==0}" th:each="a1:${auth.children}">
+                <dt><i th:class="${a1.icon}"></i><span th:text="${a1.name}"></span><i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul>
+                        <li th:each="a2:${a1.children}" th:if="${a2.shows==0}"><a  th:data-href="@{'/'+${a2.href}}" th:data-title="${a2.name}" href="javascript:void(0)"><i th:class="${a2.icon}"></i><span th:text="${a2.name}"></span></a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <li  th:if="${!#strings.isEmpty(a1.href) and a1.shows==0}" th:each="a1:${auth.children}" ><a style="font-weight:normal" th:data-href="@{'/'+${a1.href}}" th:data-title="${a1.name}" href="javascript:void(0)"><i th:class="${a1.icon}"></i> <span th:text="${a1.name}"></span></a></li>
+        </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
 </div>
