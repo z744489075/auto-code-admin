@@ -25,7 +25,9 @@ function init(root){
                         window.location.href = root+"/page/login.jsp";
                     }
                 }else if(data.code==3){
-                   layer.alert(data.message);
+                    window.location.href = root+"/error/goto403";
+                }else if(data.code==500){
+                    window.location.href = root+"/error/goto500?message="+data.message;
                 }else{
                     ca(data);
                 }

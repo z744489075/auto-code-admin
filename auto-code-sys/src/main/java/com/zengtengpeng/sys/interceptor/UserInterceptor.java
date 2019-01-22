@@ -101,7 +101,7 @@ public class UserInterceptor implements HandlerInterceptor {
                 ObjectMapper objectMapper=new ObjectMapper();
                 response.getWriter().print(objectMapper.writeValueAsString(error));
             }else {
-                response.getWriter().println("没有权限!请找管理员申请权限");
+                response.getWriter().print("<script>window.location.href ='"+request.getContextPath()+"/error/goto403'</script>");
             }
             return false;
         }
