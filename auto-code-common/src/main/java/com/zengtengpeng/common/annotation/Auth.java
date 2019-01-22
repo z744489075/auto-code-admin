@@ -6,6 +6,7 @@ import java.lang.annotation.*;
  * 授权 权限标识. 默认为url
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 @Documented
 public @interface Auth {
     /**

@@ -2,9 +2,11 @@ package com.zengtengpeng.sys.controller;
 
 import javax.annotation.Resource;
 
+import com.zengtengpeng.common.enums.ResponseCode;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysRole;
 import com.zengtengpeng.sys.service.SysRoleService;
+import com.zengtengpeng.sys.utils.UserUtils;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -59,6 +61,31 @@ public class SysUserController {
 	@Auth("sysUser/save")
 	public DataRes updateStatus(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(sysUserService.update(sysUser));
+	}
+
+
+	@RequestMapping("/sysUser/gotoChangePassword")
+	@Auth
+	public String gotoChangePassword(SysUser sysUser,String newPassword, HttpServletRequest request, HttpServletResponse response){
+		return "sys/change_password";
+	}
+	/**
+	 * 修改密码
+	 * @param sysUser
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/sysUser/changePassword")
+	@ResponseBody
+	@Auth
+	public DataRes changePassword(SysUser sysUser,String newPassword, HttpServletRequest request, HttpServletResponse response){
+		SysUser user = UserUtils.getUser(request.getSession());
+		if(!user.getPassword().equals(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()))){
+			return DataRes.error(ResponseCode.LOGIN_UNPASSWORD.code(),ResponseCode.LOGIN_UNPASSWORD.desc());
+		}
+		user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+		return DataRes.success(sysUserService.updatePassword(user));
 	}
     /**
 	 * 保存 如果id存在则修改否则新增

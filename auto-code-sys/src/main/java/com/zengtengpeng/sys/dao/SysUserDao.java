@@ -15,4 +15,11 @@ public interface SysUserDao extends BaseDao<SysUser> {
     void insertBatch(@Param("userId") Integer userId,@Param("roles") List<String> roles);
 
     void deleteRoles(SysUser sysUser);
+
+    /**
+     * 修改密码
+     * @param user
+     * @return
+     */
+    int updatePassword(SysUser user);
 }

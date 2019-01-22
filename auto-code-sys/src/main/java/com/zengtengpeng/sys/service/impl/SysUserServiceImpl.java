@@ -44,4 +44,9 @@ public class SysUserServiceImpl implements SysUserService {
         }
         return update;
     }
+
+    @Override
+    public int updatePassword(SysUser user) {
+        return sysUserDao.updatePassword(user);
+    }
 }
