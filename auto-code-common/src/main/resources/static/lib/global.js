@@ -18,23 +18,14 @@ function init(root){
         }
         if(url!=undefined){
             oldPost(url, p, function(data){
-                if (data.seesion == "overTime") {
+                if (data.code == 2) {
                     if (window.parent != null) {
                         window.parent.location.href = root+"/page/login.jsp";
                     } else {
                         window.location.href = root+"/page/login.jsp";
                     }
-                }if (data.seesion == "mobileOverTime") {
-                    if (window.parent != null) {
-                        window.parent.location.href = root+"/page/mobile/login.jsp";
-                    } else {
-                        window.location.href = root+"/page/mobile/login.jsp";
-                    }
-                }else if(data.error=="error"){
-                    window.location.href = root+"/page/error.jsp";
-                }else if(data.msg=="no right"){
-                    //myAlert("权限不够");
-                    window.location.href = root+"/page/noright.jsp";
+                }else if(data.code==3){
+                   layer.alert(data.message);
                 }else{
                     ca(data);
                 }

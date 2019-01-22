@@ -36,5 +36,6 @@ public class UserUtils {
      */
     public static void removeUser(HttpSession session) {
         session.removeAttribute(SessionConstant.sysUserSession);
+        session.removeAttribute(SessionConstant.userAuth);
     }
 }

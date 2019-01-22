@@ -11,4 +11,9 @@ public class SessionConstant {
      * 用户session
      */
     public  static String sysUserSession="sysUserSession";
+
+    /**
+     * 用户session
+     */
+    public  static String userAuth="userAuth";
 }

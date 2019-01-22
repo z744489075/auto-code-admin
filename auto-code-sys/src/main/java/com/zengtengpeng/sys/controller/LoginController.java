@@ -1,7 +1,7 @@
 package com.zengtengpeng.sys.controller;
 
 import com.zengtengpeng.common.annotation.Pass;
-import com.zengtengpeng.common.annotation.ResponseCode;
+import com.zengtengpeng.common.enums.ResponseCode;
 import com.zengtengpeng.common.bean.DataRes;
 import com.zengtengpeng.sys.bean.SysAuth;
 import com.zengtengpeng.sys.bean.SysUser;
@@ -21,7 +21,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 登录控制器
@@ -41,6 +43,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/login/gotoLogin")
+    @Pass
     public String gotoLogin(){
         return "login";
     }
@@ -89,18 +92,25 @@ public class LoginController {
                return DataRes.error(ResponseCode.LOGIN_UNPASSWORD.code(),ResponseCode.LOGIN_UNPASSWORD.desc());
             }
             List<SysAuth> recurve;
+            List<SysAuth> sysAuths;
+            HttpSession session = request.getSession();
             //如果是超级管理员查询所有的权限
             if(admin.equals(sysUser.getLoginName())){
                 SysAuth sysAuth=new SysAuth();
                 sysAuth.setOrderByString(" order by sort asc");
-                List<SysAuth> sysAuths = sysAuthService.selectAll(sysAuth);
+                sysAuths = sysAuthService.selectAll(sysAuth);
                 recurve = AuthTreeUtils.recurve(sysAuths);
             }else{
-                List<SysAuth> sysAuths = sysAuthService.queryByUser(data.getId());
+                sysAuths = sysAuthService.queryByUser(data.getId());
                 recurve = AuthTreeUtils.recurve(sysAuths);
+
+                //遍历, 已url为key存放用户权限到session中
+                Map<String,SysAuth> userAuth=new HashMap<>();
+                sysAuths.forEach(t-> userAuth.put(t.getHref(),t));
+                session.setAttribute(SessionConstant.userAuth,userAuth);
             }
 
-            HttpSession session = request.getSession();
+
             session.setAttribute("auths",recurve);
             UserUtils.loginUser(data, session);
             return DataRes.success(data);

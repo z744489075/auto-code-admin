@@ -19,7 +19,7 @@
                 <ul class="cl">
                     <li th:text="${session.sysUserSession?.name}"></li>
                     <li class="dropDown dropDown_hover">
-                        <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <a href="#" class="dropDown_A"><span th:text="${session.sysUserSession?.loginName}"></span> <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:void(0)" onClick="myselfinfo()">个人信息</a></li>
                             <li><a th:href="@{/login/loginout}">退出</a></li>

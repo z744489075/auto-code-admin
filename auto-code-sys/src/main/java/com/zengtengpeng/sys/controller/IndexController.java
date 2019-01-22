@@ -19,6 +19,25 @@ public class IndexController {
         return "index";
     }
 
+    /**
+     * 跳转404
+     * @return
+     */
+    @RequestMapping("/index/goto404")
+    @Pass
+    public String goto404(HttpSession session){
+        return "404";
+    }
+    /**
+     * 跳转403
+     * @return
+     */
+    @RequestMapping("/index/goto403")
+    @Pass
+    public String goto403(HttpSession session){
+        return "403";
+    }
+
 
 
 }

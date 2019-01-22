@@ -1,8 +1,10 @@
-package com.zengtengpeng.common.annotation;
+package com.zengtengpeng.common.enums;
 
 public enum ResponseCode  {
 	SUCCESS("0","成功"),
 	FAIL("1","失败"),
+	TIMEOUT("2","登录超时"),
+	ATUH("3","没有权限!,请找管理员申请"),
 	LOGIN_UNUSERNAME("10001","用户名不存在"),
 	LOGIN_IMAGECODE("10003","图形验证不正确"),
 	LOGIN_UNPASSWORD("10002","密码不正确"),

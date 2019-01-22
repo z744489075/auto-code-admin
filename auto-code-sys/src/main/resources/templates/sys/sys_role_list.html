@@ -52,7 +52,7 @@
 <script type="text/html" id="barDemo">
 
     <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysRole/save')}">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     </span>
 
     <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysRole/save')}">
@@ -64,7 +64,6 @@
     <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysRole/save')}">
     <a class="btn btn-primary radius" th:href="@{/sysRole/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
     </span>
-
     <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysRole/export')}">
     <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
             class="Hui-iconfont">&#xe640;</i> 导出</a>
