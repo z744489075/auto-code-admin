@@ -1,6 +1,7 @@
 package com.zengtengpeng.common.exception;
 
 import com.zengtengpeng.common.bean.DataRes;
+import com.zengtengpeng.common.bean.Page;
 import com.zengtengpeng.common.enums.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,13 @@ public class GlobalExceptionHandler {
                                     Exception e) throws IOException {
         logger.error("程序出错了", e);
         String ajax = request.getHeader("X-Requested-With");
+        String desc = "出错了,请稍后再试,或者联系管理员.异常信息->" + e.getMessage();
         if ("XMLHttpRequest".equals(ajax)) {
-            return DataRes.error(ResponseCode.ERROR500.code(),  e.getMessage());
+            DataRes error = DataRes.error(ResponseCode.ERROR500.code(), desc);
+            error.setData(new Page());
+            return error;
         }else {
-            response.getWriter().print("<script>window.location.href ='"+request.getContextPath()+"/error/goto500?message="+e.getMessage()+"'</script>");
+            response.getWriter().print("<script>window.location.href ='"+request.getContextPath()+"/error/goto500?message="+desc+"'</script>");
             return null;
         }
     }

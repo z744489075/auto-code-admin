@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zengtengpeng.common.annotation.Auth;
 import com.zengtengpeng.common.annotation.Pass;
 import com.zengtengpeng.common.bean.DataRes;
+import com.zengtengpeng.common.bean.Page;
 import com.zengtengpeng.common.enums.ResponseCode;
 import com.zengtengpeng.sys.bean.SysAuth;
 import com.zengtengpeng.sys.bean.SysUser;
@@ -38,7 +39,7 @@ public class UserInterceptor implements HandlerInterceptor {
         if (handler instanceof ResourceHttpRequestHandler) {
             return true;
         }
-
+        response.setCharacterEncoding("utf-8");
         // 查看该方法是否可以直接放行
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
@@ -66,6 +67,7 @@ public class UserInterceptor implements HandlerInterceptor {
             if ("XMLHttpRequest".equals(ajax)) {
                 response.setHeader("Content-Type", "application/json");
                 DataRes error = DataRes.error(ResponseCode.TIMEOUT.code(), ResponseCode.TIMEOUT.desc());
+                error.setData(new Page());
                 ObjectMapper objectMapper=new ObjectMapper();
                 response.getWriter().print(objectMapper.writeValueAsString(error));
             } else {
@@ -94,7 +96,6 @@ public class UserInterceptor implements HandlerInterceptor {
                 }
             }
 
-            response.setCharacterEncoding("utf-8");
             if ("XMLHttpRequest".equals(ajax)) {
                 response.setHeader("Content-Type", "application/json");
                 DataRes error = DataRes.error(ResponseCode.ATUH.code(), ResponseCode.ATUH.desc());

@@ -47,6 +47,13 @@ public class SysUserController {
 		return DataRes.success(sysUserService.deleteByPrimaryKey(sysUser));
 	}
 
+	/**
+	 * 修改状态
+	 * @param sysUser
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/sysUser/updateStatus")
 	@ResponseBody
 	@Auth("sysUser/save")

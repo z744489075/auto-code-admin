@@ -8,7 +8,7 @@
 	<p class="error-title"><i class="Hui-iconfont va-m" style="font-size:80px">&#xe688;</i>
 		<span class="va-m"> 500</span>
 	</p>
-	<p class="error-description"  th:text="'出错了,请稍后再试,或者联系管理员.异常信息->'+${param.message}"></p>
+	<p class="error-description"  th:text="${param.message}"></p>
 </section>
 </body>
 </html>
