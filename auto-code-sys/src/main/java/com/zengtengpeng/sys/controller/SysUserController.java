@@ -60,6 +60,8 @@ public class SysUserController {
 	@ResponseBody
 	@Auth("sysUser/save")
 	public DataRes updateStatus(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
+		SysUser user = UserUtils.getUser(request.getSession());
+		sysUser.setUpdateUserId(user.getId());
 		return DataRes.success(sysUserService.update(sysUser));
 	}
 
@@ -84,6 +86,8 @@ public class SysUserController {
 		if(!user.getPassword().equals(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()))){
 			return DataRes.error(ResponseCode.LOGIN_UNPASSWORD.code(),ResponseCode.LOGIN_UNPASSWORD.desc());
 		}
+		SysUser u = UserUtils.getUser(request.getSession());
+		user.setUpdateUserId(u.getId());
 		user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
 		return DataRes.success(sysUserService.updatePassword(user));
 	}
@@ -98,6 +102,9 @@ public class SysUserController {
 	    if(!StringUtils.isEmpty(sysUser.getPassword())){
 	        sysUser.setPassword(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()));
         }
+		SysUser user = UserUtils.getUser(request.getSession());
+		sysUser.setCreateUserId(user.getId());
+		sysUser.setUpdateUserId(user.getId());
 		if(sysUser.getId()==null){
 			return DataRes.success(sysUserService.insert(sysUser,roles));
 		}

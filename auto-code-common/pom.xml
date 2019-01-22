@@ -16,6 +16,8 @@
             <groupId>com.zengtengpeng</groupId>
             <artifactId>auto-code</artifactId>
             <version>1.0.6</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/auto-code-1.0.6.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

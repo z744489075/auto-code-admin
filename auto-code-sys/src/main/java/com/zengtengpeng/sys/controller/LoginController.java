@@ -88,6 +88,9 @@ public class LoginController {
         List<SysUser> sysUsers = sysUserService.queryByCondition(param);
         if(sysUsers.size()>0){
             SysUser data = sysUsers.get(0);
+            if(data.getStatus().equals(1)){
+                return DataRes.error(ResponseCode.LOGIN_UNSATUS.code(),ResponseCode.LOGIN_UNSATUS.desc());
+            }
             if (!data.getPassword().equals(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()))){
                return DataRes.error(ResponseCode.LOGIN_UNPASSWORD.code(),ResponseCode.LOGIN_UNPASSWORD.desc());
             }

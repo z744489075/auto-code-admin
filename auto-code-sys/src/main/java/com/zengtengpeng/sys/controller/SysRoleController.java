@@ -5,7 +5,9 @@ import javax.annotation.Resource;
 import com.zengtengpeng.common.annotation.Auth;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysAuth;
+import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.service.SysAuthService;
+import com.zengtengpeng.sys.utils.UserUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +43,8 @@ public class SysRoleController {
 	@ResponseBody
 	@Auth("sysRole/save")
 	public DataRes updateStatus(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
+		SysUser user = UserUtils.getUser(request.getSession());
+		sysRole.setUpdateUserId(user.getId());
 		return DataRes.success(sysRoleService.update(sysRole));
 	}
 
@@ -52,6 +56,9 @@ public class SysRoleController {
 	@RequestMapping("/sysRole/save")
 	@ResponseBody
 	public DataRes save( @RequestParam(value = "auths[]",required=false) List<String> auths,SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
+		SysUser user = UserUtils.getUser(request.getSession());
+		sysRole.setCreateUserId(user.getId());
+		sysRole.setUpdateUserId(user.getId());
 		if(sysRole.getId()==null){
 			return DataRes.success(sysRoleService.insert(sysRole,auths));
 		}

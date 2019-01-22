@@ -9,6 +9,7 @@ public enum ResponseCode  {
 	LOGIN_UNUSERNAME("10001","用户名不存在"),
 	LOGIN_IMAGECODE("10003","图形验证不正确"),
 	LOGIN_UNPASSWORD("10002","密码不正确"),
+	LOGIN_UNSATUS("10004","用户已经被禁用,请联系管理员解禁"),
 	;
 
     private String code;

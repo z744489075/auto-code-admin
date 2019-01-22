@@ -4,7 +4,9 @@ import javax.annotation.Resource;
 
 import com.zengtengpeng.common.annotation.Auth;
 import com.zengtengpeng.common.utils.ExcelUtils;
+import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.utils.AuthTreeUtils;
+import com.zengtengpeng.sys.utils.UserUtils;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,6 +54,9 @@ public class SysAuthController {
 	public DataRes save(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
 		sysAuth.setIcon("layui-icon "+sysAuth.getIcon());
 		sysAuth.setParentAuthId(sysAuth.getParentAuthId()==null?0:sysAuth.getParentAuthId());
+		SysUser user = UserUtils.getUser(request.getSession());
+		sysAuth.setCreateUserId(user.getId());
+		sysAuth.setUpdateUserId(user.getId());
 		if(sysAuth.getId()==null){
 			sysAuth.setCreateTime(new Date());
 			return DataRes.success(sysAuthService.insert(sysAuth));
