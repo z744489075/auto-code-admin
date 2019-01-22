@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{common/common-head.html::common-head}"></div>
+    <script type="text/javascript" th:src="@{/static/lib/viewer/viewer.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/lib/viewer/viewer.min.css}" />
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span>
+图片管理
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:loads()" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+    <div class="text-c">
+        <form id="dataForm" class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline" >
+                    <input type="text" name="id" id="id" placeholder="图片管理ID" class="layui-input">
+                </div>
+                <div class="layui-inline" >
+                    <input type="text" name="name" id="name" placeholder="名称" class="layui-input">
+                </div>
+                <div class="layui-inline"  >
+                    <input type="text" name="createTime" id="createTime" placeholder="创建时间" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <input type="text" name="startDate" id="startDate" placeholder="开始时间" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <input type="text" name="endDate" id="endDate" placeholder="结束时间" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <input type="button" name="" class="layui-btn" onclick="loadMyData()" data-type="reload"
+                           th:value="搜索"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="mt-20" id="watchs">
+        <table id="table-data" lay-filter="table-data"></table>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+
+    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'fileImages/save')}">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    </span>
+
+    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'fileImages/deleteByPrimaryKey')}">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </span>
+</script>
+<script type="text/html" id="toolbar-data">
+    <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
+    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'fileImages/save')}">
+    <a class="btn btn-primary radius" th:href="@{/fileImages/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
+    </span>
+
+    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'fileImages/export')}">
+    <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
+            class="Hui-iconfont">&#xe640;</i> 导出</a>
+
+    </span>
+</script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" th:inline="javascript">
+    var table;
+    var  viewer;
+    layui.use(['form', 'table', 'laydate'], function () {
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        //但是，如果你的HTML是动态生成的，自动渲染就会失效
+        //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+        form.render();
+        table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#table-data'
+            , toolbar: '#toolbar-data'
+            , url: rootPath + "fileImages/selectAll" //数据接口
+            , method: "post"
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'id', title: 'id', type: "checkbox"}
+                ,{field: 'id', title: '图片管理Id'}
+                ,{field: 'name', title: '名称'}
+                ,{field: 'imageUrl', title: '图片',templet: function(d){
+                        return "<img src='"+rootPath+"fileImages/watch?path="+d.imageUrl+"'>";
+                    }}
+                ,{field: 'createTime_', title: '创建时间'}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
+            ]],
+            parseData: function (res) { //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.rows //解析数据列表
+                };
+            }
+            ,done: function(res, curr, count){
+                var galley = document.getElementById("watchs");
+                if(viewer){
+                    viewer.destroy();
+                }
+                viewer = new Viewer(galley, {
+                    toolbar: {
+                        oneToOne: true,
+
+                        prev: function() {
+                            viewer.prev(true);
+                        },
+
+                        play: true,
+
+                        next: function() {
+                            viewer.next(true);
+                        },
+                        download: function() {
+                            var a = document.createElement('a');
+
+                            a.href = viewer.image.src;
+                            a.download = viewer.image.alt;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                        },
+                    },
+                });
+                viewer.update();
+            },
+            "request": {
+                pageName: 'page' //页码的参数名称，默认：page
+                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            "response": {
+                statusName: 'code' //规定数据状态的字段名称，默认：code
+                , statusCode: 0 //规定成功的状态码，默认：0
+            }
+        });
+        //监听行工具事件
+        table.on('tool(table-data)', function (obj) {
+            var data = obj.data;
+            //console.log(obj)
+            if (obj.event === 'del') {
+                myConfirm("确定要删除吗?", function (index) {
+                    obj.del();
+                    $.post(rootPath + "fileImages/deleteByPrimaryKey", {"id": data.id}, function (data) {
+                        myAlert("删除成功");
+                        setTimeout(function () {
+                            loadMyData()
+                        }, 2000)
+                    });
+                    layer.close(index);
+                })
+            } else if (obj.event === 'edit') {
+                window.location.href = rootPath + "fileImages/gotoDetail?id=" + data.id;
+            }
+        });
+
+        /*初始化日期选择框 begin*/
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#startDate'
+            , type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endDate'
+            , type: 'datetime'
+        });
+
+       laydate.render({
+           elem: '#createTime'
+           , type: 'datetime'
+       });
+        /*初始化日期选择框 end*/
+    });
+
+    function loadMyData() {
+        table.reload("table-data", {
+            where: $("#dataForm").serializeObject()
+            , page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        });
+    }
+
+    //导出
+    function exports() {
+        window.location.href = rootPath + "fileImages/export?" + $("#dataForm").serialize()
+    }
+</script>
+</body>
+</html>
