@@ -85,8 +85,16 @@
                 ,{field:'shows_', title: '显示'}
                 ,{title: '操作', align:'center',toolbar: '#barDemo'}
             ] ]
-            ,parseData:function (res) {//数据加载后回调
-                return res;
+            ,parseData: function (res) { //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "data": res.data //解析数据列表
+                };
+            }
+            ,"response": {
+                statusName: 'code' //规定数据状态的字段名称，默认：code
+                , statusCode: 0 //规定成功的状态码，默认：0
             }
             ,onClickRow:function (index, o) {
                 console.log(index,o,"单击！");

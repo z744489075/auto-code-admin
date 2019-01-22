@@ -89,6 +89,9 @@ public class UserInterceptor implements HandlerInterceptor {
             //判断是否有标识权限注解
             Auth auth = method.getAnnotation(Auth.class);
             if(auth!=null){
+                if (auth.value().length==0){
+                    return true;
+                }
                 for (String uris : auth.value()) {
                     if(userAuth.get(uris)!=null){
                         return true;

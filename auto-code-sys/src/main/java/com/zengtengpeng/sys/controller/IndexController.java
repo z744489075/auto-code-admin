@@ -1,11 +1,8 @@
 package com.zengtengpeng.sys.controller;
 
-import com.zengtengpeng.common.annotation.Pass;
-import org.springframework.boot.web.servlet.error.ErrorController;
+import com.zengtengpeng.common.annotation.Auth;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class IndexController  {
@@ -15,8 +12,8 @@ public class IndexController  {
      * @return
      */
     @RequestMapping("/index/gotoIndex")
-    @Pass
-    public String gotoIndex(HttpSession session){
+    @Auth
+    public String gotoIndex(){
         return "index";
     }
 
