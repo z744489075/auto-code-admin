@@ -76,6 +76,19 @@ public class SysUser extends Page {
      */
     private String remarks;
 
+    /**
+     * 照片
+     */
+    private String icon;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     public Integer getId() {
         return id;
     }

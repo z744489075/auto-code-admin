@@ -172,6 +172,15 @@ public class FileImagesController {
 	public String gotoList(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		return "file/file_images_list";
 	}
+	/**
+	* 跳转到列表页面
+	* @return
+	*/
+	@RequestMapping("/fileImages/selectList")
+	@Auth
+	public String selectList(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
+		return "file/select_images_list";
+	}
 
 	/**
 	* 跳转到详情页面

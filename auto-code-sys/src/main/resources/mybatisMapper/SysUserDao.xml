@@ -28,7 +28,7 @@
         DELETE FROM `sys_user_role` WHERE sys_user_id=#{id}
     </delete>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, login_name, password, no, name, email, mobile, status, create_user_id, 
+    select id, login_name, password, no, name, email, mobile, status, create_user_id, icon,
     create_time, update_user_id, update_time, remarks
     from sys_user
     where id = #{id,jdbcType=INTEGER}
@@ -49,7 +49,7 @@
         </foreach>
     </insert>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, login_name, password, no, name, email, mobile, status, create_user_id, 
+    select id, login_name, password, no, name, email, mobile, status, create_user_id, icon,
     create_time, update_user_id, update_time, remarks
     from sys_user
       <where>
@@ -72,7 +72,7 @@
  </if>
   </select>
   <select id="queryByCondition" resultMap="BaseResultMap">
-    select id,login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks
+    select id,login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks,icon
  	from  sys_user 
 	<where>
 		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
@@ -94,8 +94,8 @@
  </if>
   </select>
   <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-    insert into sys_user (login_name,password,no,name,email,mobile,status,create_user_id,update_user_id,remarks)
- values ( #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR},
+    insert into sys_user (icon,login_name,password,no,name,email,mobile,status,create_user_id,update_user_id,remarks)
+ values (#{icon,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR},
   #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
   #{status,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER},
    #{updateUserId,jdbcType=INTEGER},  #{remarks,jdbcType=LONGVARCHAR})
@@ -103,6 +103,7 @@
   <update id="update">
     update  	sys_user 
 	<set>
+		<if test="icon!=null and icon!=''">icon = #{icon,jdbcType=VARCHAR}, </if>
 		<if test="loginName!=null and loginName!=''">login_name = #{loginName,jdbcType=VARCHAR}, </if>
 		<if test="password!=null and password!=''">password = #{password,jdbcType=VARCHAR}, </if>
 		<if test="no!=null and no!=''">no = #{no,jdbcType=VARCHAR}, </if>

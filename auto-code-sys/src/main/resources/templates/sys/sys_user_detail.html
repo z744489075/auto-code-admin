@@ -27,9 +27,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-block">
-                        <input type="password" name="password" id="password" maxlength="32"  autocomplete="off"
+                        <input type="password" name="password" id="password" maxlength="32"  autocomplete="new-password"
                                placeholder="请输入密码(修改时不填写密码则不修改)" class="layui-input"  >
                     </div>
+                </div>
+                <div class="layui-form-item">
+                    <input type="hidden" name="icon" id="icon" th:src="${sys_user.icon}">
+                    <input type="button" class="layui-btn" value="选择头像" onclick="selectIcon()" />
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        头像：
+                        <div class="layui-upload-list" id="imageWatch">
+                            <img th:src="@{/fileImages/watch(path=${sys_user.icon})}" />
+                        </div>
+                    </blockquote>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">工号</label>
@@ -132,6 +142,24 @@
         });
 
     });
+    var laert
+    function selectIcon() {
+        laert=layer.open({
+            type: 2,
+            title: '选择头像',
+            shadeClose: true,
+            maxmin: true,
+            shade: 0.8,
+            area: ['1000px', '700px'],
+            content: rootPath+'fileImages/selectList'
+        });
+    }
+
+    function imageWatch(urls) {
+        $("#icon").val(urls)
+        $("#imageWatch").html("<img src='"+rootPath+"fileImages/watch?path="+urls+"'>")
+        layer.close(laert)
+    }
 </script>
 
 </body>
