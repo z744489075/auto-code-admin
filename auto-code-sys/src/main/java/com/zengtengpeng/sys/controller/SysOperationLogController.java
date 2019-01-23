@@ -56,6 +56,7 @@ public class SysOperationLogController {
 	@RequestMapping("/sysOperationLog/selectAll")
 	@ResponseBody
 	public DataRes selectAll(SysOperationLog sysOperationLog,HttpServletRequest request, HttpServletResponse response){
+		sysOperationLog.setOrderByString("order by id desc");
     	return DataRes.success(sysOperationLogService.selectAllByPaging(sysOperationLog));
     }
 

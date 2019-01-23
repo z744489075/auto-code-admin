@@ -109,18 +109,4 @@ public class SysLoginLogController {
 		return "sys/sys_login_log_list";
 	}
 
-	/**
-	* 跳转到详情页面
-	* @return
-	*/
-	@RequestMapping("/sysLoginLog/gotoDetail")
-	@Auth("sysLoginLog/save")
-	public String gotoDetail(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
-		if(sysLoginLog.getId()!=null){
-			request.setAttribute("sys_login_log",sysLoginLogService.selectByPrimaryKey(sysLoginLog));
-		}else {
-			request.setAttribute("sys_login_log",sysLoginLog);
-		}
-		return "sys/sys_login_log_detail";
-	}
 }

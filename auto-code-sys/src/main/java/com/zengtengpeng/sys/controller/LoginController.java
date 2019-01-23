@@ -4,12 +4,15 @@ import com.zengtengpeng.common.annotation.Pass;
 import com.zengtengpeng.common.enums.ResponseCode;
 import com.zengtengpeng.common.bean.DataRes;
 import com.zengtengpeng.sys.bean.SysAuth;
+import com.zengtengpeng.sys.bean.SysLoginLog;
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.constant.SessionConstant;
 import com.zengtengpeng.sys.service.SysAuthService;
+import com.zengtengpeng.sys.service.SysLoginLogService;
 import com.zengtengpeng.sys.service.SysUserService;
 import com.zengtengpeng.utils.AuthTreeUtils;
 import com.zengtengpeng.utils.RandomCodeUtil;
+import com.zengtengpeng.utils.RequestUtils;
 import com.zengtengpeng.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -35,6 +38,8 @@ public class LoginController {
     private SysUserService sysUserService;
     @Resource
     private SysAuthService sysAuthService;
+    @Resource
+    private SysLoginLogService sysLoginLogService;
 
     @Value("${auto.code.admin}")
     private String admin;
@@ -124,6 +129,12 @@ public class LoginController {
 
             session.setAttribute(SessionConstant.auths,recurve);
             UserUtils.loginUser(data, session);
+
+            SysLoginLog sysLogin=new SysLoginLog();
+            sysLogin.setBrowser(RequestUtils.getOsAndBrowserInfo(request));
+            sysLogin.setIp(RequestUtils.getIp(request));
+            sysLogin.setSysUserId(data.getId());
+            sysLoginLogService.insert(sysLogin);
             return DataRes.success(data);
         }else {
            return DataRes.error(ResponseCode.LOGIN_UNUSERNAME.code(),ResponseCode.LOGIN_UNUSERNAME.desc());

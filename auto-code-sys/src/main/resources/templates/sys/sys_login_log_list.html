@@ -21,9 +21,6 @@
                 <div class="layui-inline" style="display: none">
                     <input type="text" name="sysUserId" id="sysUserId" placeholder="用户id" class="layui-input">
                 </div>
-                <div class="layui-inline"  >
-                    <input type="text" name="createTime" id="createTime" placeholder="创建时间(也是登录时间)" class="layui-input">
-                </div>
                 <div class="layui-inline" style="display: none">
                     <input type="text" name="ip" id="ip" placeholder="ip" class="layui-input">
                 </div>
@@ -47,21 +44,7 @@
         <table id="table-data" lay-filter="table-data"></table>
     </div>
 </div>
-<script type="text/html" id="barDemo">
-
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/save')}">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    </span>
-
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/deleteByPrimaryKey')}">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </span>
-</script>
 <script type="text/html" id="toolbar-data">
-    <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/save')}">
-    <a class="btn btn-primary radius" th:href="@{/sysLoginLog/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
-    </span>
 
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/export')}">
     <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
@@ -86,12 +69,11 @@
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'id', type: "checkbox"}
-                ,{field: 'id', title: ''}
+                ,{field: 'id', title: '登录日志'}
                 ,{field: 'sysUserId', title: '用户id'}
                 ,{field: 'createTime_', title: '创建时间(也是登录时间)'}
                 ,{field: 'ip', title: 'ip'}
                 ,{field: 'browser', title: '浏览器'}
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
             ]],
             parseData: function (res) { //res 即为原始返回的数据
                 return {
