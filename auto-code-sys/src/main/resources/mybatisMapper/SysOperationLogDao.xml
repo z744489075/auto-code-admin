@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengtengpeng.sys.dao.SysOperationLogDao">
+  <resultMap id="BaseResultMap" type="com.zengtengpeng.sys.bean.SysOperationLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sys_user_id" jdbcType="INTEGER" property="sysUserId" />
+    <result column="sys_auth_id" jdbcType="INTEGER" property="sysAuthId" />
+    <result column="auth_name" jdbcType="VARCHAR" property="authName" />
+    <result column="auth_href" jdbcType="VARCHAR" property="authHref" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="request_param" jdbcType="LONGVARCHAR" property="requestParam" />
+    <result column="exceptions" jdbcType="LONGVARCHAR" property="exceptions" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_operation_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, sys_user_id, sys_auth_id, auth_name, auth_href, ip, create_time, request_param, 
+    exceptions
+    from sys_operation_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, sys_user_id, sys_auth_id, auth_name, auth_href, ip, create_time, request_param, 
+    exceptions
+    from sys_operation_log
+      <where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="sysUserId!=null "> and sys_user_id = #{sysUserId,jdbcType=INTEGER}</if>
+		<if test="sysAuthId!=null "> and sys_auth_id = #{sysAuthId,jdbcType=INTEGER}</if>
+		<if test="authName!=null and authName!=''"> and auth_name = #{authName,jdbcType=VARCHAR}</if>
+		<if test="authHref!=null and authHref!=''"> and auth_href = #{authHref,jdbcType=VARCHAR}</if>
+		<if test="ip!=null and ip!=''"> and ip = #{ip,jdbcType=VARCHAR}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="requestParam!=null and requestParam!=''"> and request_param = #{requestParam,jdbcType=LONGVARCHAR}</if>
+		<if test="exceptions!=null and exceptions!=''"> and exceptions = #{exceptions,jdbcType=LONGVARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select id,sys_user_id,sys_auth_id,auth_name,auth_href,ip,create_time,request_param,exceptions
+ 	from  sys_operation_log 
+	<where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="sysUserId!=null "> and sys_user_id = #{sysUserId,jdbcType=INTEGER}</if>
+		<if test="sysAuthId!=null "> and sys_auth_id = #{sysAuthId,jdbcType=INTEGER}</if>
+		<if test="authName!=null and authName!=''"> and auth_name = #{authName,jdbcType=VARCHAR}</if>
+		<if test="authHref!=null and authHref!=''"> and auth_href = #{authHref,jdbcType=VARCHAR}</if>
+		<if test="ip!=null and ip!=''"> and ip = #{ip,jdbcType=VARCHAR}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="requestParam!=null and requestParam!=''"> and request_param = #{requestParam,jdbcType=LONGVARCHAR}</if>
+		<if test="exceptions!=null and exceptions!=''"> and exceptions = #{exceptions,jdbcType=LONGVARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    insert into sys_operation_log (sys_user_id,sys_auth_id,auth_name,auth_href,ip,request_param,exceptions)
+ values ( #{sysUserId,jdbcType=INTEGER}, #{sysAuthId,jdbcType=INTEGER}, #{authName,jdbcType=VARCHAR}, #{authHref,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{requestParam,jdbcType=LONGVARCHAR}, #{exceptions,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="update">
+    update  	sys_operation_log 
+	<set>
+		<if test="sysUserId!=null ">sys_user_id = #{sysUserId,jdbcType=INTEGER}, </if>
+		<if test="sysAuthId!=null ">sys_auth_id = #{sysAuthId,jdbcType=INTEGER}, </if>
+		<if test="authName!=null and authName!=''">auth_name = #{authName,jdbcType=VARCHAR}, </if>
+		<if test="authHref!=null and authHref!=''">auth_href = #{authHref,jdbcType=VARCHAR}, </if>
+		<if test="ip!=null and ip!=''">ip = #{ip,jdbcType=VARCHAR}, </if>
+		<if test="requestParam!=null and requestParam!=''">request_param = #{requestParam,jdbcType=LONGVARCHAR}, </if>
+		<if test="exceptions!=null and exceptions!=''">exceptions = #{exceptions,jdbcType=LONGVARCHAR}, </if>
+ 	</set>
+	where id=#{id}
+  </update>
+</mapper>

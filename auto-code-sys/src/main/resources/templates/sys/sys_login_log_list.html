@@ -6,7 +6,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
     <span class="c-gray en">&gt;</span>
-后台角色
+
     <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
        href="javascript:loads()" title="刷新">
         <i class="Hui-iconfont">&#xe68f;</i></a>
@@ -16,22 +16,20 @@
         <form id="dataForm" class="layui-form">
             <div class="layui-form-item">
                 <div class="layui-inline" >
-                    <input type="text" name="id" id="id" placeholder="后台角色" class="layui-input">
+                    <input type="text" name="id" id="id" placeholder="" class="layui-input">
                 </div>
                 <div class="layui-inline" style="display: none">
-                    <input type="text" name="name" id="name" placeholder="角色名称" class="layui-input">
+                    <input type="text" name="sysUserId" id="sysUserId" placeholder="用户id" class="layui-input">
                 </div>
-                <div class="layui-inline" >
-                    <label class="layui-form-label">状态</label>
-                    <div class="layui-input-inline">
-                        <select name="status" id="status">
-                            <option value="">请选择状态</option>
-                                <option value="0">启用</option>
-                                <option value="1">禁用</option>
-                        </select>
-                    </div>
+                <div class="layui-inline"  >
+                    <input type="text" name="createTime" id="createTime" placeholder="创建时间(也是登录时间)" class="layui-input">
                 </div>
-
+                <div class="layui-inline" style="display: none">
+                    <input type="text" name="ip" id="ip" placeholder="ip" class="layui-input">
+                </div>
+                <div class="layui-inline" style="display: none">
+                    <input type="text" name="browser" id="browser" placeholder="浏览器" class="layui-input">
+                </div>
                 <div class="layui-inline">
                     <input type="text" name="startDate" id="startDate" placeholder="开始时间" class="layui-input">
                 </div>
@@ -51,20 +49,21 @@
 </div>
 <script type="text/html" id="barDemo">
 
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/save')}">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/save')}">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     </span>
 
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/save')}">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >状态修改</a>
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/deleteByPrimaryKey')}">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </span>
 </script>
 <script type="text/html" id="toolbar-data">
     <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/save')}">
-    <a class="btn btn-primary radius" th:href="@{/sysRole/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/save')}">
+    <a class="btn btn-primary radius" th:href="@{/sysLoginLog/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
     </span>
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/export')}">
+
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysLoginLog/export')}">
     <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
             class="Hui-iconfont">&#xe640;</i> 导出</a>
     </span>
@@ -82,17 +81,18 @@
         table.render({
             elem: '#table-data'
             , toolbar: '#toolbar-data'
-            , url: rootPath + "sysRole/selectAll" //数据接口
+            , url: rootPath + "sysLoginLog/selectAll" //数据接口
             , method: "post"
             , page: true //开启分页
-            , cols: [ [ //表头
+            , cols: [[ //表头
                 {field: 'id', title: 'id', type: "checkbox"}
-                ,{field: 'id', title: '后台角色'}
-                ,{field: 'name', title: '角色名称'}
-                ,{field: 'status_', title: '状态'}
-                ,{field: 'createTime_', title: '创建时间'}
+                ,{field: 'id', title: ''}
+                ,{field: 'sysUserId', title: '用户id'}
+                ,{field: 'createTime_', title: '创建时间(也是登录时间)'}
+                ,{field: 'ip', title: 'ip'}
+                ,{field: 'browser', title: '浏览器'}
                 , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
-            ] ],
+            ]],
             parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": res.code, //解析接口状态
@@ -115,17 +115,18 @@
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'del') {
-                var status=data.status==0?"1":"0";
-
-                var text=status==0?"确定要启用该角色吗?":"确定要关闭该角色吗?";
-                myConfirm(text, function (index) {
-                    $.post(rootPath + "sysRole/updateStatus", {"id": data.id,"status":status}, function (data) {
-                        loadMyData()
+                myConfirm("确定要删除吗?", function (index) {
+                    obj.del();
+                    $.post(rootPath + "sysLoginLog/deleteByPrimaryKey", {"id": data.id}, function (data) {
+                        myAlert("删除成功");
+                        setTimeout(function () {
+                            loadMyData()
+                        }, 2000)
                     });
                     layer.close(index);
                 })
             } else if (obj.event === 'edit') {
-                window.location.href = rootPath + "sysRole/gotoDetail?id=" + data.id;
+                window.location.href = rootPath + "sysLoginLog/gotoDetail?id=" + data.id;
             }
         });
 
@@ -144,10 +145,6 @@
            elem: '#createTime'
            , type: 'datetime'
        });
-       laydate.render({
-           elem: '#updateTime'
-           , type: 'datetime'
-       });
         /*初始化日期选择框 end*/
     });
 
@@ -162,7 +159,7 @@
 
     //导出
     function exports() {
-        window.location.href = rootPath + "sysRole/export?" + $("#dataForm").serialize()
+        window.location.href = rootPath + "sysLoginLog/export?" + $("#dataForm").serialize()
     }
 
 </script>

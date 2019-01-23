@@ -1,8 +1,9 @@
-package com.zengtengpeng.sys.utils;
+package com.zengtengpeng.utils;
 
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.constant.SessionConstant;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,6 +29,14 @@ public class UserUtils {
             return (SysUser) attribute;
         }
         return null;
+    }
+    /**
+     * 获取用户
+     * @param session
+     */
+    public static SysUser getUser(HttpServletRequest request){
+
+        return getUser(request.getSession());
     }
 
     /**

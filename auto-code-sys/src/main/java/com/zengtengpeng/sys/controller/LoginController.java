@@ -8,9 +8,9 @@ import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.constant.SessionConstant;
 import com.zengtengpeng.sys.service.SysAuthService;
 import com.zengtengpeng.sys.service.SysUserService;
-import com.zengtengpeng.sys.utils.AuthTreeUtils;
-import com.zengtengpeng.sys.utils.RandomCodeUtil;
-import com.zengtengpeng.sys.utils.UserUtils;
+import com.zengtengpeng.utils.AuthTreeUtils;
+import com.zengtengpeng.utils.RandomCodeUtil;
+import com.zengtengpeng.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
@@ -113,8 +113,16 @@ public class LoginController {
                 session.setAttribute(SessionConstant.userAuth,userAuth);
             }
 
+            Map<Integer,SysAuth> authAllById=new HashMap<>();
+            Map<String,SysAuth> authAllByHref=new HashMap<>();
+            sysAuths.forEach(t->{
+                authAllById.put(t.getId(),t);
+                authAllByHref.put(t.getHref(),t);
+            });
+            session.setAttribute(SessionConstant.authAllById,authAllById);
+            session.setAttribute(SessionConstant.authAllByHref,authAllByHref);
 
-            session.setAttribute("auths",recurve);
+            session.setAttribute(SessionConstant.auths,recurve);
             UserUtils.loginUser(data, session);
             return DataRes.success(data);
         }else {

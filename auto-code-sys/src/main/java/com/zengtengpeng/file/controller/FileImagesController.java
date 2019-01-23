@@ -6,9 +6,8 @@ import com.zengtengpeng.common.annotation.Pass;
 import com.zengtengpeng.common.utils.DateUtils;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysUser;
-import com.zengtengpeng.sys.utils.UserUtils;
+import com.zengtengpeng.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -143,6 +142,7 @@ public class FileImagesController {
 	*/
 	@RequestMapping("/fileImages/selectAll")
 	@ResponseBody
+	@Auth({"fileImages/selectAll","sysUser/save"})
 	public DataRes selectAll(FileImages fileImages,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(fileImagesService.selectAllByPaging(fileImages));
     }

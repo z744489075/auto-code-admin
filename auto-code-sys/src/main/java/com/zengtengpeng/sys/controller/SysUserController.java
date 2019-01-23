@@ -6,8 +6,7 @@ import com.zengtengpeng.common.enums.ResponseCode;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysRole;
 import com.zengtengpeng.sys.service.SysRoleService;
-import com.zengtengpeng.sys.utils.UserUtils;
-import org.springframework.ui.Model;
+import com.zengtengpeng.utils.UserUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -144,7 +143,6 @@ public class SysUserController {
 
 	/**
 	* 导出数据
-	* @param tests 参数
 	* @return
 	*/
 	@RequestMapping("/sysUser/export")

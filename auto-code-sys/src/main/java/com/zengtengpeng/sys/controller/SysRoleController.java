@@ -7,7 +7,7 @@ import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysAuth;
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.service.SysAuthService;
-import com.zengtengpeng.sys.utils.UserUtils;
+import com.zengtengpeng.utils.UserUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

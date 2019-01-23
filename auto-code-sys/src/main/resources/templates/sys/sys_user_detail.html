@@ -37,7 +37,7 @@
                     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                         头像：
                         <div class="layui-upload-list" id="imageWatch">
-                            <img th:src="@{/fileImages/watch(path=${sys_user.icon})}" />
+                            <img th:if="${!#strings.isEmpty(sys_user.icon)}" th:src="@{/fileImages/watch(path=${sys_user.icon})}" />
                         </div>
                     </blockquote>
                 </div>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
         <div class="layui-form-item" style="text-align: center">
-            <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysUser/save')}">
+            <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysUser/save')}">
             <button class="layui-btn" lay-submit="" lay-filter="save-data">提交</button>
             </span>
             <input type="button" class="layui-btn"  onclick="myback()" value="返回" />

@@ -1,4 +1,4 @@
-package com.zengtengpeng.sys.interceptor;
+package com.zengtengpeng.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zengtengpeng.common.annotation.Auth;
@@ -9,19 +9,18 @@ import com.zengtengpeng.common.enums.ResponseCode;
 import com.zengtengpeng.sys.bean.SysAuth;
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.constant.SessionConstant;
-import com.zengtengpeng.sys.utils.UserUtils;
+import com.zengtengpeng.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -114,12 +113,10 @@ public class UserInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-
     }
 }

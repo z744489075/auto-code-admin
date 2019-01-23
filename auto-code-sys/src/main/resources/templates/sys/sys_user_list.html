@@ -56,23 +56,22 @@
 </div>
 <script type="text/html" id="barDemo">
 
-    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysUser/save')}">
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysUser/save')}">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     </span>
 
-    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysUser/save')}">
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysUser/save')}">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">状态修改</a>
     </span>
 </script>
 <script type="text/html" id="toolbar-data">
     <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
-    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysUser/save')}">
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysUser/save')}">
     <a class="btn btn-primary radius" th:href="@{/sysUser/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
     </span>
-
-    <span th:if="${session.userAuth==null || #maps.containsValue(session.userAuth,'sysUser/export')}">
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysUser/export')}">
     <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
-            class="Hui-iconfont">&#xe640;</i> 导出</a>
+            class="Hui-iconfont">&#xe640;</i> 导出 </a>
     </span>
 </script>
 <!--请在下方写此页面业务相关的脚本-->

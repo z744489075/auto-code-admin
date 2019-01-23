@@ -1,4 +1,4 @@
-package com.zengtengpeng.sys.utils;
+package com.zengtengpeng.utils;
 
 import com.zengtengpeng.sys.bean.SysAuth;
 

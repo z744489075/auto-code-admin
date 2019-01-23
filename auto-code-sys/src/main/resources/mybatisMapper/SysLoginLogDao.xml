@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengtengpeng.sys.dao.SysLoginLogDao">
+  <resultMap id="BaseResultMap" type="com.zengtengpeng.sys.bean.SysLoginLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sys_user_id" jdbcType="INTEGER" property="sysUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="browser" jdbcType="VARCHAR" property="browser" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_login_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, sys_user_id, create_time, ip, browser
+    from sys_login_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, sys_user_id, create_time, ip, browser
+    from sys_login_log
+      <where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="sysUserId!=null "> and sys_user_id = #{sysUserId,jdbcType=INTEGER}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="ip!=null and ip!=''"> and ip = #{ip,jdbcType=VARCHAR}</if>
+		<if test="browser!=null and browser!=''"> and browser = #{browser,jdbcType=VARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select id,sys_user_id,create_time,ip,browser
+ 	from  sys_login_log 
+	<where>
+		<if test="id!=null "> and id = #{id,jdbcType=INTEGER}</if>
+		<if test="sysUserId!=null "> and sys_user_id = #{sysUserId,jdbcType=INTEGER}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="ip!=null and ip!=''"> and ip = #{ip,jdbcType=VARCHAR}</if>
+		<if test="browser!=null and browser!=''"> and browser = #{browser,jdbcType=VARCHAR}</if>
+ 	</where> 
+ <if test="orderByString!=null and orderByString!=''"> 
+	 ${orderByString} 
+ </if>
+  </select>
+  <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    insert into sys_login_log (sys_user_id,ip,browser)
+ values ( #{sysUserId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR})
+  </insert>
+  <update id="update">
+    update  	sys_login_log 
+	<set>
+		<if test="sysUserId!=null ">sys_user_id = #{sysUserId,jdbcType=INTEGER}, </if>
+		<if test="ip!=null and ip!=''">ip = #{ip,jdbcType=VARCHAR}, </if>
+		<if test="browser!=null and browser!=''">browser = #{browser,jdbcType=VARCHAR}, </if>
+ 	</set>
+	where id=#{id}
+  </update>
+</mapper>

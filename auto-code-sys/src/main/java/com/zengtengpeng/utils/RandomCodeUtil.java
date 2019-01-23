@@ -1,4 +1,4 @@
-package com.zengtengpeng.sys.utils;
+package com.zengtengpeng.utils;
 
 import com.zengtengpeng.sys.constant.SessionConstant;
 import org.springframework.util.StringUtils;
