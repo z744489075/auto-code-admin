@@ -3,6 +3,7 @@ package com.zengtengpeng.test.controller;
 import javax.annotation.Resource;
 
 import com.zengtengpeng.common.utils.ExcelUtils;
+import com.zengtengpeng.sys.bean.SysUser;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,7 +81,14 @@ public class TestCodeController {
 	@RequestMapping("/testCode/selectAll")
 	@ResponseBody
 	public DataRes selectAll(TestCode testCode,HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(testCodeService.selectAllByPaging(testCode));
+		TestCode tt = testCodeService.selectAllByPaging(testCode);
+		tt.getRows().forEach(t->{
+			TestCode ttt=(TestCode)t;
+			SysUser sysUser=new SysUser();
+			sysUser.setName("layui不支持嵌套属性,所以需要使用模板解决:"+ttt.getName());
+			ttt.setSysUser(sysUser);
+		});
+		return DataRes.success(tt);
     }
 
 	/**

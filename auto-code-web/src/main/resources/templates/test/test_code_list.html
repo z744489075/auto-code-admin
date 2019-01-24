@@ -100,7 +100,9 @@
             , cols: [[ //表头
                 {field: 'id', title: 'id', type: "checkbox"}
                 ,{field: 'id', title: '测试生成代码'}
-                ,{field: 'name', title: '名称'}
+                ,{field: 'sysUser', title: '名称',templet:function (d) {
+                        return d.sysUser.name;
+                    }}
                 ,{field: 'age', title: '年龄'}
                 ,{field: 'status_', title: '状态'}
                 ,{field: 'birthday_', title: '生日'}
