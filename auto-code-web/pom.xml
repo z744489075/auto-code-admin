@@ -45,5 +45,6 @@
         </configuration>
       </plugin>
     </plugins>
+    <finalName>auto-code-web</finalName>
   </build>
 </project>
