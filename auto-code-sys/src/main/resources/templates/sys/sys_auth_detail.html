@@ -166,9 +166,11 @@
             $.post(rootPath + "sysAuth/save", data.field, function (data) {
                 if (data.code == 0) {
                     myAlert("保存成功");
-                    setTimeout(function () {
+                    myConfirm("是否再新增权限?",function () {
+                        window.location.reload();
+                    },function () {
                         myback("sysAuth/gotoList");
-                    }, alertTime)
+                    })
                 } else {
                     myAlert("保存失败->" + data.message)
                 }
