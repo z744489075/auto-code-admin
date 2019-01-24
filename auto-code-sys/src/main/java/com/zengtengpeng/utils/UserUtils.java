@@ -32,7 +32,7 @@ public class UserUtils {
     }
     /**
      * 获取用户
-     * @param session
+     * @param request
      */
     public static SysUser getUser(HttpServletRequest request){
 

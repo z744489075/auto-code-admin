@@ -5,7 +5,7 @@
 </head>
 <body >
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-	<legend>欢迎使用auto-code-admin代码自动生成模板</legend>
+	<legend>欢迎使用auto-code-admin代码自动生成模板 <a href="http://www.zengtengpeng.com" target="_blank" style="color: #4fbd4f">演示地址</a></legend>
 </fieldset>
 <ul class="layui-timeline">
 	<li class="layui-timeline-item">
@@ -37,11 +37,11 @@
 			<h3 class="layui-timeline-title">项目模块介绍</h3>
 			<p>
 			<pre class="layui-code" lay-title="java" lay-skin="notepad">
-				auto-code-admin(根节点)
-				 -auto-code-common ->一些公共的类,以及配置
-				 -auto-code-sys ->系统设置模块
-				 -auto-code-charts ->报表模块
-				 -auto-code-web ->发布模块(该模块聚合以上模块进行发布,如果报表模块不想使用直接在pom.xml将该模块注释掉就好.)
+auto-code-admin(根节点)
+  -auto-code-common ->一些公共的类,以及配置
+  -auto-code-sys ->系统设置模块
+  -auto-code-charts ->报表模块
+  -auto-code-web ->发布模块(该模块聚合以上模块进行发布,如果报表模块不想使用直接在pom.xml将该模块注释掉就好.)
 			  </pre>
 			</p>
 		</div>
@@ -100,17 +100,132 @@
 			<span style="color: red">请注意第一句sql的parent_auth_id的值, 默认我是放在 ->代码生成(id=3) 栏目下的<br/>
 			如果你需要更改请将这个值改成对应的栏目就好</span>
 			<pre class="layui-code" lay-title="sql" lay-skin="notepad">
-				11:40:51.262 [main] INFO com.zengtengpeng.generator.create.impl.WebAdminCreateCode - 权限SQL:请注意表名注释一定要唯一,权限会找不到父ID
-				INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ('3','测试生成代码','1','testCode/gotoList','layui-icon layui-icon-file-b','0',NOW());
-				INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'查询','1','testCode/selectAll','layui-icon layui-icon-search','1',NOW());
-				INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'导出','2','testCode/export','layui-icon layui-icon-next','1',NOW());
-				INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'编辑','3','testCode/save','layui-icon layui-icon-edit','1',NOW());
-				INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'删除','4','testCode/deleteByPrimaryKey','layui-icon layui-icon-fonts-del','1',NOW());
+11:40:51.262 [main] INFO com.zengtengpeng.generator.create.impl.WebAdminCreateCode - 权限SQL:请注意表名注释一定要唯一,权限会找不到父ID
+
+INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ('3','测试生成代码','1','testCode/gotoList','layui-icon layui-icon-file-b','0',NOW());
+
+INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'查询','1','testCode/selectAll','layui-icon layui-icon-search','1',NOW());
+
+INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'导出','2','testCode/export','layui-icon layui-icon-next','1',NOW());
+
+INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'编辑','3','testCode/save','layui-icon layui-icon-edit','1',NOW());
+
+INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES  ((SELECT id FROM `sys_auth` a WHERE a.name='测试生成代码'),'删除','4','testCode/deleteByPrimaryKey','layui-icon layui-icon-fonts-del','1',NOW());
+			</pre>
+			</p>
+		</div>
+
+	<li class="layui-timeline-item">
+		<i class="layui-icon layui-timeline-axis"></i>
+		<div class="layui-timeline-content layui-text">
+			<h3 class="layui-timeline-title">生成代码注意事项</h3>
+			<p style="color: red">
+				1.创建表结构时一定要写注释!!!,不写注释生成的代码将会没有列名等等一系列问题.写注释这个是约定!<br />
+				2.获取表名的注释有些版本的mysql获取不了,所以请在主键id上写上表名注释,到时候如果获取不了表名注释我将会从Id上获取<br />
+				3.目前支持生成 text,date,datetime,textarea,select五种类型的输入框<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1 text,date,datetime,textarea 映射机制我是根据数据库的数据类型进行映射的<br />
+			<table lay-filter="parse-table-demo">
+				<thead>
+				<tr>
+					<th lay-data="{field:'username'}">数据库类型</th>
+					<th lay-data="{field:'joinTime'}">输入框类型</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>date</td>
+					<td>date</td>
+				</tr>
+				<tr>
+					<td>datetime</td>
+					<td>datetime</td>
+				</tr>
+				<tr>
+					<td>text</td>
+					<td>textarea</td>
+				</tr>
+				<tr>
+					<td>其他</td>
+					<td>text</td>
+				</tr>
+				</tbody>
+			</table>
+			<div class="page-container" >
+				<p style="color: red">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2:select类型比较特殊,由于数据库没有键值类型.
+			所以我采取的是在字段注释书写json格式的注释 列: {"name":"状态","1":"启用","0":"禁用"}
+			name为该字段的中文注释,然后在输入框将会生成如下的下拉框</p>
+				<form class="layui-form layui-form-pane" action="">
+				<div class="layui-form-item" >
+					<label class="layui-form-label">状态</label>
+					<div class="layui-input-inline">
+
+						<select name="status" id="status">
+							<option value="">请选择状态</option>
+							<option value="1" >启用</option>
+							<option value="0" >禁用</option>
+						</select>
+					</div>
+				</div>
+				</form>
+			</div>
+			完整的数据库实列:
+			<pre class="layui-code" lay-title="sql" lay-skin="notepad">
+				CREATE TABLE `test_code` (
+				  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '测试生成代码',
+				  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+				  `age` int(3) DEFAULT NULL COMMENT '年龄',
+				  `status` int(2) DEFAULT NULL COMMENT '{"name":"状态","1":"启用","0":"禁用"}',
+				  `birthday` date DEFAULT NULL COMMENT '生日',
+				  `remarks` text COMMENT '备注',
+				  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='测试生成代码'
 			</pre>
 			</p>
 		</div>
 	</li>
+	</li>
 </ul>
-</section>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+	<legend>进阶篇</legend>
+</fieldset>
+<ul class="layui-timeline">
+	<li class="layui-timeline-item">
+		<i class="layui-icon layui-timeline-axis"></i>
+		<div class="layui-timeline-content layui-text">
+			<h3 class="layui-timeline-title">如何进行项目集群?</h3>
+			<p>
+				集群非常简单只需要简单的几部就能完成<br />
+				1.安装redis <a href="https://redis.io/" target="_blank">下载地址</a>  redis官方是不支持windows的不过有社区版
+				<a  href="https://github.com/MicrosoftArchive/redis/releases" target="_blank">下载地址</a>
+				2.修改 auto-code-admin/pom.xml 增加redis支持
+			<pre class="layui-code" lay-title="sql" lay-skin="notepad">
+				CREATE TABLE `test_code` (
+				  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '测试生成代码',
+				  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+				  `age` int(3) DEFAULT NULL COMMENT '年龄',
+				  `status` int(2) DEFAULT NULL COMMENT '{"name":"状态","1":"启用","0":"禁用"}',
+				  `birthday` date DEFAULT NULL COMMENT '生日',
+				  `remarks` text COMMENT '备注',
+				  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='测试生成代码'
+			</pre>
+
+			</p>
+		</div>
+	</li>
+</ul>
 </body>
+<script>
+    layui.use(['table','form'], function(){
+        var table = layui.table;
+        var form = layui.form;
+        form.render();
+//转换静态表格
+        table.init('parse-table-demo', {
+        });
+    });
+</script>
 </html>
