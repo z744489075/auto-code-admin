@@ -32,7 +32,7 @@ public class SysLoginLogController {
 	 * @param sysLoginLog
 	 * @return
 	 */
-	@RequestMapping("/sysLoginLog/deleteByPrimaryKey")
+	@RequestMapping("sysLoginLog/deleteByPrimaryKey")
 	@ResponseBody
 	public DataRes deleteByPrimaryKey(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(sysLoginLogService.deleteByPrimaryKey(sysLoginLog));
@@ -43,7 +43,7 @@ public class SysLoginLogController {
 	 * @param sysLoginLog
 	 * @return
 	 */
-	@RequestMapping("/sysLoginLog/save")
+	@RequestMapping("sysLoginLog/save")
 	@ResponseBody
 	public DataRes save(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
 		if(sysLoginLog.getId()==null){
@@ -57,7 +57,7 @@ public class SysLoginLogController {
      * @param sysLoginLog
      * @return
      */
-	@RequestMapping("/sysLoginLog/selectByPrimaryKey")
+	@RequestMapping("sysLoginLog/selectByPrimaryKey")
 	@ResponseBody
 	public DataRes selectByPrimaryKey(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysLoginLogService.selectByPrimaryKey(sysLoginLog));
@@ -66,7 +66,7 @@ public class SysLoginLogController {
     /**
 	* 根据条件查询
 	*/
-	@RequestMapping("/sysLoginLog/querySysLoginLogByCondition")
+	@RequestMapping("sysLoginLog/querySysLoginLogByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysLoginLogService.queryByCondition(sysLoginLog));
@@ -77,7 +77,7 @@ public class SysLoginLogController {
 	* @param sysLoginLog 参数
 	* @return
 	*/
-	@RequestMapping("/sysLoginLog/selectAll")
+	@RequestMapping("sysLoginLog/selectAll")
 	@ResponseBody
 	public DataRes selectAll(SysLoginLog sysLoginLog,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysLoginLogService.selectAllByPaging(sysLoginLog));
@@ -88,7 +88,7 @@ public class SysLoginLogController {
 	* @param tests 参数
 	* @return
 	*/
-	@RequestMapping("/sysLoginLog/export")
+	@RequestMapping("sysLoginLog/export")
 	public void export(SysLoginLog sysLoginLog,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysLoginLog> list= sysLoginLogService.selectAll(sysLoginLog);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -104,7 +104,7 @@ public class SysLoginLogController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/sysLoginLog/gotoList")
+	@RequestMapping("sysLoginLog/gotoList")
 	public String gotoList(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_login_log_list";
 	}

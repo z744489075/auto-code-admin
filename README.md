@@ -158,6 +158,14 @@ spring.redis.port=6379
 
     4.到此为止,集群成功
 
+### 权限机制
+
+本项目采用拦截器管理权限 具体实现 com.zengtengpeng.interceptor.UserInterceptor
+
+    1.具体怎么实现?  权限默认采用@RequestMapping映射值作为权限校验.
+    2.如果两个url想采用一个权限怎么办? 使用 com.zengtengpeng.common.annotation.Auth 注解, 值为 另外一个权限url.这样他们就共享同一个授权了,如果不写值默认只要登录就有该权限.
+    3.如果该方法不需要登录就能访问怎么办? com.zengtengpeng.common.annotation.Pass 注解标注在方法上.改方法就不需要全
+
 
 ## 项目部分截图
 

@@ -47,7 +47,7 @@ public class LoginController {
      * 跳转到登录页面
      * @return
      */
-    @RequestMapping("/login/gotoLogin")
+    @RequestMapping("login/gotoLogin")
     @Pass
     public String gotoLogin(){
         return "login";
@@ -57,7 +57,7 @@ public class LoginController {
      * 获取图形验证码
      * @return
      */
-    @RequestMapping("/login/imageCode")
+    @RequestMapping("login/imageCode")
     @Pass
     public void gotoIndex(HttpSession session,HttpServletResponse response){
         String rand = RandomCodeUtil.getVerifyCode(4);// 生成随机四位验证码
@@ -69,7 +69,7 @@ public class LoginController {
      * 跳转到登录页面
      * @return
      */
-    @RequestMapping("/login/loginout")
+    @RequestMapping("login/loginout")
     @Pass
     public String loginout(HttpSession session){
         UserUtils.removeUser(session);
@@ -80,7 +80,7 @@ public class LoginController {
      * 跳转到登录页面
      * @return
      */
-    @RequestMapping("/login/login")
+    @RequestMapping("login/login")
     @ResponseBody
     @Pass
     public DataRes login(SysUser sysUser, HttpServletRequest request){

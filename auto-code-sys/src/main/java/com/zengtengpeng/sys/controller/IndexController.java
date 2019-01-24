@@ -12,7 +12,7 @@ public class IndexController  {
      * 跳转到列表页面
      * @return
      */
-    @RequestMapping(value = {"/index/gotoIndex","/"})
+    @RequestMapping(value = {"index/gotoIndex",""})
     @Auth
     public String gotoIndex(){
         return "index";

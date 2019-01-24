@@ -37,7 +37,7 @@ public class SysAuthController {
 	 * @param sysAuth
 	 * @return
 	 */
-	@RequestMapping("/sysAuth/deleteByPrimaryKey")
+	@RequestMapping("sysAuth/deleteByPrimaryKey")
 	@ResponseBody
 	public DataRes deleteByPrimaryKey(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(sysAuthService.deleteByPrimaryKey(sysAuth));
@@ -48,7 +48,7 @@ public class SysAuthController {
 	 * @param sysAuth
 	 * @return
 	 */
-	@RequestMapping("/sysAuth/save")
+	@RequestMapping("sysAuth/save")
 	@ResponseBody
 	public DataRes save(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
 		sysAuth.setIcon("layui-icon "+sysAuth.getIcon());
@@ -69,7 +69,7 @@ public class SysAuthController {
      * @param sysAuth
      * @return
      */
-	@RequestMapping("/sysAuth/selectByPrimaryKey")
+	@RequestMapping("sysAuth/selectByPrimaryKey")
 	@ResponseBody
 	public DataRes selectByPrimaryKey(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysAuthService.selectByPrimaryKey(sysAuth));
@@ -78,7 +78,7 @@ public class SysAuthController {
     /**
 	* 根据条件查询
 	*/
-	@RequestMapping("/sysAuth/querySysAuthByCondition")
+	@RequestMapping("sysAuth/querySysAuthByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysAuthService.queryByCondition(sysAuth));
@@ -89,7 +89,7 @@ public class SysAuthController {
 	* @param sysAuth 参数
 	* @return
 	*/
-	@RequestMapping("/sysAuth/selectAll")
+	@RequestMapping("sysAuth/selectAll")
 	@ResponseBody
 	public DataRes selectAll(HttpServletRequest request, HttpServletResponse response){
 		SysAuth sysAuth=new SysAuth();
@@ -101,7 +101,7 @@ public class SysAuthController {
 	* @param sysAuth 参数
 	* @return
 	*/
-	@RequestMapping("/sysAuth/tree")
+	@RequestMapping("sysAuth/tree")
 	@ResponseBody
 	@Auth("sysAuth/selectAll")
 	public List<SysAuth> selectTree(HttpServletRequest request, HttpServletResponse response){
@@ -117,7 +117,7 @@ public class SysAuthController {
 	* @param tests 参数
 	* @return
 	*/
-	@RequestMapping("/sysAuth/export")
+	@RequestMapping("sysAuth/export")
 	public void export(SysAuth sysAuth,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysAuth> list= sysAuthService.selectAll(sysAuth);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -140,7 +140,7 @@ public class SysAuthController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/sysAuth/gotoList")
+	@RequestMapping("sysAuth/gotoList")
 	public String gotoList(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
 //		return "sys/tree";
 		return "sys/sys_auth_list";
@@ -151,7 +151,7 @@ public class SysAuthController {
 	* 跳转到详情页面
 	* @return
 	*/
-	@RequestMapping("/sysAuth/gotoDetail")
+	@RequestMapping("sysAuth/gotoDetail")
 	@Auth("sysAuth/save")
 	public String gotoDetail(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
 		if(sysAuth.getId()!=null){

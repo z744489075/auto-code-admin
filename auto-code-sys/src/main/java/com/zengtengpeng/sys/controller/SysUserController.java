@@ -42,7 +42,7 @@ public class SysUserController {
 	 * @param sysUser
 	 * @return
 	 */
-	@RequestMapping("/sysUser/deleteByPrimaryKey")
+	@RequestMapping("sysUser/deleteByPrimaryKey")
 	@ResponseBody
 	public DataRes deleteByPrimaryKey(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(sysUserService.deleteByPrimaryKey(sysUser));
@@ -55,7 +55,7 @@ public class SysUserController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("/sysUser/updateStatus")
+	@RequestMapping("sysUser/updateStatus")
 	@ResponseBody
 	@Auth("sysUser/save")
 	public DataRes updateStatus(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
@@ -65,7 +65,7 @@ public class SysUserController {
 	}
 
 
-	@RequestMapping("/sysUser/gotoChangePassword")
+	@RequestMapping("sysUser/gotoChangePassword")
 	@Auth
 	public String gotoChangePassword(SysUser sysUser,String newPassword, HttpServletRequest request, HttpServletResponse response){
 		return "sys/change_password";
@@ -77,7 +77,7 @@ public class SysUserController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("/sysUser/changePassword")
+	@RequestMapping("sysUser/changePassword")
 	@ResponseBody
 	@Auth
 	public DataRes changePassword(SysUser sysUser,String newPassword, HttpServletRequest request, HttpServletResponse response){
@@ -95,7 +95,7 @@ public class SysUserController {
 	 * @param sysUser
 	 * @return
 	 */
-	@RequestMapping("/sysUser/save")
+	@RequestMapping("sysUser/save")
 	@ResponseBody
 	public DataRes save(@RequestParam(value = "roles[]",required=false) List<String> roles,SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 	    if(!StringUtils.isEmpty(sysUser.getPassword())){
@@ -115,7 +115,7 @@ public class SysUserController {
      * @param sysUser
      * @return
      */
-	@RequestMapping("/sysUser/selectByPrimaryKey")
+	@RequestMapping("sysUser/selectByPrimaryKey")
 	@ResponseBody
 	public DataRes selectByPrimaryKey(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysUserService.selectByPrimaryKey(sysUser));
@@ -124,7 +124,7 @@ public class SysUserController {
     /**
 	* 根据条件查询
 	*/
-	@RequestMapping("/sysUser/querySysUserByCondition")
+	@RequestMapping("sysUser/querySysUserByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysUserService.queryByCondition(sysUser));
@@ -135,7 +135,7 @@ public class SysUserController {
 	* @param sysUser 参数
 	* @return
 	*/
-	@RequestMapping("/sysUser/selectAll")
+	@RequestMapping("sysUser/selectAll")
 	@ResponseBody
 	public DataRes selectAll(SysUser sysUser,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysUserService.selectAllByPaging(sysUser));
@@ -145,7 +145,7 @@ public class SysUserController {
 	* 导出数据
 	* @return
 	*/
-	@RequestMapping("/sysUser/export")
+	@RequestMapping("sysUser/export")
 	public void export(SysUser sysUser,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysUser> list= sysUserService.selectAll(sysUser);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -168,7 +168,7 @@ public class SysUserController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/sysUser/gotoList")
+	@RequestMapping("sysUser/gotoList")
 	public String gotoList(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_user_list";
 	}
@@ -177,7 +177,7 @@ public class SysUserController {
 	* 跳转到详情页面
 	* @return
 	*/
-	@RequestMapping("/sysUser/gotoDetail")
+	@RequestMapping("sysUser/gotoDetail")
 	@Auth("sysUser/save")
 	public String gotoDetail(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		SysRole t=new SysRole();

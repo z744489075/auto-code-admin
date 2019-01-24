@@ -46,7 +46,7 @@ public class FileImagesController {
 	 * @param fileImages
 	 * @return
 	 */
-	@RequestMapping("/fileImages/deleteByPrimaryKey")
+	@RequestMapping("fileImages/deleteByPrimaryKey")
 	@ResponseBody
 	public DataRes deleteByPrimaryKey(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(fileImagesService.deleteByPrimaryKey(fileImages));
@@ -57,7 +57,7 @@ public class FileImagesController {
 	 * @param fileImages
 	 * @return
 	 */
-	@RequestMapping("/fileImages/save")
+	@RequestMapping("fileImages/save")
 	@ResponseBody
 	public DataRes save(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = UserUtils.getUser(request.getSession());
@@ -72,7 +72,7 @@ public class FileImagesController {
 	 * @param uploadfile
 	 * @return
 	 */
-	@RequestMapping("/fileImages/upload")
+	@RequestMapping("fileImages/upload")
 	@ResponseBody
 	@Auth("fileImages/save")
 	public DataRes upload(@RequestParam("file") MultipartFile uploadfile) throws IOException {
@@ -94,7 +94,7 @@ public class FileImagesController {
 	 * 查看图片
 	 * @return
 	 */
-	@RequestMapping("/fileImages/watch")
+	@RequestMapping("fileImages/watch")
 	@Pass
 	public void watch(String path,HttpServletResponse response) throws IOException {
 		File file=new File(filePath+path);
@@ -120,7 +120,7 @@ public class FileImagesController {
      * @param fileImages
      * @return
      */
-	@RequestMapping("/fileImages/selectByPrimaryKey")
+	@RequestMapping("fileImages/selectByPrimaryKey")
 	@ResponseBody
 	public DataRes selectByPrimaryKey(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(fileImagesService.selectByPrimaryKey(fileImages));
@@ -129,7 +129,7 @@ public class FileImagesController {
     /**
 	* 根据条件查询
 	*/
-	@RequestMapping("/fileImages/queryFileImagesByCondition")
+	@RequestMapping("fileImages/queryFileImagesByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(fileImagesService.queryByCondition(fileImages));
@@ -140,7 +140,7 @@ public class FileImagesController {
 	* @param fileImages 参数
 	* @return
 	*/
-	@RequestMapping("/fileImages/selectAll")
+	@RequestMapping("fileImages/selectAll")
 	@ResponseBody
 	@Auth({"fileImages/selectAll","sysUser/save"})
 	public DataRes selectAll(FileImages fileImages,HttpServletRequest request, HttpServletResponse response){
@@ -152,7 +152,7 @@ public class FileImagesController {
 	* @param tests 参数
 	* @return
 	*/
-	@RequestMapping("/fileImages/export")
+	@RequestMapping("fileImages/export")
 	public void export(FileImages fileImages,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<FileImages> list= fileImagesService.selectAll(fileImages);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -168,7 +168,7 @@ public class FileImagesController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/fileImages/gotoList")
+	@RequestMapping("fileImages/gotoList")
 	public String gotoList(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		return "file/file_images_list";
 	}
@@ -176,7 +176,7 @@ public class FileImagesController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/fileImages/selectList")
+	@RequestMapping("fileImages/selectList")
 	@Auth
 	public String selectList(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		return "file/select_images_list";
@@ -186,7 +186,7 @@ public class FileImagesController {
 	* 跳转到详情页面
 	* @return
 	*/
-	@RequestMapping("/fileImages/gotoDetail")
+	@RequestMapping("fileImages/gotoDetail")
 	@Auth("fileImages/save")
 	public String gotoDetail(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		if(fileImages.getId()!=null){

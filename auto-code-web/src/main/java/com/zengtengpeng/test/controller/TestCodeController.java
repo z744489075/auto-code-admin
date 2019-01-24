@@ -33,7 +33,7 @@ public class TestCodeController {
 	 * @param testCode
 	 * @return
 	 */
-	@RequestMapping("/testCode/deleteByPrimaryKey")
+	@RequestMapping("testCode/deleteByPrimaryKey")
 	@ResponseBody
 	public DataRes deleteByPrimaryKey(TestCode testCode, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(testCodeService.deleteByPrimaryKey(testCode));
@@ -44,7 +44,7 @@ public class TestCodeController {
 	 * @param testCode
 	 * @return
 	 */
-	@RequestMapping("/testCode/save")
+	@RequestMapping("testCode/save")
 	@ResponseBody
 	public DataRes save(TestCode testCode, HttpServletRequest request, HttpServletResponse response){
 		if(testCode.getId()==null){
@@ -58,7 +58,7 @@ public class TestCodeController {
      * @param testCode
      * @return
      */
-	@RequestMapping("/testCode/selectByPrimaryKey")
+	@RequestMapping("testCode/selectByPrimaryKey")
 	@ResponseBody
 	public DataRes selectByPrimaryKey(TestCode testCode, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(testCodeService.selectByPrimaryKey(testCode));
@@ -67,7 +67,7 @@ public class TestCodeController {
     /**
 	* 根据条件查询
 	*/
-	@RequestMapping("/testCode/queryTestCodeByCondition")
+	@RequestMapping("testCode/queryTestCodeByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(TestCode testCode, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(testCodeService.queryByCondition(testCode));
@@ -78,7 +78,7 @@ public class TestCodeController {
 	* @param testCode 参数
 	* @return
 	*/
-	@RequestMapping("/testCode/selectAll")
+	@RequestMapping("testCode/selectAll")
 	@ResponseBody
 	public DataRes selectAll(TestCode testCode,HttpServletRequest request, HttpServletResponse response){
 		TestCode tt = testCodeService.selectAllByPaging(testCode);
@@ -96,7 +96,7 @@ public class TestCodeController {
 	* @param tests 参数
 	* @return
 	*/
-	@RequestMapping("/testCode/export")
+	@RequestMapping("testCode/export")
 	public void export(TestCode testCode,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<TestCode> list= testCodeService.selectAll(testCode);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -114,7 +114,7 @@ public class TestCodeController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/testCode/gotoList")
+	@RequestMapping("testCode/gotoList")
 	public String gotoList(TestCode testCode, HttpServletRequest request, HttpServletResponse response){
 		return "test/test_code_list";
 	}
@@ -123,7 +123,7 @@ public class TestCodeController {
 	* 跳转到详情页面
 	* @return
 	*/
-	@RequestMapping("/testCode/gotoDetail")
+	@RequestMapping("testCode/gotoDetail")
 	@Auth("testCode/save")
 	public String gotoDetail(TestCode testCode, HttpServletRequest request, HttpServletResponse response){
 		if(testCode.getId()!=null){

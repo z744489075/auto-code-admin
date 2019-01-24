@@ -39,7 +39,7 @@ public class SysRoleController {
 	 * @param sysRole
 	 * @return
 	 */
-	@RequestMapping("/sysRole/updateStatus")
+	@RequestMapping("sysRole/updateStatus")
 	@ResponseBody
 	@Auth("sysRole/save")
 	public DataRes updateStatus(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
@@ -53,7 +53,7 @@ public class SysRoleController {
 	 * @param sysRole
 	 * @return
 	 */
-	@RequestMapping("/sysRole/save")
+	@RequestMapping("sysRole/save")
 	@ResponseBody
 	public DataRes save( @RequestParam(value = "auths[]",required=false) List<String> auths,SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = UserUtils.getUser(request.getSession());
@@ -70,7 +70,7 @@ public class SysRoleController {
      * @param sysRole
      * @return
      */
-	@RequestMapping("/sysRole/selectByPrimaryKey")
+	@RequestMapping("sysRole/selectByPrimaryKey")
 	@ResponseBody
 	public DataRes selectByPrimaryKey(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysRoleService.selectByPrimaryKey(sysRole));
@@ -79,7 +79,7 @@ public class SysRoleController {
     /**
 	* 根据条件查询
 	*/
-	@RequestMapping("/sysRole/querySysRoleByCondition")
+	@RequestMapping("sysRole/querySysRoleByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysRoleService.queryByCondition(sysRole));
@@ -90,7 +90,7 @@ public class SysRoleController {
 	* @param sysRole 参数
 	* @return
 	*/
-	@RequestMapping("/sysRole/selectAll")
+	@RequestMapping("sysRole/selectAll")
 	@ResponseBody
 	public DataRes selectAll(SysRole sysRole,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysRoleService.selectAllByPaging(sysRole));
@@ -100,7 +100,7 @@ public class SysRoleController {
 	* 导出数据
 	* @return
 	*/
-	@RequestMapping("/sysRole/export")
+	@RequestMapping("sysRole/export")
 	public void export(SysRole sysRole,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysRole> list= sysRoleService.selectAll(sysRole);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -119,7 +119,7 @@ public class SysRoleController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/sysRole/gotoList")
+	@RequestMapping("sysRole/gotoList")
 	public String gotoList(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_role_list";
 	}
@@ -128,7 +128,7 @@ public class SysRoleController {
 	* 跳转到详情页面
 	* @return
 	*/
-	@RequestMapping("/sysRole/gotoDetail")
+	@RequestMapping("sysRole/gotoDetail")
 	@Auth("sysRole/save")
 	public String gotoDetail(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		if(sysRole.getId()!=null){
@@ -139,7 +139,7 @@ public class SysRoleController {
 		return "sys/sys_role_detail";
 	}
 
-	@RequestMapping("/sysRole/detail")
+	@RequestMapping("sysRole/detail")
 	@Auth("sysRole/save")
 	@ResponseBody
 	public DataRes detail(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){

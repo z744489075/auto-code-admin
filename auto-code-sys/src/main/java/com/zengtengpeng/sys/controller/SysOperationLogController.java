@@ -33,7 +33,7 @@ public class SysOperationLogController {
      * @param sysOperationLog
      * @return
      */
-	@RequestMapping("/sysOperationLog/selectByPrimaryKey")
+	@RequestMapping("sysOperationLog/selectByPrimaryKey")
 	@ResponseBody
 	public DataRes selectByPrimaryKey(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysOperationLogService.selectByPrimaryKey(sysOperationLog));
@@ -42,7 +42,7 @@ public class SysOperationLogController {
     /**
 	* 根据条件查询
 	*/
-	@RequestMapping("/sysOperationLog/querySysOperationLogByCondition")
+	@RequestMapping("sysOperationLog/querySysOperationLogByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysOperationLogService.queryByCondition(sysOperationLog));
@@ -53,7 +53,7 @@ public class SysOperationLogController {
 	* @param sysOperationLog 参数
 	* @return
 	*/
-	@RequestMapping("/sysOperationLog/selectAll")
+	@RequestMapping("sysOperationLog/selectAll")
 	@ResponseBody
 	public DataRes selectAll(SysOperationLog sysOperationLog,HttpServletRequest request, HttpServletResponse response){
 		sysOperationLog.setOrderByString("order by id desc");
@@ -65,7 +65,7 @@ public class SysOperationLogController {
 	* @param tests 参数
 	* @return
 	*/
-	@RequestMapping("/sysOperationLog/export")
+	@RequestMapping("sysOperationLog/export")
 	public void export(SysOperationLog sysOperationLog,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysOperationLog> list= sysOperationLogService.selectAll(sysOperationLog);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -85,7 +85,7 @@ public class SysOperationLogController {
 	* 跳转到列表页面
 	* @return
 	*/
-	@RequestMapping("/sysOperationLog/gotoList")
+	@RequestMapping("sysOperationLog/gotoList")
 	public String gotoList(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_operation_log_list";
 	}
@@ -94,7 +94,7 @@ public class SysOperationLogController {
 	* 跳转到详情页面
 	* @return
 	*/
-	@RequestMapping("/sysOperationLog/gotoDetail")
+	@RequestMapping("sysOperationLog/gotoDetail")
 	@Auth("sysOperationLog/save")
 	public String gotoDetail(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
 		if(sysOperationLog.getId()!=null){
