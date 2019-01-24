@@ -15,7 +15,7 @@
 			<p>
 				1.权限,角色,用户对于绝大多数系统来说都是一成不变的.而我们每开发一个后台都需要重新一次.每次都在重复造轮子<br />
 				2.对于业务绝大多数也是围绕这增删改查来进行操作.每次创建一张表.然后我们需要重新写一次增删改查,写虽然简单,不过极度耗时(view,controller,server,serverImpl,dao,xml) <br />
-				所以才有了该项目,改项目能帮助你减少60%的工作量,让你专注于业务的实现.
+				所以才有了该项目,该项目能帮助你减少60%的工作量,让你专注于业务的实现.
 			</p>
 		</div>
 	</li>
@@ -230,7 +230,7 @@ INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`cr
 				本项目采用拦截器管理权限 具体实现 com.zengtengpeng.interceptor.UserInterceptor
 				1.具体怎么实现?  权限默认采用@RequestMapping映射值作为权限校验.
 				2.如果两个url想采用一个权限怎么办? 使用 com.zengtengpeng.common.annotation.Auth 注解, 值为 另外一个权限url.这样他们就共享同一个授权了,如果不写值默认只要登录就有该权限.
-				3.如果该方法不需要登录就能访问怎么办? com.zengtengpeng.common.annotation.Pass 注解标注在方法上.改方法就不需要全
+				3.如果该方法不需要登录就能访问怎么办? com.zengtengpeng.common.annotation.Pass 注解标注在方法上.该方法就不需要授权
 			</p>
 		</div>
 	</li>
