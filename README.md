@@ -32,7 +32,7 @@
     3. 导入 auto-code-admin 下的 auto_code.sql 初始化数据库
     4. 修改 auto-code-web/application-dev.properties 中的数据库连接以及用户名密码
     5. auto-code-admin 打开cmd密令 执行 mvn clean package
-    6. auto-code-admin/auto-code-web/target 找到jar包 执行 java -jar auto-code-web-1.0-SNAPSHOT.jar
+    6. auto-code-admin/auto-code-web/target 找到jar包 执行 java -jar auto-code-web.jar
     7. 访问 http://localhost:8080
 
 ### 使用说明 [源码地址](https://gitee.com/ztp/auto-code)
