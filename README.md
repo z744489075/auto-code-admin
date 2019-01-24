@@ -37,7 +37,7 @@
 
 ### 使用说明 [源码地址](https://gitee.com/ztp/auto-code)
 
-    auto-code-common 模块里有个 auto-code-1.0.6.jar 的本地jar.
+    auto-code-common 模块里有个 auto-code.jar 的本地jar.
     执行成功后将生成 controller,server,serverImpl,dao,xml,list.html,list_detail.html.如果仅仅是单表的增删改查.你将不需要任何改动.直接就可以提交代码.
     执行代码如下:
     
