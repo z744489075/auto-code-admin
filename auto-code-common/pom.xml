@@ -11,13 +11,4 @@
 
     <artifactId>auto-code-common</artifactId>
     <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>com.zengtengpeng</groupId>
-            <artifactId>auto-code</artifactId>
-            <version>1.0.6</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/auto-code.jar</systemPath>
-        </dependency>
-    </dependencies>
 </project>
