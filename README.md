@@ -14,7 +14,7 @@
     2.代码生成使用 auto-code [源码地址](https://gitee.com/ztp/auto-code)
     3.模板引擎-> thymeleaf (spring boot不推荐使用jsp jsp在打包的时候会遇到各种问题)
     4.前端主要使用layui(真的做的很漂亮)
-    5.前端后台框架使用 h-ui (layui要收钱)
+    5.前端后台框架layuiAdmin  https://github.com/coderyangjie/layuiAdmin
 
 ### 项目模块介绍
 
