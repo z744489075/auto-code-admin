@@ -33,4 +33,13 @@ public class SysAuthServiceImpl implements SysAuthService {
     public List<SysAuth> queryByUser(Integer userId) {
         return sysAuthDao.queryByUser(userId);
     }
+
+    @Override
+    public int deleteByPrimaryKey(SysAuth sysAuth) {
+        sysAuthDao.deleteByPrimaryKey(sysAuth);
+
+        //清理所有有父id,但是不存在的记录
+        sysAuthDao.deleteUnlinked();
+        return 0;
+    }
 }

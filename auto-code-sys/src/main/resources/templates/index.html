@@ -69,6 +69,16 @@
                 content: rootPath+'sysUser/gotoChangePassword'
             });
         }
+        function defaultImage(obj) {
+            obj.src=rootPath+"static/images/face.jpg?v="+new Date().getTime();
+        }
+
+        function closeWin() {
+            myConfirm("确定要关闭所有窗口吗?",function () {
+                window.sessionStorage.removeItem("menu");
+                window.location.reload();
+            })
+        }
     </script>
 
     <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
@@ -87,19 +97,21 @@
             </div>
             <!-- 顶部右侧菜单 -->
             <ul class="layui-nav top_menu">
+                <li class="layui-nav-item showNotice" id="showNotice" pc>
+                    <a href="javascript:closeWin()"><i class="layui-icon layui-icon-close-fill"></i><cite>关闭所有窗口</cite></a>
+                </li>
                 <li class="layui-nav-item" mobile>
-                    <a th:href="@{/login/loginout}"><i class="iconfont icon-loginout"></i> 退出</a>
+                    <a th:href="@{/login/loginout}"><i class="layui-icon layui-icon-close"></i> 退出</a>
                 </li>
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
-                        <img th:src="@{/static/images/face.jpg}" class="layui-circle" width="35" height="35">
+                        <img th:src="@{/fileImages/watch(path=${session.sysUserSession?.icon})}" onerror="defaultImage(this)"  class="layui-circle" width="35" height="35">
                         <cite>[[${session.sysUserSession?.name}]]</cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:void(0)" onClick="myselfinfo()" ><i class="iconfont icon-shezhi1"
-                                                                                          data-icon="icon-shezhi1"></i><cite>修改密码</cite></a>
+                        <dd><a href="javascript:void(0)" onClick="myselfinfo()" ><i class="layui-icon layui-icon-password" ></i><cite>修改密码</cite></a>
                         </dd>
-                        <dd><a th:href="@{/login/loginout}"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+                        <dd><a th:href="@{/login/loginout}"><i class="layui-icon layui-icon-close"></i><cite>退出</cite></a></dd>
                     </dl>
                 </li>
             </ul>
@@ -108,7 +120,8 @@
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
-            <a class="img" title="我的头像"><img th:src="@{/static/images/face.jpg}"></a>
+            <a class="img" title="我的头像">
+                <img th:src="@{/fileImages/watch(path=${session.sysUserSession?.icon})}" onerror="defaultImage(this)" /></a>
             <p>你好！<span class="userName">[[${session.sysUserSession?.name}]]</span>, 欢迎登录</p>
         </div>
         <div class="navBar layui-side-scroll">
@@ -119,11 +132,11 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab">
             <ul class="layui-tab-title top_tab">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+                <li class="layui-this" lay-id=""><i class="layui-icon layui-icon-home"></i> <cite>我的桌面</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
-                    <iframe src="/sysAuth/gotoList"></iframe>
+                    <iframe th:src="@{/index/gotoWelcome}"></iframe>
                 </div>
             </div>
         </div>

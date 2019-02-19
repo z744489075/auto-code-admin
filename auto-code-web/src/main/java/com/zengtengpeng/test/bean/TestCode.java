@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zengtengpeng.common.bean.Page;
 import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
-
-import com.zengtengpeng.sys.bean.SysUser;
 import org.springframework.util.StringUtils;
 
 /**
@@ -22,8 +20,6 @@ public class TestCode extends Page {
      * 名称
      */
     private String name;
-
-    private SysUser sysUser;
 
     /**
      * 年龄
@@ -49,14 +45,6 @@ public class TestCode extends Page {
      * 备注
      */
     private String remarks;
-
-    public SysUser getSysUser() {
-        return sysUser;
-    }
-
-    public void setSysUser(SysUser sysUser) {
-        this.sysUser = sysUser;
-    }
 
     public Integer getId() {
         return id;

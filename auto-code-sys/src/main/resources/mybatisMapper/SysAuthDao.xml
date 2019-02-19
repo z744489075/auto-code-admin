@@ -19,6 +19,10 @@
     delete from sys_auth
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    <delete id="deleteUnlinked">
+      DELETE FROM sys_auth WHERE `parent_auth_id` NOT IN (SELECT id FROM (SELECT id FROM sys_auth) a)
+      AND (parent_auth_id!=0 OR parent_auth_id!=NULL)
+    </delete>
     <select id="queryByRole" resultMap="BaseResultMap">
         SELECT   a.`id`,
           a.`parent_auth_id`,

@@ -28,4 +28,6 @@ public interface SysAuthDao extends BaseDao<SysAuth> {
      * @return
      */
     List<SysAuth> queryByUser(Integer userId);
+
+    void deleteUnlinked();
 }
