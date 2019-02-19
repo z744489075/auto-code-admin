@@ -4,13 +4,6 @@
     <div th:replace="~{common/common-head.html::common-head}"></div>
 </head>
 <body class="body-common">
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页1
-    <span class="c-gray en">&gt;</span>
-后台权限
-    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-       href="javascript:loads()" title="刷新">
-        <i class="Hui-iconfont">&#xe68f;</i></a>
-</nav>
 <div class="page-container">
     <div class="text-c">
         <form id="dataForm" class="layui-form">
@@ -26,20 +19,20 @@
 <script type="text/html" id="barDemo">
 
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysAuth/save')}">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
     </span>
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysAuth/save')}">
-    <a class="layui-btn layui-btn-xs" lay-event="add">新增</a>
+    <a class="layui-btn layui-btn-xs" lay-event="add"><i class="layui-icon layui-icon-add-1"></i>新增</a>
     </span>
 
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysAuth/deleteByPrimaryKey')}">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
     </span>
 </script>
 <script type="text/html" id="toolbar-data">
     <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysAuth/save')}">
-    <a class="btn btn-primary radius" th:href="@{/sysAuth/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增根节点</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" th:href="@{/sysAuth/gotoDetail }"><i class="layui-icon layui-icon-add-1"></i> 新增根节点</a>
     </span>
 </script>
 <!--请在下方写此页面业务相关的脚本-->

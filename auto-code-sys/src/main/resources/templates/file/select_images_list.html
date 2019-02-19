@@ -5,9 +5,9 @@
     <script type="text/javascript" th:src="@{/static/js/viewer/viewer.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/static/js/viewer/viewer.min.css}" />
 </head>
-<body>
+<body class="body-common">
 <div class="page-container">
-    <div class="text-c">
+    <blockquote class="layui-elem-quote">
         <form id="dataForm" class="layui-form">
             <div class="layui-form-item">
                 <div class="layui-inline" >
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </blockquote>
     <div class="mt-20" id="watchs">
         <table id="table-data" lay-filter="table-data"></table>
     </div>

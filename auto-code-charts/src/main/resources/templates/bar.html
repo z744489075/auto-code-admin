@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
 <head>
 	<div th:replace="~{common/common-head.html::common-head}"></div>
 	<script type="text/javascript" th:src="@{/static/lib/echarts.min.js}"></script>
@@ -57,16 +57,8 @@
 	</script>
 </head>
 
-<body style="height: 100%; margin: 0">
-<nav class="breadcrumb" ><i class="Hui-iconfont">&#xe67f;</i> 首页
-	<span class="c-gray en">&gt;</span>
-	柱状图
-	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-	   href="javascript:loads()" title="刷新">
-		<i class="Hui-iconfont">&#xe68f;</i></a>
-</nav>
-<div  id="container"  style="height: 80%">
-
+<body style="height: 100%">
+<div  id="container"  style="height: 100%">
 </div>
 </body>
 </html>
