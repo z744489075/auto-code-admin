@@ -174,7 +174,7 @@ spring.redis.port=6379
 
 ![主页](http://images.zengtengpeng.com/auto-code-web/welcome.png)
 
-![权限](http://images.zengtengpeng.com/auto-code-web/auth.png)
+![权限](http://images.zengtengpeng.com/auto-code-web/role.png)
 
 ![用户](http://images.zengtengpeng.com/auto-code-web/user.png)
 
