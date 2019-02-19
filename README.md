@@ -1,5 +1,5 @@
 # auto-code-admin
-欢迎使用auto-code-admin代码自动生成模板 [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
+欢迎使用auto-code-admin代码自动生成模板 (移动端照样能适配) [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
 
 ### 项目介绍
 #### 为何会发起该项目?
@@ -13,7 +13,7 @@
     1.基于 springboot 2.0.7+mybatis+mysql
     2.代码生成使用 auto-code [源码地址](https://gitee.com/ztp/auto-code)
     3.模板引擎-> thymeleaf (spring boot不推荐使用jsp jsp在打包的时候会遇到各种问题)
-    4.前端主要使用layui(真的做的很漂亮)
+    4.前端主要使用layui
     5.前端后台框架layuiAdmin  https://github.com/coderyangjie/layuiAdmin
 
 ### 项目模块介绍
@@ -169,6 +169,7 @@ spring.redis.port=6379
 
 ## 项目部分截图
 
+### pc
 
 ![登录](http://images.zengtengpeng.com/auto-code-web/login.png)
 
@@ -179,3 +180,17 @@ spring.redis.port=6379
 ![用户](http://images.zengtengpeng.com/auto-code-web/user.png)
 
 ![用户详情](http://images.zengtengpeng.com/auto-code-web/user_detail.png)
+
+### mobile
+
+![登录](http://images.zengtengpeng.com/auto-code-web/mobile/login.png)
+
+![菜单](http://images.zengtengpeng.com/auto-code-web/mobile/menu.png)
+
+![主页](http://images.zengtengpeng.com/auto-code-web/mobile/welcome.png)
+
+![权限](http://images.zengtengpeng.com/auto-code-web/mobile/auth.png)
+
+![用户](http://images.zengtengpeng.com/auto-code-web/mobile/user.png)
+
+![用户详情](http://images.zengtengpeng.com/auto-code-web/mobile/user_detail.png)
