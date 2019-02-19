@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 菜单递归-->
+<li class="layui-nav-item" th:fragment="menu(auths)" th:each="auth:${auths}">
+    <a href="javascript:void(0)" th:if="${auth.shows==0}" th:data-url="@{'/'+${auth.href}}">
+        <i th:class="${auth.icon}" th:data-icon="${auth.icon}"></i>
+        <cite th:text="${auth.name}"></cite>
+        <span th:if="${auth.children!=null}" class="layui-nav-more"></span>
+    </a>
+    <!--<dl class="layui-nav-child" th:if="${auth.children!=null}">
+        <dd th:each="a1:${auth.children}">
+            <a href="javascript:void(0)" th:data-url="@{'/'+${a1.href}}">
+                <i th:class="${a1.icon}" th:data-icon="${a1.icon}"></i>
+                <cite th:text="${a1.name}"></cite>
+                <span th:if="${a1.children!=null}" class="layui-nav-more"></span>
+
+            </a>
+        </dd>
+    </dl>-->
+</li>
+
+<!--
+<li class="layui-nav-item">
+    <a href="javascript:;" data-url="/sysRole/gotoList"><i class="layui-icon layui-icon-rate" data-icon="layui-icon layui-icon-rate"></i><cite>二级菜单演示</cite>
+        <span class="layui-nav-more"></span></a>
+    <dl class="layui-nav-child">
+        <dd><a href="javascript:;" data-url=""><i class="layui-icon"
+                                                  data-icon=""></i><cite>二级菜单1</cite></a></dd>
+        <dd><a href="javascript:;" data-url=""><i class="layui-icon"
+                                                  data-icon=""></i><cite>二级菜单2</cite></a></dd>
+        <dd><a href="javascript:;"><i class="layui-icon" data-icon=""></i><cite>二级菜单演示</cite><span
+                class="layui-nav-more"></span></a>
+        <dl class="layui-nav-child">
+            <dd><a href="javascript:;" data-url=""><i class="layui-icon"
+                                                      data-icon=""></i><cite>二级菜单1</cite></a></dd>
+            <dd><a href="javascript:;" data-url=""><i class="layui-icon"
+                                                      data-icon=""></i><cite>二级菜单2</cite></a></dd>
+        </dl></dd>
+    </dl>
+</li>
+-->
+
+<!-- <div class="menu_dropdown bk_2" th:each="auth:${session.auths}">
+     <dl th:if="${#strings.isEmpty(a1.href) and a1.shows==0}" th:each="a1:${auth.children}">
+         <dt><i th:class="${a1.icon}"></i><span th:text="${a1.name}"></span><i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+         <dd>
+             <ul>
+                 <li th:each="a2:${a1.children}" th:if="${a2.shows==0}"><a  th:data-href="@{'/'+${a2.href}}" th:data-title="${a2.name}" href="javascript:void(0)"><i th:class="${a2.icon}"></i><span th:text="${a2.name}"></span></a></li>
+             </ul>
+         </dd>
+     </dl>
+     <li  th:if="${!#strings.isEmpty(a1.href) and a1.shows==0}" th:each="a1:${auth.children}" ><a style="font-weight:normal" th:data-href="@{'/'+${a1.href}}" th:data-title="${a1.name}" href="javascript:void(0)"><i th:class="${a1.icon}"></i> <span th:text="${a1.name}"></span></a></li>
+ </div>-->
+</html>

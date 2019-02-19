@@ -3,31 +3,24 @@
 <head>
     <div th:replace="~{common/common-head.html::common-head}"></div>
 </head>
-<body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
-    <span class="c-gray en">&gt;</span>
-后台角色
-    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-       href="javascript:loads()" title="刷新">
-        <i class="Hui-iconfont">&#xe68f;</i></a>
-</nav>
+<body class="body-common">
 <div class="page-container">
-    <div class="text-c">
+    <blockquote class="layui-elem-quote">
         <form id="dataForm" class="layui-form">
             <div class="layui-form-item">
-                <div class="layui-inline" >
+                <div class="layui-inline">
                     <input type="text" name="id" id="id" placeholder="后台角色" class="layui-input">
                 </div>
                 <div class="layui-inline" style="display: none">
                     <input type="text" name="name" id="name" placeholder="角色名称" class="layui-input">
                 </div>
-                <div class="layui-inline" >
+                <div class="layui-inline">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-inline">
                         <select name="status" id="status">
                             <option value="">请选择状态</option>
-                                <option value="0">启用</option>
-                                <option value="1">禁用</option>
+                            <option value="0">启用</option>
+                            <option value="1">禁用</option>
                         </select>
                     </div>
                 </div>
@@ -44,7 +37,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </blockquote>
     <div class="mt-20">
         <table id="table-data" lay-filter="table-data"></table>
     </div>
@@ -52,27 +45,26 @@
 <script type="text/html" id="barDemo">
 
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/save')}">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
     </span>
 
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/save')}">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >状态修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>状态修改</a>
     </span>
 </script>
 <script type="text/html" id="toolbar-data">
     <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/save')}">
-    <a class="btn btn-primary radius" th:href="@{/sysRole/gotoDetail }"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" th:href="@{/sysRole/gotoDetail }"><i class="layui-icon layui-icon-add-1"></i> 新增</a>
     </span>
     <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'sysRole/export')}">
-    <a href="javascript:void(0)" onclick="exports()" class="btn btn-secondary radius"><i
-            class="Hui-iconfont">&#xe640;</i> 导出</a>
+    <a href="javascript:void(0)" onclick="exports()" class="layui-btn layui-btn-warm layui-btn-sm"><i  class="layui-icon layui-icon-download-circle"></i> 导出</a>
     </span>
 </script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" th:inline="javascript">
     var table;
-    layui.use(['form', 'table', 'laydate'], function () {
+    layui.use(['form', 'table', 'laydate',"element"], function () {
         var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
         //但是，如果你的HTML是动态生成的，自动渲染就会失效
         //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
@@ -85,14 +77,14 @@
             , url: rootPath + "sysRole/selectAll" //数据接口
             , method: "post"
             , page: true //开启分页
-            , cols: [ [ //表头
+            , cols: [[ //表头
                 {field: 'id', title: 'id', type: "checkbox"}
-                ,{field: 'id', title: '后台角色'}
-                ,{field: 'name', title: '角色名称'}
-                ,{field: 'status_', title: '状态'}
-                ,{field: 'createTime_', title: '创建时间'}
+                , {field: 'id', title: '后台角色'}
+                , {field: 'name', title: '角色名称'}
+                , {field: 'status_', title: '状态'}
+                , {field: 'createTime_', title: '创建时间'}
                 , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
-            ] ],
+            ]],
             parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": res.code, //解析接口状态
@@ -115,11 +107,11 @@
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'del') {
-                var status=data.status==0?"1":"0";
+                var status = data.status == 0 ? "1" : "0";
 
-                var text=status==0?"确定要启用该角色吗?":"确定要关闭该角色吗?";
+                var text = status == 0 ? "确定要启用该角色吗?" : "确定要关闭该角色吗?";
                 myConfirm(text, function (index) {
-                    $.post(rootPath + "sysRole/updateStatus", {"id": data.id,"status":status}, function (data) {
+                    $.post(rootPath + "sysRole/updateStatus", {"id": data.id, "status": status}, function (data) {
                         loadMyData()
                     });
                     layer.close(index);
@@ -140,14 +132,14 @@
             , type: 'datetime'
         });
 
-       laydate.render({
-           elem: '#createTime'
-           , type: 'datetime'
-       });
-       laydate.render({
-           elem: '#updateTime'
-           , type: 'datetime'
-       });
+        laydate.render({
+            elem: '#createTime'
+            , type: 'datetime'
+        });
+        laydate.render({
+            elem: '#updateTime'
+            , type: 'datetime'
+        });
         /*初始化日期选择框 end*/
     });
 

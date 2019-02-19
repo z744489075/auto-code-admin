@@ -18,7 +18,7 @@ public class SessionConstant {
     public  static String userAuth="userAuth";
 
     /**
-     * 用户权限(递归)
+     * 用户权限(递归过滤隐藏权限)
      */
     public static String auths="auths";
     /**

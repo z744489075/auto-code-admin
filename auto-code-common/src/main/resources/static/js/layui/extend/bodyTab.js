@@ -57,6 +57,9 @@ layui.define(["element","jquery"],function(exports){
 	//右侧内容tab操作
 	var tabIdIndex = 0;
 	Tab.prototype.tabAdd = function(_this){
+		if(!_this.attr("data-url")){
+			return;
+		}
 		if(window.sessionStorage.getItem("menu")){
 			menu = JSON.parse(window.sessionStorage.getItem("menu"));
 		}
@@ -76,7 +79,7 @@ layui.define(["element","jquery"],function(exports){
 					if(_this.find("i.iconfont").attr("data-icon") != undefined){
 						title += '<i class="iconfont '+_this.find("i.iconfont").attr("data-icon")+'"></i>';
 					}else{
-						title += '<i class="layui-icon">'+_this.find("i.layui-icon").attr("data-icon")+'</i>';
+						title += '<i class="'+_this.find("i.layui-icon").attr("data-icon").replace("","")+'"></i>';
 					}
 					title += '<cite>'+_this.find("cite").text()+'</cite>';
 					title += '<i class="layui-icon layui-unselect layui-tab-close" data-id="'+tabIdIndex+'">&#x1006;</i>';
