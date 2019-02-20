@@ -1,5 +1,5 @@
 # auto-code-admin
-欢迎使用auto-code-admin代码自动生成模板 (移动端照样能适配) [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
+欢迎使用auto-code-admin后台代码自动生成引擎 (移动端照样能适配) [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
 
 ### 项目介绍
 #### 为何会发起该项目?
