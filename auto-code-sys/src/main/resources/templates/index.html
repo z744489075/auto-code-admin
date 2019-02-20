@@ -83,7 +83,7 @@
 
     <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
 </head>
-<body class="main_body">
+<body class="main_body" >
 <div class="layui-layout layui-layout-admin">
     <!-- 顶部 -->
     <div class="layui-header header">
@@ -135,8 +135,9 @@
                 <li class="layui-this" lay-id=""><i class="layui-icon layui-icon-home"></i> <cite>我的桌面</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
-                <div class="layui-tab-item layui-show">
-                    <iframe th:src="@{/index/gotoWelcome}"></iframe>
+                <div class="layui-tab-item layui-show" style="overflow:auto">
+
+                    <iframe th:src="@{/index/gotoWelcome}" ></iframe>
                 </div>
             </div>
         </div>
