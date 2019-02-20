@@ -6,7 +6,7 @@ function init(root){
     var oldPost=$.post;
     $.post=function(url, param, callback, type){
 
-        var ins = layer.load(0); //0代表加载的风格，支持0-2
+        var ins = layer.load(1); //0代表加载的风格，支持0-2
         var p;
         var ca;
         if(typeof param =="function" ){
