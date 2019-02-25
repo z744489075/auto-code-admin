@@ -1,12 +1,16 @@
 # auto-code-admin
 欢迎使用auto-code-admin后台代码自动生成引擎 (移动端照样能适配) [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
 
-### 项目介绍
-#### 为何会发起该项目?
+### 项目介绍 
+#### 为何会发起该项目? (由于线上的数据被恶意删除,修改.所以目前每隔一个小时我会恢复一次数据)
 
     1.权限,角色,用户对于绝大多数系统来说都是一成不变的.而我们每开发一个后台都需要重新一次.每次都在重复造轮子
     2.对于业务绝大多数也是围绕这增删改查来进行操作.每次创建一张表.然后我们需要重新写一次增删改查,写虽然简单,不过极度耗时(view,controller,server,serverImpl,dao,xml) 
     所以才有了该项目,该项目能帮助你减少60%的工作量,让你专注于业务的实现.
+
+#### 如果您觉得项目还行.请点赞.您的支持是我最大的动力[项目地址](https://gitee.com/ztp/auto-code-admin)
+
+![start](http://images.zengtengpeng.com/auto-code-web/start.png)
 
 ### 软件架构
 
