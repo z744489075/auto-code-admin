@@ -41,7 +41,7 @@
 	 ${orderByString} 
  </if>
   </select>
-  <select id="queryByCondition" resultMap="BaseResultMap">
+  <select id="selectByCondition" resultMap="BaseResultMap">
     select id,sys_user_id,sys_auth_id,auth_name,auth_href,ip,create_time,request_param,exceptions
  	from  sys_operation_log 
 	<where>

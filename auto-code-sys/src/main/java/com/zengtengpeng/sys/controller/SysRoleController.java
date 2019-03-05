@@ -82,7 +82,7 @@ public class SysRoleController {
 	@RequestMapping("sysRole/querySysRoleByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysRoleService.queryByCondition(sysRole));
+    	return DataRes.success(sysRoleService.selectByCondition(sysRole));
     }
 
    /**

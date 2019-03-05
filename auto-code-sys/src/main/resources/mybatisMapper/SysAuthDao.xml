@@ -103,7 +103,7 @@
 	 ${orderByString} 
  </if>
   </select>
-  <select id="queryByCondition" resultMap="BaseResultMap">
+  <select id="selectByCondition" resultMap="BaseResultMap">
     select id,parent_auth_id,parent_auth_ids,name,sort,href,icon,shows,create_user_id,create_time,update_user_id,update_time
  	from  sys_auth 
 	<where>

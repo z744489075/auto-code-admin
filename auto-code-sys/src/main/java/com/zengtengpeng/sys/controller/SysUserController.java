@@ -127,7 +127,7 @@ public class SysUserController {
 	@RequestMapping("sysUser/querySysUserByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysUserService.queryByCondition(sysUser));
+    	return DataRes.success(sysUserService.selectByCondition(sysUser));
     }
 
    /**

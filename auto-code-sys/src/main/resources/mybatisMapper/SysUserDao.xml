@@ -71,7 +71,7 @@
 	 ${orderByString} 
  </if>
   </select>
-  <select id="queryByCondition" resultMap="BaseResultMap">
+  <select id="selectByCondition" resultMap="BaseResultMap">
     select id,login_name,password,no,name,email,mobile,status,create_user_id,create_time,update_user_id,update_time,remarks,icon
  	from  sys_user 
 	<where>

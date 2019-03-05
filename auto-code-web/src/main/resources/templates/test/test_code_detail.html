@@ -40,18 +40,18 @@
                                th:value="${test_code.birthday_}">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${test_code.createTime_}">
-                    </div>
-                </div>
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">备注</label>
                     <div class="layui-input-block">
                         <textarea placeholder="请输入备注" class="layui-textarea" lay-verify="required"
                                   th:text="${test_code.remarks}" name="remarks" id="remarks"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">创建时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required"
+                               th:value="${test_code.createTime_}">
                     </div>
                 </div>
         <div class="layui-form-item" style="text-align: center">

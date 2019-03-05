@@ -132,7 +132,7 @@ public class FileImagesController {
 	@RequestMapping("fileImages/queryFileImagesByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(fileImagesService.queryByCondition(fileImages));
+    	return DataRes.success(fileImagesService.selectByCondition(fileImages));
     }
 
    /**

@@ -49,7 +49,7 @@
 	 ${orderByString} 
  </if>
   </select>
-  <select id="queryByCondition" resultMap="BaseResultMap">
+  <select id="selectByCondition" resultMap="BaseResultMap">
     select id,name,status,create_user_id,create_time,update_user_id,update_time,dels
  	from  sys_role 
 	<where>

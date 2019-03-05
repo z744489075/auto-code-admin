@@ -4,8 +4,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
-import com.zengtengpeng.common.utils.PagingUtils;
-import com.zengtengpeng.file.bean.FileImages;
 import com.zengtengpeng.file.service.FileImagesService;
 import com.zengtengpeng.file.dao.FileImagesDao;
 import org.springframework.transaction.annotation.Transactional;

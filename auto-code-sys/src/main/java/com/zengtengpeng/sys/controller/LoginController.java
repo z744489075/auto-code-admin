@@ -90,7 +90,7 @@ public class LoginController {
         }
         SysUser param=new SysUser();
         param.setLoginName(sysUser.getLoginName());
-        List<SysUser> sysUsers = sysUserService.queryByCondition(param);
+        List<SysUser> sysUsers = sysUserService.selectByCondition(param);
         if(sysUsers.size()>0){
             SysUser data = sysUsers.get(0);
             if(data.getStatus().equals(1)){

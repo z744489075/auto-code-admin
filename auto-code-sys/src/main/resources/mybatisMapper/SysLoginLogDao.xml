@@ -31,7 +31,7 @@
 	 ${orderByString} 
  </if>
   </select>
-  <select id="queryByCondition" resultMap="BaseResultMap">
+  <select id="selectByCondition" resultMap="BaseResultMap">
     select id,sys_user_id,create_time,ip,browser
  	from  sys_login_log 
 	<where>

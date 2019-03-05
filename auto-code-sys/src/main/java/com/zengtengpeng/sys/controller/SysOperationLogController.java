@@ -45,7 +45,7 @@ public class SysOperationLogController {
 	@RequestMapping("sysOperationLog/querySysOperationLogByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysOperationLogService.queryByCondition(sysOperationLog));
+    	return DataRes.success(sysOperationLogService.selectByCondition(sysOperationLog));
     }
 
    /**

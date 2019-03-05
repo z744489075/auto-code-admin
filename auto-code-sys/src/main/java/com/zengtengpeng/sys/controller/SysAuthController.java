@@ -81,7 +81,7 @@ public class SysAuthController {
 	@RequestMapping("sysAuth/querySysAuthByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysAuth sysAuth, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysAuthService.queryByCondition(sysAuth));
+    	return DataRes.success(sysAuthService.selectByCondition(sysAuth));
     }
 
    /**

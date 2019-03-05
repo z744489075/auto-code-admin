@@ -33,6 +33,11 @@
       <groupId>com.zengtengpeng</groupId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <artifactId>auto-code-generator</artifactId>
+      <groupId>com.zengtengpeng</groupId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
 
   </dependencies>
   <build>

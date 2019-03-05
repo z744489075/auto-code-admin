@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import com.zengtengpeng.sys.bean.SysRole;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import com.zengtengpeng.common.utils.PagingUtils;
 import com.zengtengpeng.sys.bean.SysAuth;
 import com.zengtengpeng.sys.service.SysAuthService;
 import com.zengtengpeng.sys.dao.SysAuthDao;

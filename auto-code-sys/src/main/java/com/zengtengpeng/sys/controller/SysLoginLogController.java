@@ -69,7 +69,7 @@ public class SysLoginLogController {
 	@RequestMapping("sysLoginLog/querySysLoginLogByCondition")
 	@ResponseBody
 	public DataRes queryByCondition(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
-    	return DataRes.success(sysLoginLogService.queryByCondition(sysLoginLog));
+    	return DataRes.success(sysLoginLogService.selectByCondition(sysLoginLog));
     }
 
    /**
