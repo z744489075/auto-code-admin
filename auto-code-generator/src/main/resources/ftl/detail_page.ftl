@@ -15,7 +15,7 @@
                     <label class="layui-form-label">${c.remarks}</label>
                     <div class="layui-input-block">
                         <input type="text" name="${c.beanName}" id="${c.beanName}" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${r'${'}${dataName}.${c.beanName}_${r'}'}">
+                               th:value="${r'${'}${dataName}.${c.beanName}_${r'}'}" >
                     </div>
                 </div>
             <#elseif cons[c.beanName]?? >
@@ -23,7 +23,7 @@
                     <label class="layui-form-label">${cons[c.beanName]['name']!}</label>
                     <div class="layui-input-block">
 
-                            <select name="${c.beanName}" id="${c.beanName}">
+                            <select name="${c.beanName}" id="${c.beanName}" lay-search>
                                 <option value="">请选择${cons[c.beanName]['name']!}</option>
                                     <#list cons[c.beanName]?keys as key>
                                         <#if key!='name' && key!='type'>

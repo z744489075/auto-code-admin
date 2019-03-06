@@ -9,9 +9,13 @@ datasourceConfig:
     username: root
     #数据库密码
     password: 111111
+#thymeleaf 放置页面的文件夹
+thymeleafPath: templates
+#添加权限到表的父id.如果为空则需要手动添加权限
+authParentId:
 globalConfig:
     #生成代码的项目路径
-    parentPath: E:\resource\workspaceJDB\auto-code-web-demo
+    parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
     #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
     parentPack: com.zengtengpeng.test
     #是否覆盖生成文件 如果为true将会把以前的文件覆盖掉

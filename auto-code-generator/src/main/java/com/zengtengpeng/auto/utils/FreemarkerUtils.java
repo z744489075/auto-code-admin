@@ -1,11 +1,14 @@
 package com.zengtengpeng.auto.utils;
 
 import com.zengtengpeng.auto.AdminStartCode;
+import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
 import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.jdbc.bean.Bean;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,6 +19,7 @@ import java.io.IOException;
  */
 public class FreemarkerUtils {
 
+    static Logger logger = LoggerFactory.getLogger(FreemarkerUtils.class);
 
   static Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
     static {
@@ -25,20 +29,25 @@ public class FreemarkerUtils {
     /**
      * 创建页面
      * @param ftlName
-     * @param autoCodeConfig
+     * @param adminAutoCodeConfig
      */
-    public static void createPageFile(String ftlName, AutoCodeConfig autoCodeConfig) {
+    public static void createPageFile(String ftlName, AdminAutoCodeConfig adminAutoCodeConfig) {
         FileWriter writer = null;
-        GlobalConfig globalConfig = autoCodeConfig.getGlobalConfig();
-
+        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
         try {
             Template template = cfg.getTemplate(ftlName +".ftl");
-            Bean bean = autoCodeConfig.getBean();
-            File file = new File(globalConfig.getParentPathResources(), AdminStartCode.templatesPath +"/"+ bean.getMobelName()+"/");
+            Bean bean = adminAutoCodeConfig.getBean();
+            File file = new File(globalConfig.getParentPathResources(), adminAutoCodeConfig.getThymeleafPath() +"/"+ bean.getMobelName()+"/");
             if(!file.exists()){
                 file.mkdirs();
             }
-            writer = new FileWriter(new File(file.getPath(),bean.getDataName()+"_"+ftlName.split("_")[0] + ".html"));
+            file = new File(file.getPath(), bean.getDataName() + "_" + ftlName.split("_")[0] + ".html");
+
+            if(!globalConfig.getCover() && file.exists()){
+                logger.info("{}已经存在,conver为{},不再重复生成",file.getAbsolutePath(),globalConfig.getCover());
+                return;
+            }
+            writer = new FileWriter(file);
             template.process(bean, writer);
             writer.flush();
         } catch (Exception e) {

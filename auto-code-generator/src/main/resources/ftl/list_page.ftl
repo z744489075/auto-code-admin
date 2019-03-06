@@ -104,7 +104,8 @@
                 ,{field: '${c.beanName}', title: '${c.remarks?json_string}'}
                 </#if>
             </#list>
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo'}
+                //addCodeCol
+                , { title: '操作', toolbar: '#barDemo',width:250}
             ]],
             parseData: function (res) { //res 即为原始返回的数据
                 return {

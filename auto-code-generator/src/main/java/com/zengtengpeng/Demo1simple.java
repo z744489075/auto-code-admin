@@ -11,14 +11,6 @@ public class Demo1simple {
         //lambda表达式写法 二选一
         StartCode startCode= new AdminStartCode();
 
-        //普通写法 二选一
-//        StartCode startCode=new StartCode() {
-//            @Override
-//            public void custom(AutoCodeConfig autoCodeConfig) {
-//
-//            }
-//        };
-
-        startCode.start(StartCode.saxYaml("auto-code_simple.yaml"));
+        startCode.start(AdminStartCode.saxYaml("auto-code_simple.yaml"));
     }
 }

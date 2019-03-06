@@ -9,6 +9,10 @@ datasourceConfig:
     username: root
     #数据库密码
     password: 111111
+#thymeleaf 放置页面的文件夹
+thymeleafPath: templates
+#添加权限到表的父id.如果为空则需要手动添加权限
+authParentId: 89
 globalConfig:
     #数据库表配置
     tableNames:

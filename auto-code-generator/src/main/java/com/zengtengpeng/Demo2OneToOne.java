@@ -1,7 +1,10 @@
 package com.zengtengpeng;
 
 
+import com.zengtengpeng.auto.AdminStartCode;
+import com.zengtengpeng.auto.build.AdminBuildOneToOne;
 import com.zengtengpeng.autoCode.StartCode;
+import com.zengtengpeng.relation.oneToOne.BuildOneToOne;
 import com.zengtengpeng.relation.utils.RelationUtils;
 
 /**
@@ -10,20 +13,7 @@ import com.zengtengpeng.relation.utils.RelationUtils;
 public class Demo2OneToOne {
     public static void main(String[] args) {
 
-        //普通写法
-//        RelationUtils.oneToOne(StartCode.saxYaml(), new StartCode() {
-//            @Override
-//            public void custom(AutoCodeConfig autoCodeConfig) {
-//
-//            }
-//        }, new BuildOneToOne() {
-//            @Override
-//            public void custom(AutoCodeConfig autoCodeConfig) {
-//
-//            }
-//        });
-
         //lambda表达式写法 二选一
-        RelationUtils.oneToOne(StartCode.saxYaml("auto-code_one-to-one.yaml"), t->{}, rt -> {});
+        RelationUtils.oneToOne(AdminStartCode.saxYaml("auto-code_one-to-one.yaml"), new AdminStartCode(), new AdminBuildOneToOne());
     }
 }

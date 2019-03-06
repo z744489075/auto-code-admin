@@ -49,7 +49,17 @@
                 window.history.go(-1);
             }
         }
-
+        function openUrl(url){
+            layer.open({
+                type: 2,
+                title: '详情',
+                shadeClose: true,
+                maxmin: true,
+                shade: 0.8,
+                area: ['1025px', '500px'],
+                content: rootPath+url
+            });
+        }
         $.fn.serializeObject = function()
         {
             var o = {};
