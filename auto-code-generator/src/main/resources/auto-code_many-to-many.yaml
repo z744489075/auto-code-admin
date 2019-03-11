@@ -12,7 +12,7 @@ datasourceConfig:
 #thymeleaf 放置页面的文件夹
 thymeleafPath: templates
 #添加权限到表的父id.如果为空则需要手动添加权限
-authParentId: 3
+#authParentId: 92
 globalConfig:
     #生成代码的项目路径
     parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
@@ -33,9 +33,9 @@ globalConfig:
             #主键名称
             primaryKey: id
             #是否生成 单表 代码
-            generate: false
-            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.test.bean.TestUser  请填写 com.zengtengpeng.test
-            existParentPackage: com.zengtengpeng.test
+#            generate: false
+#            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.test.bean.TestUser  请填写 com.zengtengpeng.test
+#            existParentPackage: com.zengtengpeng.test
             #备注
             remark: "用户"
         #外表
@@ -43,11 +43,11 @@ globalConfig:
             #数据库表名
             dataName: test_role
             #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: Role
+            beanName: TestRole
             #外键名称 就是已哪个字段和主表关联 填写数据库字段名
             foreignKey: id
             #备注
-            remark: "班级"
+            remark: "角色"
         #第三表 -当生成多对多代码时该参数必填.否则会忽略该参数
         thirdparty:
             #数据库表名

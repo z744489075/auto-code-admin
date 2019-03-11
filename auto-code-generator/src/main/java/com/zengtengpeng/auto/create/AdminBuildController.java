@@ -20,7 +20,7 @@ public class AdminBuildController implements BuildController {
     public BuildJavaConfig custom(AutoCodeConfig autoCodeConfig) {
         //自定义导入
         BuildJavaConfig buildJavaConfig=new BuildJavaConfig();
-        buildJavaConfig.setImports(buildImports());
+        buildJavaConfig.setImports(buildImports(autoCodeConfig));
 
 
         //自定义方法
@@ -35,8 +35,9 @@ public class AdminBuildController implements BuildController {
     /**
      * 自定义导入
      * @return
+     * @param autoCodeConfig
      */
-    public List<String> buildImports(){
+    public List<String> buildImports(AutoCodeConfig autoCodeConfig){
         List<String> list=new ArrayList<>();
         list.add("com.zengtengpeng.common.annotation.Auth");
         return list;

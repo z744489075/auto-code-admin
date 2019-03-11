@@ -1,6 +1,9 @@
 package com.zengtengpeng;
 
 
+import com.zengtengpeng.auto.AdminStartCode;
+import com.zengtengpeng.auto.build.AdminBuildManyToMany;
+import com.zengtengpeng.auto.build.AdminBuildOneToMany;
 import com.zengtengpeng.autoCode.StartCode;
 import com.zengtengpeng.relation.utils.RelationUtils;
 
@@ -9,19 +12,6 @@ import com.zengtengpeng.relation.utils.RelationUtils;
  */
 public class Demo4ManyToMany {
     public static void main(String[] args) {
-        //普通写法
-        /*RelationUtils.manyToMany(StartCode.saxYaml(), new StartCode() {
-            @Override
-            public void custom(AutoCodeConfig autoCodeConfig) {
-
-            }
-        }, new BuildManyToMany() {
-            @Override
-            public void custom(AutoCodeConfig autoCodeConfig) {
-
-            }
-        });*/
-        //lambda表达式写法 二选一
-        RelationUtils.manyToMany(StartCode.saxYaml(), t->{}, rt -> {});
+        RelationUtils.manyToMany(AdminStartCode.saxYaml("auto-code_many-to-many.yaml"), new AdminStartCode(), new AdminBuildManyToMany());
     }
 }

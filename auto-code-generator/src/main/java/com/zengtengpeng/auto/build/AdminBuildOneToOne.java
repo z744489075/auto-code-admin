@@ -2,16 +2,13 @@ package com.zengtengpeng.auto.build;
 
 import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
 import com.zengtengpeng.autoCode.config.AutoCodeConfig;
-import com.zengtengpeng.autoCode.config.GlobalConfig;
-import com.zengtengpeng.autoCode.utils.MyStringUtils;
-import com.zengtengpeng.page.build.BuildOneToOneListPage;
-import com.zengtengpeng.relation.bean.RelationTable;
-import com.zengtengpeng.relation.config.RelationConfig;
+import com.zengtengpeng.extend.build.oneToOne.ExtendOneToOneController;
+import com.zengtengpeng.extend.build.oneToOne.ExtendOneToOneDetailPage;
+import com.zengtengpeng.extend.build.oneToOne.ExtendOneToOneListPage;
 import com.zengtengpeng.relation.oneToOne.BuildOneToOne;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
 
 /**
  * 自定义一对一实现
@@ -22,8 +19,15 @@ public class AdminBuildOneToOne implements BuildOneToOne {
     @Override
     public void custom(AutoCodeConfig autoCodeConfig) {
         AdminAutoCodeConfig adminAutoCodeConfig= (AdminAutoCodeConfig) autoCodeConfig;
-        BuildOneToOneListPage buildOneToOneListPage=new BuildOneToOneListPage();
+
+        ExtendOneToOneListPage buildOneToOneListPage=new ExtendOneToOneListPage();
         buildOneToOneListPage.build(adminAutoCodeConfig);
+
+        ExtendOneToOneController extendOneToOneController=new ExtendOneToOneController();
+        extendOneToOneController.build(adminAutoCodeConfig);
+
+        ExtendOneToOneDetailPage extendOneToOneDetailpage=new ExtendOneToOneDetailPage();
+        extendOneToOneDetailpage.build(adminAutoCodeConfig);
     }
 
 }

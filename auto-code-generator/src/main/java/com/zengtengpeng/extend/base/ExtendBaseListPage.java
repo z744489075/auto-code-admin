@@ -1,8 +1,7 @@
-package com.zengtengpeng.page.base;
+package com.zengtengpeng.extend.base;
 
 import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
-import com.zengtengpeng.autoCode.utils.MyStringUtils;
 import com.zengtengpeng.relation.bean.RelationTable;
 import com.zengtengpeng.relation.config.RelationConfig;
 import org.slf4j.Logger;
@@ -14,11 +13,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 /**
- * 多表生成页面追加列表页面代码接口
+ * 多表生成页面追加 列表页面
  */
-public interface BuildBaseListPage {
+public interface ExtendBaseListPage {
 
-    Logger logger = LoggerFactory.getLogger(BuildBaseListPage.class);
+    Logger logger = LoggerFactory.getLogger(ExtendBaseListPage.class);
 
     /**
      * 构建
@@ -129,7 +128,7 @@ public interface BuildBaseListPage {
                 content.append(s+"\n");
                 //添加删除按钮
                 if(s.contains("lay-event=\"del\"")){
-                    String str = "\t<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"relationDel\"><i class=\"layui-icon layui-icon-delete\"></i>关联删除</a>\n";
+                    String str = String.format("\t<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"relation_del_%s\"><i class=\"layui-icon layui-icon-delete\"></i>关联删除%s</a>\n",foreign.getDataName(),foreign.getRemark());
                     if(oldContent.indexOf(str)<0){
                         content.append(str+"\n");
                     }else {
@@ -156,7 +155,7 @@ public interface BuildBaseListPage {
 
                 //添加事件监听
                 if(s.contains("table.on('tool(table-data)'")){
-                    String format = String.format("if(obj.event === 'relationDel'){\n" +
+                    String format = String.format("if(obj.event === 'relation_del_%s'){\n" +
                                     "                myConfirm(\"确定要关联删除吗?(删除后外表的记录也将清空)\", function (index) {\n" +
                                     "                    obj.del();\n" +
                                     "                    $.post(rootPath + \"%s/delete%sAnd%s\", {\"%s\": obj.data.%s}, function (data) {\n" +
@@ -167,7 +166,7 @@ public interface BuildBaseListPage {
                                     "                    });\n" +
                                     "                    layer.close(index);\n" +
                                     "                })\n" +
-                                    "            }", primary.getBeanNameLower(), primary.getBeanName(), foreign.getBeanName(),
+                                    "            }",foreign.getDataName(), primary.getBeanNameLower(), primary.getBeanName(), foreign.getBeanName(),
                             primary.getPrimaryKeyUp(false), primary.getPrimaryKeyUp(false));
                     if(oldContent.indexOf(format)<0){
                         content.append("\t\t\t"+format+"\n");

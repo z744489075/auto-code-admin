@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/layui/css/formSelects-v4.css}"/>
     <div th:replace="~{common/common-head.html::common-head}"></div>
 </head>
 <body class="body-common">
@@ -14,8 +15,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">${c.remarks}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="${c.beanName}" id="${c.beanName}" autocomplete="off" class="layui-input" lay-verify="required"
-                               th:value="${r'${'}${dataName}.${c.beanName}_${r'}'}" >
+                        <input type="text" name="${c.beanName}" id="${c.beanName}" autocomplete="off" class="layui-input" lay-verify="required" th:value="${r'${'}${dataName}.${c.beanName}_${r'}'}" >
                     </div>
                 </div>
             <#elseif cons[c.beanName]?? >
@@ -37,8 +37,7 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">${c.remarks}</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入${c.remarks}" class="layui-textarea" lay-verify="required"
-                                  th:text="${r'${'}${dataName}.${c.beanName}${r'}'}" name="${c.beanName}" id="${c.beanName}"></textarea>
+                        <textarea placeholder="请输入${c.remarks}" class="layui-textarea" lay-verify="required"  th:text="${r'${'}${dataName}.${c.beanName}${r'}'}" name="${c.beanName}" id="${c.beanName}"></textarea>
                     </div>
                 </div>
             <#elseif c.jdbcType_='INTEGER' || c.jdbcType_='DECIMAL' || c.jdbcType_='NUMERIC'|| c.jdbcType_='TINYINT'
@@ -46,16 +45,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">${c.remarks}</label>
                 <div class="layui-input-block">
-                    <input type="number" name="${c.beanName}" id="${c.beanName}" maxlength="${c.length}" lay-verify="number" autocomplete="off"
-                           placeholder="请输入${c.remarks}" class="layui-input" th:value="${r'${'}${dataName}.${c.beanName}${r'}'}" >
+                    <input type="number" name="${c.beanName}" id="${c.beanName}" maxlength="${c.length}" lay-verify="number" autocomplete="off" placeholder="请输入${c.remarks}" class="layui-input" th:value="${r'${'}${dataName}.${c.beanName}${r'}'}" >
                 </div>
             </div>
             <#else >
                 <div class="layui-form-item">
                     <label class="layui-form-label">${c.remarks}</label>
                     <div class="layui-input-block">
-                        <input type="text" name="${c.beanName}" id="${c.beanName}" maxlength="${c.length}" lay-verify="required" autocomplete="off"
-                               placeholder="请输入${c.remarks}" class="layui-input" th:value="${r'${'}${dataName}.${c.beanName}${r'}'}" >
+                        <input type="text" name="${c.beanName}" id="${c.beanName}" maxlength="${c.length}" lay-verify="required" autocomplete="off" placeholder="请输入${c.remarks}" class="layui-input" th:value="${r'${'}${dataName}.${c.beanName}${r'}'}" >
                     </div>
                 </div>
             </#if>
@@ -73,13 +70,19 @@
 <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function () {
+    layui.config({
+        base: rootPath+'static/js/layui/extend/'
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    layui.use(['form', 'layedit', 'laydate','formSelects'], function () {
         var form = layui.form
                 , layer = layui.layer
                 , layedit = layui.layedit
                 , laydate = layui.laydate;
         form.render();
-
+        var formSelects = layui.formSelects;
+        formSelects.render();
 
         <#list allColumns as c>
             <#if c.jdbcType_='TIMESTAMP' >

@@ -13,7 +13,6 @@ import com.zengtengpeng.relation.utils.RelationUtils;
 public class Demo2OneToOne {
     public static void main(String[] args) {
 
-        //lambda表达式写法 二选一
         RelationUtils.oneToOne(AdminStartCode.saxYaml("auto-code_one-to-one.yaml"), new AdminStartCode(), new AdminBuildOneToOne());
     }
 }
