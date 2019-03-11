@@ -44,7 +44,7 @@ public class AuthUtils {
                 }
                 //查询
                 String sql2 = String.format("INSERT INTO `sys_auth` (`parent_auth_id`,`name`,`sort`,`href`,`icon`,`shows`,`create_time`) VALUES" +
-                                "  ('%s','%s','%s','%s','%s','%s',NOW());",key,"查询",++index,bean.getTableValue()+"/selectAll",
+                                "  ('%s','%s','%s','%s','%s','%s',NOW());",key,"查询",++index,bean.getTableValue()+"/selectAllByPaging",
                         "layui-icon layui-icon-search","1");
                 preparedStatement = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.executeUpdate();

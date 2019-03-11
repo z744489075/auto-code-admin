@@ -175,12 +175,18 @@
     function getDataUrl() {
         var fkey=[[${r'${'}param.fkey${r'}'}]];
         var fvalue=[[${r'${'}param.fvalue${r'}'}]];
+        var furl=[[${r'${'}param.furl${r'}'}]];
         var param="";
         if(fkey&&fvalue){
             param="?"+fkey[0]+"="+fvalue[0];
         }
 
-     return rootPath + "${tableValue}/selectAllByPaging"+param;
+        if(!furl){
+            furl="${tableValue}/selectAllByPaging";
+        }else{
+            furl=furl[0];
+        }
+     return rootPath +furl +param;
     }
 
     function loadMyData() {

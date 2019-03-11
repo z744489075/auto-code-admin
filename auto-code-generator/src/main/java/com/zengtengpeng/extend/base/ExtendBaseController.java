@@ -26,6 +26,129 @@ public interface ExtendBaseController {
      */
     default void build(AdminAutoCodeConfig adminAutoCodeConfig){
         foreignGotoDetail(adminAutoCodeConfig);
+        foreignAuth(adminAutoCodeConfig);
+        primaryAuth(adminAutoCodeConfig);
+    }
+
+    /**
+     * 获取文件路径
+     * @param globalConfig
+     * @param relationTable
+     * @return
+     */
+    default String getFilePath(GlobalConfig globalConfig,RelationTable relationTable){
+        return globalConfig.getParentPathJavaSource()+"/"+relationTable.getExistParentPackage().replace(".","/")+"/"+globalConfig.getPackageController()+"/"+relationTable.getBeanName()+globalConfig.getPackageControllerUp()+".java";
+    }
+    /**
+     * 修改主表权限
+     */
+    default void primaryAuth(AdminAutoCodeConfig adminAutoCodeConfig){
+        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+        RelationConfig relationConfig = globalConfig.getRelationConfig();
+        RelationTable primary = relationConfig.getPrimary();
+        String filePath = getFilePath(globalConfig, primary);
+        File file=new File(filePath);
+        if (!file.exists()){
+            logger.info("{}不存在,忽略修改",filePath);
+            return;
+        }
+        FileWriter fileWriter=null;
+
+        FileReader fileReader=null;
+        BufferedReader bufferedReader=null;
+        try {
+            StringBuffer content=new StringBuffer();
+            fileReader=new FileReader(file);
+            bufferedReader=new BufferedReader(fileReader);
+            String s;
+            String selectAuth=String.format("@Auth(\"%s/selectAllByPaging\")",primary.getBeanNameLower());
+            String deleteAuth=String.format("@Auth(\"%s/deleteByPrimaryKey\")",primary.getBeanNameLower());
+            String before="";
+            while ((s=bufferedReader.readLine())!=null){
+                if(s.contains("@RequestMapping")&&s.contains("select")&&!before.contains(selectAuth)){
+                    content.append("\t"+selectAuth+"\n");
+                }
+                if(s.contains("@RequestMapping")&&s.contains("delete")&&!before.contains(deleteAuth)){
+                    content.append("\t"+deleteAuth+"\n");
+                }
+                before=s;
+                content.append(s+"\n");
+            }
+            fileWriter=new FileWriter(file);
+            fileWriter.write(content.toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    /**
+     * 修改外表权限
+     */
+    default void foreignAuth(AdminAutoCodeConfig adminAutoCodeConfig){
+        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+        RelationConfig relationConfig = globalConfig.getRelationConfig();
+        RelationTable foreign = relationConfig.getForeign();
+        RelationTable primary = relationConfig.getPrimary();
+        String filePath = getFilePath(globalConfig, foreign);
+        File file=new File(filePath);
+        if (!file.exists()){
+            logger.info("{}不存在,忽略修改",filePath);
+            return;
+        }
+        FileWriter fileWriter=null;
+
+        FileReader fileReader=null;
+        BufferedReader bufferedReader=null;
+        try {
+            StringBuffer content=new StringBuffer();
+            fileReader=new FileReader(file);
+            bufferedReader=new BufferedReader(fileReader);
+            String s;
+            String selectAuth=String.format("@Auth(\"%s/selectAllByPaging\")",foreign.getBeanNameLower());
+            String deleteAuth=String.format("@Auth(\"%s/deleteByPrimaryKey\")",foreign.getBeanNameLower());
+            String before="";
+            while ((s=bufferedReader.readLine())!=null){
+                if(s.contains("@RequestMapping")&&s.contains("select")&&!before.contains(selectAuth)){
+                    content.append("\t"+selectAuth+"\n");
+                }
+                if(s.contains("@RequestMapping")&&s.contains("delete")&&!before.contains(deleteAuth)){
+                    content.append("\t"+deleteAuth+"\n");
+                }
+                before=s;
+                content.append(s+"\n");
+            }
+            fileWriter=new FileWriter(file);
+            fileWriter.write(content.toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     /**
      * 修改外表的 gotoDetail 方法
@@ -36,10 +159,10 @@ public interface ExtendBaseController {
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
-        String path=globalConfig.getParentPathJavaSource()+"/"+foreign.getExistParentPackage().replace(".","/")+"/"+globalConfig.getPackageController()+"/"+foreign.getBeanName()+globalConfig.getPackageControllerUp()+".java";
-        File file=new File(path);
+        String filePath = getFilePath(globalConfig, foreign);
+        File file=new File(filePath);
         if (!file.exists()){
-            logger.info("{}不存在,忽略修改",path);
+            logger.info("{}不存在,忽略修改",filePath);
             return;
         }
         FileWriter fileWriter=null;
@@ -57,6 +180,7 @@ public interface ExtendBaseController {
                 oldContent.append(s+"\n");
             }
             bufferedReader.reset();
+
             while ((s=bufferedReader.readLine())!=null){
 
                 content.append(s+"\n");

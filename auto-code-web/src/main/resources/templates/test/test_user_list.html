@@ -9,42 +9,38 @@
         <form id="dataForm" class="layui-form">
             <div class="layui-form-item">
                                 <div class="layui-inline" >
-                    <input type="text" name="id" id="id" placeholder="测试角色" class="layui-input">
+                    <input type="text" name="id" id="id" placeholder="id" class="layui-input">
                 </div>
                 <div class="layui-inline" style="display: none">
-                    <input type="text" name="name" id="name" placeholder="角色名称" class="layui-input">
+                    <input type="text" name="name" id="name" placeholder="名称" class="layui-input">
+                </div>
+                <div class="layui-inline" style="display: none">
+                    <input type="text" name="age" id="age" placeholder="年龄" class="layui-input">
                 </div>
                 <div class="layui-inline" >
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-inline">
                         <select name="status" id="status">
                             <option value="">请选择状态</option>
-                                <option value="0">启用</option>
-                                <option value="1">禁用</option>
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
                         </select>
                     </div>
                 </div>
-                <div class="layui-inline" style="display: none">
-                    <input type="text" name="createUserId" id="createUserId" placeholder="创建者" class="layui-input">
-                </div>
                 <div class="layui-inline"  >
-                    <input type="text" name="createTime" id="createTime" placeholder="创建时间" class="layui-input">
+                    <input type="text" name="birthday" id="birthday" placeholder="生日" class="layui-input">
                 </div>
                 <div class="layui-inline" style="display: none">
-                    <input type="text" name="updateUserId" id="updateUserId" placeholder="更新者" class="layui-input">
+                    <input type="text" name="remarks" id="remarks" placeholder="备注" class="layui-input">
+                </div>
+                <div class="layui-inline" style="display: none">
+                    <input type="text" name="mun" id="mun" placeholder="数字" class="layui-input">
+                </div>
+                <div class="layui-inline"  style="display: none">
+                    <input type="text" name="createTime" id="createTime" placeholder="创建时间" class="layui-input">
                 </div>
                 <div class="layui-inline"  style="display: none">
                     <input type="text" name="updateTime" id="updateTime" placeholder="更新时间" class="layui-input">
-                </div>
-                <div class="layui-inline" style="display: none">
-                    <label class="layui-form-label">是否删除</label>
-                    <div class="layui-input-inline">
-                        <select name="dels" id="dels">
-                            <option value="">请选择是否删除</option>
-                                <option value="0">正常</option>
-                                <option value="1">删除</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="layui-inline">
                     <input type="text" name="startDate" id="startDate" placeholder="开始时间" class="layui-input">
@@ -65,21 +61,23 @@
 </div>
 <script type="text/html" id="barDemo">
 
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'testRole/save')}">
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'user/save')}">
         <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
     </span>
 
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'testRole/deleteByPrimaryKey')}">
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'user/deleteByPrimaryKey')}">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="relation_del_test_role"><i class="layui-icon layui-icon-delete"></i>关联删除角色</a>
+
     </span>
 </script>
 <script type="text/html" id="toolbar-data">
     <!-- http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml 图标库-->
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'testRole/save')}">
-    <a class="layui-btn layui-btn-normal layui-btn-sm" th:href="@{/testRole/gotoDetail }"><i class="layui-icon layui-icon-add-1"></i> 新增</a>
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'user/save')}">
+    <a class="layui-btn layui-btn-normal layui-btn-sm" th:href="@{/user/gotoDetail }"><i class="layui-icon layui-icon-add-1"></i> 新增</a>
     </span>
 
-    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'testRole/export')}">
+    <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'user/export')}">
     <a href="javascript:void(0)" onclick="exports()" class="layui-btn layui-btn-warm layui-btn-sm">
             <i  class="layui-icon layui-icon-download-circle"></i>  导出</a>
     </span>
@@ -102,20 +100,21 @@
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'id', type: "checkbox"}
-                ,{field: 'id', title: '测试角色'}
-                ,{field: 'name', title: '角色名称'}
+                ,{field: 'id', title: 'id'}
+                ,{field: 'name', title: '名称'}
+                ,{field: 'age', title: '年龄'}
                 ,{field: 'status_', title: '状态'}
-                ,{field: 'createUserId', title: '创建者'}
+                ,{field: 'birthday_', title: '生日'}
+                ,{field: 'remarks', title: '备注'}
+                ,{field: 'mun', title: '数字'}
                 ,{field: 'createTime_', title: '创建时间'}
-                ,{field: 'updateUserId', title: '更新者'}
                 ,{field: 'updateTime_', title: '更新时间'}
-                ,{field: 'dels_', title: '是否删除'}
                 //addCodeCol
-				,{title: '用户',templet: function(d){
-                        return '<a class="layui-btn layui-btn-xs" onclick="openUrl(\'user/gotoList?fkey=id&fvalue='+d.id+'\')"><i class="layui-icon layui-icon-search"></i>详情</a>';
+                , { title: '操作', toolbar: '#barDemo',width:250}
+				,{title: '角色',templet: function(d){
+                        return '<a class="layui-btn layui-btn-xs" onclick="openUrl(\'testRole/gotoList?furl=testRole/selectTestRoleByUser&fkey=userId&fvalue='+d.id+'\')"><i class="layui-icon layui-icon-search"></i>详情</a>';
                     }
                 }
-                , { title: '操作', toolbar: '#barDemo',width:250}
             ]],
             parseData: function (res) { //res 即为原始返回的数据
                 return {
@@ -136,12 +135,24 @@
         });
         //监听行工具事件
         table.on('tool(table-data)', function (obj) {
+			if(obj.event === 'relation_del_test_role'){
+                myConfirm("确定要关联删除吗?(删除后外表的记录也将清空)", function (index) {
+                    obj.del();
+                    $.post(rootPath + "user/deleteUserAndTestRole", {"id": obj.data.id}, function (data) {
+                        myAlert("删除成功");
+                        setTimeout(function () {
+                            loadMyData()
+                        }, 2000)
+                    });
+                    layer.close(index);
+                })
+            }
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'del') {
                 myConfirm("确定要删除吗?", function (index) {
                     obj.del();
-                    $.post(rootPath + "testRole/deleteByPrimaryKey", {"id": data.id}, function (data) {
+                    $.post(rootPath + "user/deleteByPrimaryKey", {"id": data.id}, function (data) {
                         myAlert("删除成功");
                         setTimeout(function () {
                             loadMyData()
@@ -150,7 +161,7 @@
                     layer.close(index);
                 })
             } else if (obj.event === 'edit') {
-                window.location.href = rootPath + "testRole/gotoDetail?id=" + data.id;
+                window.location.href = rootPath + "user/gotoDetail?id=" + data.id;
             }
         });
 
@@ -165,6 +176,10 @@
             , type: 'datetime'
         });
 
+        laydate.render({
+            elem: '#birthday'
+            , type: 'date'
+        });
        laydate.render({
            elem: '#createTime'
            , type: 'datetime'
@@ -180,12 +195,18 @@
     function getDataUrl() {
         var fkey=[[${param.fkey}]];
         var fvalue=[[${param.fvalue}]];
+        var furl=[[${param.furl}]];
         var param="";
         if(fkey&&fvalue){
             param="?"+fkey[0]+"="+fvalue[0];
         }
 
-     return rootPath + "testRole/selectAllByPaging"+param;
+        if(!furl){
+            furl="user/selectAllByPaging";
+        }else{
+            furl=furl[0];
+        }
+     return rootPath +furl +param;
     }
 
     function loadMyData() {
@@ -199,7 +220,7 @@
 
     //导出
     function exports() {
-        window.location.href = rootPath + "testRole/export?" + $("#dataForm").serialize()
+        window.location.href = rootPath + "user/export?" + $("#dataForm").serialize()
     }
 
 </script>
