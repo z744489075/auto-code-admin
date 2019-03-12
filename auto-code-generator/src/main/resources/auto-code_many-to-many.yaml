@@ -37,7 +37,7 @@ globalConfig:
 #            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.test.bean.TestUser  请填写 com.zengtengpeng.test
 #            existParentPackage: com.zengtengpeng.test
             #备注
-            remark: "用户"
+            remark: "多对多用户"
         #外表
         foreign:
             #数据库表名
@@ -47,7 +47,7 @@ globalConfig:
             #外键名称 就是已哪个字段和主表关联 填写数据库字段名
             foreignKey: id
             #备注
-            remark: "角色"
+            remark: "多对多角色"
         #第三表 -当生成多对多代码时该参数必填.否则会忽略该参数
         thirdparty:
             #数据库表名
@@ -57,4 +57,4 @@ globalConfig:
             #外键名称 该字段将和外表配置关联起来
             foreignKey: role_id
             #备注
-            remark: "用户角色"
+            remark: "多对多用户角色"

@@ -33,7 +33,7 @@ globalConfig:
             #主键名称
             primaryKey: id
             #备注
-            remark: "用户"
+            remark: "一对一用户"
         #外表
         foreign:
             #数据库表名
@@ -47,5 +47,5 @@ globalConfig:
             #如果单表代码已经生成,请填写代码的父包,没有则不填写 如 com.zengtengpeng.test.bean.TestUser  请填写 com.zengtengpeng.test
             #            existParentPackage: com.zengtengpeng.test
             #备注
-            remark: "班级"
+            remark: "一对一班级"
 
