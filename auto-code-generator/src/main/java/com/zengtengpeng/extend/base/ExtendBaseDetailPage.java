@@ -27,6 +27,17 @@ public interface ExtendBaseDetailPage {
     default void build(AdminAutoCodeConfig adminAutoCodeConfig){
         foreignDetailPage(adminAutoCodeConfig);
     }
+
+    /**
+     * 获取文件路径
+     * @param adminAutoCodeConfig
+     * @param relationTable
+     * @return
+     */
+    default String getFilePath(AdminAutoCodeConfig adminAutoCodeConfig,RelationTable relationTable){
+        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+        return globalConfig.getParentPathResources()+"/"+adminAutoCodeConfig.getThymeleafPath()+"/"+relationTable.getExistParentPackage_()+"/"+relationTable.getDataName()+"_detail.html";
+    }
     /**
      * 修改外表的 详情页面
      * @param adminAutoCodeConfig
@@ -36,10 +47,9 @@ public interface ExtendBaseDetailPage {
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
-        String path=globalConfig.getParentPathResources()+"/"+adminAutoCodeConfig.getThymeleafPath()+"/"+foreign.getExistParentPackage_()+"/"+foreign.getDataName()+"_detail.html";
-        File file=new File(path);
+        File file=new File(getFilePath(adminAutoCodeConfig,foreign));
         if (!file.exists()){
-            logger.info("{}不存在,忽略修改",path);
+            logger.info("{}不存在,忽略修改",file.getAbsolutePath());
             return;
         }
         FileWriter fileWriter=null;

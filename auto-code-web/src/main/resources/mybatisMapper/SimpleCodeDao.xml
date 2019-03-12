@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengtengpeng.simple.dao.SimpleCodeDao">
+
+	<resultMap id="BaseResultMap" type="com.zengtengpeng.simple.bean.SimpleCode">
+
+		<id column="id" jdbcType="INTEGER" property="id" />
+
+		<result column="name" jdbcType="VARCHAR" property="name" />
+
+		<result column="age" jdbcType="INTEGER" property="age" />
+
+		<result column="status" jdbcType="INTEGER" property="status" />
+
+		<result column="birthday" jdbcType="DATE" property="birthday" />
+
+		<result column="remarks" jdbcType="LONGVARCHAR" property="remarks" />
+
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+
+	</resultMap>
+
+	<insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
+		insert into test_simple_code (
+		name,
+		age,
+		status,
+		birthday,
+		remarks
+		)
+ 	   values (
+		 #{name,jdbcType=VARCHAR},
+		 #{age,jdbcType=INTEGER},
+		 #{status,jdbcType=INTEGER},
+		 #{birthday,jdbcType=DATE},
+		 #{remarks,jdbcType=LONGVARCHAR}
+		)
+
+
+	</insert>
+
+	<delete id="deleteByPrimaryKey" >
+		delete from  test_simple_code 
+
+		where id = #{id} 
+ 
+
+	</delete>
+
+	<update id="update" >
+		update test_simple_code
+		<set>
+			<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR}, </if>
+			<if test="age!=null">age = #{age,jdbcType=INTEGER}, </if>
+			<if test="status!=null">status = #{status,jdbcType=INTEGER}, </if>
+			<if test="birthday!=null">birthday = #{birthday,jdbcType=DATE}, </if>
+			<if test="remarks!=null and remarks!=''">remarks = #{remarks,jdbcType=LONGVARCHAR}, </if>
+			<if test="createTime!=null">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
+		</set>
+		where id=#{id}
+
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+		select
+		id,
+		name,
+		age,
+		status,
+		birthday,
+		remarks,
+		create_time
+		from test_simple_code
+		where id = #{id,jdbcType=INTEGER}
+
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap" >
+		select
+		id,
+		name,
+		age,
+		status,
+		birthday,
+		remarks,
+		create_time
+		from test_simple_code
+		<where>
+		<if test="id!=null "> and test_simple_code.id = #{id,jdbcType=INTEGER}</if>
+		<if test="name!=null and name!=''"> and test_simple_code.name = #{name,jdbcType=VARCHAR}</if>
+		<if test="age!=null "> and test_simple_code.age = #{age,jdbcType=INTEGER}</if>
+		<if test="status!=null "> and test_simple_code.status = #{status,jdbcType=INTEGER}</if>
+		<if test="birthday!=null "> and test_simple_code.birthday = #{birthday,jdbcType=DATE}</if>
+		<if test="remarks!=null and remarks!=''"> and test_simple_code.remarks = #{remarks,jdbcType=LONGVARCHAR}</if>
+		<if test="createTime!=null "> and test_simple_code.create_time = #{createTime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and test_simple_code.create_time BETWEEN #{startDate} and #{endDate}</if>
+		</where>
+		<choose>
+          <when test="orderByString!=null and orderByString!=''">
+              ${orderByString}
+          </when>
+          <otherwise>
+              order by id desc
+          </otherwise>
+      </choose>
+
+	</select>
+
+	<select id="selectByCondition" resultMap="BaseResultMap" >
+		select
+		id,
+		name,
+		age,
+		status,
+		birthday,
+		remarks,
+		create_time
+		from test_simple_code
+		<where>
+		<if test="id!=null "> and test_simple_code.id = #{id,jdbcType=INTEGER}</if>
+		<if test="name!=null and name!=''"> and test_simple_code.name = #{name,jdbcType=VARCHAR}</if>
+		<if test="age!=null "> and test_simple_code.age = #{age,jdbcType=INTEGER}</if>
+		<if test="status!=null "> and test_simple_code.status = #{status,jdbcType=INTEGER}</if>
+		<if test="birthday!=null "> and test_simple_code.birthday = #{birthday,jdbcType=DATE}</if>
+		<if test="remarks!=null and remarks!=''"> and test_simple_code.remarks = #{remarks,jdbcType=LONGVARCHAR}</if>
+		<if test="createTime!=null "> and test_simple_code.create_time = #{createTime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and test_simple_code.create_time BETWEEN #{startDate} and #{endDate}</if>
+		</where>
+		<choose>
+          <when test="orderByString!=null and orderByString!=''">
+              ${orderByString}
+          </when>
+          <otherwise>
+              order by id desc
+          </otherwise>
+      </choose>
+
+	</select>
+
+</mapper>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/layui/css/formSelects-v4.css}"/>
+    <div th:replace="~{common/common-head.html::common-head}"></div>
+</head>
+<body class="body-common">
+<div class="page-container">
+    <form class="layui-form layui-form-pane" action="">
+        <input type="hidden" name="id" th:value="${test_simple_code.id }" />
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" id="name" maxlength="50" lay-verify="required" autocomplete="off" placeholder="请输入名称" class="layui-input" th:value="${test_simple_code.name}" >
+                    </div>
+                </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄</label>
+                <div class="layui-input-block">
+                    <input type="number" name="age" id="age" maxlength="10" lay-verify="number" autocomplete="off" placeholder="请输入年龄" class="layui-input" th:value="${test_simple_code.age}" >
+                </div>
+            </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+
+                            <select name="status" id="status" lay-search>
+                                <option value="">请选择状态</option>
+		                                <option value="1" th:selected="${test_simple_code.status==1}">启用</option>
+		                                <option value="0" th:selected="${test_simple_code.status==0}">禁用</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">生日</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="birthday" id="birthday" autocomplete="off" class="layui-input" lay-verify="required" th:value="${test_simple_code.birthday_}" >
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入备注" class="layui-textarea" lay-verify="required"  th:text="${test_simple_code.remarks}" name="remarks" id="remarks"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">创建时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required" th:value="${test_simple_code.createTime_}" >
+                    </div>
+                </div>
+        <div class="layui-form-item" style="text-align: center">
+            <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'simpleCode/save')}">
+            <button class="layui-btn" lay-submit="" lay-filter="save-data">提交</button>
+            </span>
+            <input type="button" class="layui-btn"  onclick="myback()" value="返回" />
+        </div>
+    </form>
+</div>
+<!--
+<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.config({
+        base: rootPath+'static/js/layui/extend/'
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    layui.use(['form', 'layedit', 'laydate','formSelects'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        form.render();
+        var formSelects = layui.formSelects;
+        formSelects.render();
+
+            laydate.render({
+                elem: '#birthday'
+                , type: 'date'
+            });
+           laydate.render({
+               elem: '#createTime'
+               , type: 'datetime'
+           });
+
+        //自定义验证规则
+        form.verify({});
+
+        //监听提交
+        form.on('submit(save-data)', function (data) {
+            $.post(rootPath+"simpleCode/save",data.field,function (data) {
+                if(data.code==0){
+                    myAlert("保存成功");
+                    setTimeout(function () {
+                        myback("simpleCode/gotoList");
+                    },alertTime)
+                }else{
+                    myAlert("保存失败->"+data.message)
+                }
+            });
+            return false
+        });
+
+    });
+</script>
+
+</body>
+</html>

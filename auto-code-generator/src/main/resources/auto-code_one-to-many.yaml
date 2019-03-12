@@ -17,33 +17,33 @@ globalConfig:
     #生成代码的项目路径
     parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
     #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
-    parentPack: com.zengtengpeng.test
+    parentPack: com.zengtengpeng.oneToMany
     #是否覆盖生成文件 如果为true将会把以前的文件覆盖掉
     cover: false
     #xml存放的文件夹默认 mybatisMapper
     xmlPath: mybatisMapper
-    # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式
+    # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式不需要担心代码覆盖
     relationConfig:
         #主表
         primary:
             #数据库表名
-            dataName: test_user
+            dataName: test_one_to_many_user
             #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: User
+            beanName: OneToManyUser
             #主键名称
             primaryKey: id
             #是否生成单表代码
-            generate: false
+#            generate: false
 #如果单表代码已经生成,请填写代码的父包,没有则不填写 如 com.zengtengpeng.test.bean.TestUser  请填写 com.zengtengpeng.test
-            existParentPackage: com.zengtengpeng.test
+#            existParentPackage: com.zengtengpeng.test
             #备注
             remark: "用户"
         #外表
         foreign:
             #数据库表名
-            dataName: test_addr
+            dataName: test_one_to_many_addr
             #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: TestAddr
+            beanName: OneToManyAddr
             #外键名称 就是已哪个字段和主表关联 填写数据库字段名
             foreignKey: user_id
             #是否生成单表代码 默认是true
