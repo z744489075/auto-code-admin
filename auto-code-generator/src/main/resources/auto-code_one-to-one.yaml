@@ -32,6 +32,10 @@ globalConfig:
             beanName: OneToOneUser
             #主键名称
             primaryKey: id
+            #是否生成 单表 代码
+            #generate: false
+            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
+            #existParentPackage: com.zengtengpeng.manyToMany
             #备注
             remark: "一对一用户"
         #外表
@@ -43,9 +47,9 @@ globalConfig:
             #外键名称 就是已哪个字段和主表关联 填写数据库字段名
             foreignKey: user_id
             #是否生成单表代码
-            #            generate: true
-            #如果单表代码已经生成,请填写代码的父包,没有则不填写 如 com.zengtengpeng.test.bean.TestUser  请填写 com.zengtengpeng.test
-            #            existParentPackage: com.zengtengpeng.test
+            #是否生成 单表 代码
+            #generate: false
+            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
+            #existParentPackage: com.zengtengpeng.manyToMany
             #备注
             remark: "一对一班级"
-

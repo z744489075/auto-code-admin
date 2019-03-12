@@ -33,9 +33,9 @@ globalConfig:
             #主键名称
             primaryKey: id
             #是否生成 单表 代码
-#            generate: false
-#            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.test.bean.TestUser  请填写 com.zengtengpeng.test
-#            existParentPackage: com.zengtengpeng.test
+            #generate: false
+            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
+            #existParentPackage: com.zengtengpeng.manyToMany
             #备注
             remark: "多对多用户"
         #外表
@@ -56,5 +56,9 @@ globalConfig:
             primaryKey: user_id
             #外键名称 该字段将和外表配置关联起来
             foreignKey: role_id
+            #是否生成 单表 代码
+            #generate: false
+            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
+            #existParentPackage: com.zengtengpeng.manyToMany
             #备注
             remark: "多对多用户角色"
