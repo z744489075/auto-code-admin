@@ -5,6 +5,7 @@ import com.zengtengpeng.common.bean.Page;
 import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
@@ -198,6 +199,32 @@ public class SysAuth extends Page {
              return "不显示";
         }
         return "";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SysAuth sysAuth = (SysAuth) o;
+        return Objects.equals(id, sysAuth.id) &&
+                Objects.equals(parentAuthId, sysAuth.parentAuthId) &&
+                Objects.equals(pid, sysAuth.pid) &&
+                Objects.equals(parentAuthIds, sysAuth.parentAuthIds) &&
+                Objects.equals(name, sysAuth.name) &&
+                Objects.equals(sort, sysAuth.sort) &&
+                Objects.equals(href, sysAuth.href) &&
+                Objects.equals(icon, sysAuth.icon) &&
+                Objects.equals(shows, sysAuth.shows) &&
+                Objects.equals(createUserId, sysAuth.createUserId) &&
+                Objects.equals(createTime, sysAuth.createTime) &&
+                Objects.equals(updateUserId, sysAuth.updateUserId) &&
+                Objects.equals(updateTime, sysAuth.updateTime) &&
+                Objects.equals(children, sysAuth.children);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, parentAuthId, pid, parentAuthIds, name, sort, href, icon, shows, createUserId, createTime, updateUserId, updateTime, children);
     }
 
     public String getCreateTime_() {

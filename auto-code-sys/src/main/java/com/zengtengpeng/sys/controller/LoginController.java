@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 登录控制器
@@ -110,6 +111,7 @@ public class LoginController {
                 recurve = AuthTreeUtils.recurve(sysAuths);
             }else{
                 sysAuths = sysAuthService.queryByUser(data.getId());
+                sysAuths=sysAuths.stream().distinct().collect(Collectors.toList());
                 recurve = AuthTreeUtils.recurve(sysAuths);
 
                 //遍历, 已url为key存放用户权限到session中
