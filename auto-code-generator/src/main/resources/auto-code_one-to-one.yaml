@@ -12,7 +12,7 @@ datasourceConfig:
 #thymeleaf 放置页面的文件夹
 thymeleafPath: templates
 #添加权限到表的父id.如果为空则需要手动添加权限
-authParentId:
+authParentId: 90
 globalConfig:
     #生成代码的项目路径
     parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
