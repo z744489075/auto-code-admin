@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zengtengpeng.oneToMany.dao.OneToManyAddrDao">
+
+	<resultMap id="BaseResultMap" type="com.zengtengpeng.oneToMany.bean.OneToManyAddr">
+
+		<id column="id" jdbcType="INTEGER" property="id" />
+
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+
+		<result column="addr_name" jdbcType="VARCHAR" property="addrName" />
+
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+
+		<result column="addr" jdbcType="VARCHAR" property="addr" />
+
+		<result column="status" jdbcType="INTEGER" property="status" />
+
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+
+	</resultMap>
+
+	<insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
+		insert into test_one_to_many_addr (
+		user_id,
+		addr_name,
+		phone,
+		addr,
+		status,
+		create_time,
+		update_time
+		)
+ 	   values (
+		 #{userId,jdbcType=INTEGER},
+		 #{addrName,jdbcType=VARCHAR},
+		 #{phone,jdbcType=VARCHAR},
+		 #{addr,jdbcType=VARCHAR},
+		 #{status,jdbcType=INTEGER},
+		 #{createTime,jdbcType=TIMESTAMP},
+		 #{updateTime,jdbcType=TIMESTAMP}
+		)
+
+
+	</insert>
+
+	<delete id="deleteByPrimaryKey" >
+		delete from  test_one_to_many_addr 
+
+		where id = #{id} 
+ 
+
+	</delete>
+
+	<update id="update" >
+		update test_one_to_many_addr
+		<set>
+			<if test="userId!=null">user_id = #{userId,jdbcType=INTEGER}, </if>
+			<if test="addrName!=null and addrName!=''">addr_name = #{addrName,jdbcType=VARCHAR}, </if>
+			<if test="phone!=null and phone!=''">phone = #{phone,jdbcType=VARCHAR}, </if>
+			<if test="addr!=null and addr!=''">addr = #{addr,jdbcType=VARCHAR}, </if>
+			<if test="status!=null">status = #{status,jdbcType=INTEGER}, </if>
+			<if test="createTime!=null">create_time = #{createTime,jdbcType=TIMESTAMP}, </if>
+			<if test="updateTime!=null">update_time = #{updateTime,jdbcType=TIMESTAMP}, </if>
+		</set>
+		where id=#{id}
+
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+		select
+		id,
+		user_id,
+		addr_name,
+		phone,
+		addr,
+		status,
+		create_time,
+		update_time
+		from test_one_to_many_addr
+		where id = #{id,jdbcType=INTEGER}
+
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap" >
+		select
+		id,
+		user_id,
+		addr_name,
+		phone,
+		addr,
+		status,
+		create_time,
+		update_time
+		from test_one_to_many_addr
+		<where>
+		<if test="id!=null "> and test_one_to_many_addr.id = #{id,jdbcType=INTEGER}</if>
+		<if test="userId!=null "> and test_one_to_many_addr.user_id = #{userId,jdbcType=INTEGER}</if>
+		<if test="addrName!=null and addrName!=''"> and test_one_to_many_addr.addr_name = #{addrName,jdbcType=VARCHAR}</if>
+		<if test="phone!=null and phone!=''"> and test_one_to_many_addr.phone = #{phone,jdbcType=VARCHAR}</if>
+		<if test="addr!=null and addr!=''"> and test_one_to_many_addr.addr = #{addr,jdbcType=VARCHAR}</if>
+		<if test="status!=null "> and test_one_to_many_addr.status = #{status,jdbcType=INTEGER}</if>
+		<if test="createTime!=null "> and test_one_to_many_addr.create_time = #{createTime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and test_one_to_many_addr.create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="updateTime!=null "> and test_one_to_many_addr.update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
+		</where>
+		<choose>
+          <when test="orderByString!=null and orderByString!=''">
+              ${orderByString}
+          </when>
+          <otherwise>
+              order by id desc
+          </otherwise>
+      </choose>
+
+	</select>
+
+	<select id="selectByCondition" resultMap="BaseResultMap" >
+		select
+		id,
+		user_id,
+		addr_name,
+		phone,
+		addr,
+		status,
+		create_time,
+		update_time
+		from test_one_to_many_addr
+		<where>
+		<if test="id!=null "> and test_one_to_many_addr.id = #{id,jdbcType=INTEGER}</if>
+		<if test="userId!=null "> and test_one_to_many_addr.user_id = #{userId,jdbcType=INTEGER}</if>
+		<if test="addrName!=null and addrName!=''"> and test_one_to_many_addr.addr_name = #{addrName,jdbcType=VARCHAR}</if>
+		<if test="phone!=null and phone!=''"> and test_one_to_many_addr.phone = #{phone,jdbcType=VARCHAR}</if>
+		<if test="addr!=null and addr!=''"> and test_one_to_many_addr.addr = #{addr,jdbcType=VARCHAR}</if>
+		<if test="status!=null "> and test_one_to_many_addr.status = #{status,jdbcType=INTEGER}</if>
+		<if test="createTime!=null "> and test_one_to_many_addr.create_time = #{createTime,jdbcType=TIMESTAMP}</if>
+		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and test_one_to_many_addr.create_time BETWEEN #{startDate} and #{endDate}</if>
+		<if test="updateTime!=null "> and test_one_to_many_addr.update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
+		</where>
+		<choose>
+          <when test="orderByString!=null and orderByString!=''">
+              ${orderByString}
+          </when>
+          <otherwise>
+              order by id desc
+          </otherwise>
+      </choose>
+
+	</select>
+
+	<delete id="deleteOneToManyAddrByOneToManyUser" >
+		delete from  test_one_to_many_addr
+		where user_id=#{userId}
+	</delete>
+
+
+</mapper>
