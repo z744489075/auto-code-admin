@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/layui/css/formSelects-v4.css}"/>
+    <div th:replace="~{common/common-head.html::common-head}"></div>
+</head>
+<body class="body-common">
+<div class="page-container">
+    <form class="layui-form layui-form-pane" action="">
+        <input type="hidden" name="id" th:value="${test_one_to_many_addr.id }" />
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户id</label>
+                <div class="layui-input-block">
+					<select name="userId" id="userId" xm-select="select13" xm-select-radio="" xm-select-search="" lay-verify="required">
+						<option  th:each="rowdata:${goto_detail_test_one_to_many_user}" th:value="${rowdata.id}" th:selected="${test_one_to_many_addr.userId==rowdata.id}"  th:text="${rowdata.id}"></option>
+					</select>
+
+                </div>
+            </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="addrName" id="addrName" maxlength="10" lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input" th:value="${test_one_to_many_addr.addrName}" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phone" id="phone" maxlength="30" lay-verify="required" autocomplete="off" placeholder="请输入手机号码" class="layui-input" th:value="${test_one_to_many_addr.phone}" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">收货地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="addr" id="addr" maxlength="30" lay-verify="required" autocomplete="off" placeholder="请输入收货地址" class="layui-input" th:value="${test_one_to_many_addr.addr}" >
+                    </div>
+                </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+
+                            <select name="status" id="status" lay-search>
+                                <option value="">请选择状态</option>
+		                                <option value="1" th:selected="${test_one_to_many_addr.status==1}">启用</option>
+		                                <option value="2" th:selected="${test_one_to_many_addr.status==2}">删除</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">创建时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" lay-verify="required" th:value="${test_one_to_many_addr.createTime_}" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">更新时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="updateTime" id="updateTime" autocomplete="off" class="layui-input" lay-verify="required" th:value="${test_one_to_many_addr.updateTime_}" >
+                    </div>
+                </div>
+        <div class="layui-form-item" style="text-align: center">
+            <span th:if="${session.userAuth==null || #maps.containsKey(session.userAuth,'oneToManyAddr/save')}">
+            <button class="layui-btn" lay-submit="" lay-filter="save-data">提交</button>
+            </span>
+            <input type="button" class="layui-btn"  onclick="myback()" value="返回" />
+        </div>
+    </form>
+</div>
+<!--
+<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.config({
+        base: rootPath+'static/js/layui/extend/'
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    layui.use(['form', 'layedit', 'laydate','formSelects'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+        form.render();
+        var formSelects = layui.formSelects;
+        formSelects.render();
+
+           laydate.render({
+               elem: '#createTime'
+               , type: 'datetime'
+           });
+           laydate.render({
+               elem: '#updateTime'
+               , type: 'datetime'
+           });
+
+        //自定义验证规则
+        form.verify({});
+
+        //监听提交
+        form.on('submit(save-data)', function (data) {
+            $.post(rootPath+"oneToManyAddr/save",data.field,function (data) {
+                if(data.code==0){
+                    myAlert("保存成功");
+                    setTimeout(function () {
+                        myback("oneToManyAddr/gotoList");
+                    },alertTime)
+                }else{
+                    myAlert("保存失败->"+data.message)
+                }
+            });
+            return false
+        });
+
+    });
+</script>
+
+</body>
+</html>
