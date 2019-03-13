@@ -1,6 +1,6 @@
 # auto-code-admin
 欢迎使用auto-code-admin后台代码自动生成引擎.2.0重大升级.支持`单表`, `一对一`, `一对多` ,`多对多`代码生成,支持无限级联 [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
-
+(服务器在美国,有时访问可能比较慢.)
 # 目录
 1. <a href="#1">项目介绍</a>
     1. <a href="#1.1">项目的优势在哪里</a>
