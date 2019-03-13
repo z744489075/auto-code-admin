@@ -2,7 +2,8 @@
 SQLyog 
 MySQL - 5.7.17-log : Database - auto_code
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -50,7 +51,7 @@ CREATE TABLE `sys_auth` (
   `update_user_id` int(11) DEFAULT NULL COMMENT '更新者',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=358 DEFAULT CHARSET=utf8 COMMENT='后台权限';
+) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8 COMMENT='后台权限';
 
 /*Data for the table `sys_auth` */
 
@@ -122,6 +123,11 @@ insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`h
 insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (335,333,NULL,'导出',2,'manyToManyRole/export','layui-icon layui-icon-next',1,NULL,'2019-03-12 16:09:09',NULL,NULL);
 insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (336,333,NULL,'编辑',3,'manyToManyRole/save','layui-icon layui-icon-edit',1,NULL,'2019-03-12 16:09:09',NULL,NULL);
 insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (337,333,NULL,'删除',4,'manyToManyRole/deleteByPrimaryKey','layui-icon layui-icon-fonts-del',1,NULL,'2019-03-12 16:09:09',NULL,NULL);
+insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (363,91,NULL,'一对多收货地址',1,'oneToManyAddr/gotoList','layui-icon layui-icon-file-b',0,NULL,'2019-03-13 09:30:33',NULL,NULL);
+insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (364,363,NULL,'查询',1,'oneToManyAddr/selectAllByPaging','layui-icon layui-icon-search',1,NULL,'2019-03-13 09:30:33',NULL,NULL);
+insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (365,363,NULL,'导出',2,'oneToManyAddr/export','layui-icon layui-icon-next',1,NULL,'2019-03-13 09:30:33',NULL,NULL);
+insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (366,363,NULL,'编辑',3,'oneToManyAddr/save','layui-icon layui-icon-edit',1,NULL,'2019-03-13 09:30:33',NULL,NULL);
+insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (367,363,NULL,'删除',4,'oneToManyAddr/deleteByPrimaryKey','layui-icon layui-icon-fonts-del',1,NULL,'2019-03-13 09:30:33',NULL,NULL);
 
 /*Table structure for table `sys_login_log` */
 
@@ -134,7 +140,7 @@ CREATE TABLE `sys_login_log` (
   `ip` varchar(20) DEFAULT NULL COMMENT 'ip',
   `browser` varchar(200) DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录日志';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='登录日志';
 
 /*Data for the table `sys_login_log` */
 
@@ -154,7 +160,7 @@ CREATE TABLE `sys_operation_log` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `sys_user_id` (`sys_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='操作日志';
 
 /*Data for the table `sys_operation_log` */
 

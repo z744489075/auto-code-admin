@@ -22,8 +22,8 @@
     2. <a href="#3.2">权限机制的实现</a>
     3. <a href="#3.3">如何自定义方法</a>
 4. <a href="#4">项目部分截图</a>
-    1. <a href="#3.1">PC端</a>
-    2. <a href="#3.2">移动端</a>
+    1. <a href="#4.1">PC端</a>
+    2. <a href="#4.2">移动端</a>
     
 ## <a name="1">项目介绍</a>
 ### <a name="1.1">项目的优势在哪里</a>
@@ -286,6 +286,19 @@ globalConfig:
             remark: "一对多收货地址"
 ```
 
+> 执行java代码
+```java
+import com.zengtengpeng.auto.AdminStartCode;
+import com.zengtengpeng.auto.build.AdminBuildOneToMany;
+import com.zengtengpeng.relation.utils.RelationUtils;
+
+public class Demo3OneToMany {
+    public static void main(String[] args) {
+        //auto-code_one-to-many.yaml 为配置文件名 不写默认是 auto-code.yaml
+        RelationUtils.oneToMany(AdminStartCode.saxYaml("auto-code_one-to-many.yaml"), new AdminStartCode(), new AdminBuildOneToMany());
+    }
+}
+```
 > 生成代码如下图
 
 ![select](http://images.zengtengpeng.com/auto-code-web/one-to-many.png)

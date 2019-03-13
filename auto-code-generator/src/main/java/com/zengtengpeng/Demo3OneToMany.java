@@ -4,8 +4,6 @@ package com.zengtengpeng;
 
 import com.zengtengpeng.auto.AdminStartCode;
 import com.zengtengpeng.auto.build.AdminBuildOneToMany;
-import com.zengtengpeng.auto.build.AdminBuildOneToOne;
-import com.zengtengpeng.autoCode.StartCode;
 import com.zengtengpeng.relation.utils.RelationUtils;
 
 /**
