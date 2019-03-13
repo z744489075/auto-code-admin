@@ -26,10 +26,16 @@
 		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
 		<if test="ip!=null and ip!=''"> and ip = #{ip,jdbcType=VARCHAR}</if>
 		<if test="browser!=null and browser!=''"> and browser = #{browser,jdbcType=VARCHAR}</if>
- 	</where> 
- <if test="orderByString!=null and orderByString!=''"> 
-	 ${orderByString} 
- </if>
+ 	</where>
+      <choose>
+          <when test="orderByString!=null and orderByString!=''">
+              ${orderByString}
+          </when>
+          <otherwise>
+              order by id desc
+          </otherwise>
+      </choose>
+
   </select>
   <select id="selectByCondition" resultMap="BaseResultMap">
     select id,sys_user_id,create_time,ip,browser
@@ -40,10 +46,15 @@
 		<if test=" startDate!=null and startDate!='' and endDate!=null and endDate!='' "> and create_time BETWEEN #{startDate} and #{endDate}</if>
 		<if test="ip!=null and ip!=''"> and ip = #{ip,jdbcType=VARCHAR}</if>
 		<if test="browser!=null and browser!=''"> and browser = #{browser,jdbcType=VARCHAR}</if>
- 	</where> 
- <if test="orderByString!=null and orderByString!=''"> 
-	 ${orderByString} 
- </if>
+ 	</where>
+      <choose>
+          <when test="orderByString!=null and orderByString!=''">
+              ${orderByString}
+          </when>
+          <otherwise>
+              order by id desc
+          </otherwise>
+      </choose>
   </select>
   <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into sys_login_log (sys_user_id,ip,browser)
