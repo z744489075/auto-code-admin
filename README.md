@@ -21,9 +21,17 @@
     1. <a href="#3.1">如何进行项目集群</a>
     2. <a href="#3.2">权限机制的实现</a>
     3. <a href="#3.3">如何自定义方法</a>
+    4. <a href="#3.4">如何升级</a>
 4. <a href="#4">项目部分截图</a>
     1. <a href="#4.1">PC端</a>
     2. <a href="#4.2">移动端</a>
+    
+## 更新
+
+> 2019-03-18 增加 swagger api支持
+
+    1.增加权限 auto-code-admin/update_sql/2019-03-18.sql
+    2. yaml 文件 globalConfig 增加  swagger: true 配置
     
 ## <a name="1">项目介绍</a>
 ### <a name="1.1">项目的优势在哪里</a>
@@ -130,6 +138,8 @@
         cover: false
         #xml存放的文件夹默认 mybatisMapper
         xmlPath: mybatisMapper
+        #是否生成swagger注解
+        swagger: true
 ```
 
 > 编写java代码
@@ -177,6 +187,8 @@ globalConfig:
     cover: false
     #xml存放的文件夹默认 mybatisMapper
     xmlPath: mybatisMapper
+    #是否生成swagger注解
+    swagger: true
     # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式不需要担心代码覆盖
     relationConfig:
         #主表
@@ -254,6 +266,8 @@ globalConfig:
     cover: false
     #xml存放的文件夹默认 mybatisMapper
     xmlPath: mybatisMapper
+    #是否生成swagger注解
+    swagger: true
     # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式不需要担心代码覆盖
     relationConfig:
         #主表
@@ -330,6 +344,8 @@ globalConfig:
     cover: false
     #xml存放的文件夹默认 mybatisMapper
     xmlPath: mybatisMapper
+    #是否生成swagger注解
+    swagger: true
     # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式不需要担心代码覆盖
     relationConfig:
         #主表
@@ -483,6 +499,12 @@ spring.redis.port=6379
 ### <a name="3.3">如何自定义方法</a>
 
 > 具体请参照 [auto-code](https://gitee.com/ztp/auto-code#3)
+
+### <a name="3.4">如何升级</a>
+
+    1.下载项目后,自己的代码请放到 auto-code-web子模块或者自己重新新建模块
+    2.更新请将 auto-code-common,auto-code-generator,auto-code-sys 覆盖成最新的代码就行.
+    3.如果数据库有更新我会在上面更新介绍更新的SQL文件
 
 ## <a name="4">项目部分截图</a>
 

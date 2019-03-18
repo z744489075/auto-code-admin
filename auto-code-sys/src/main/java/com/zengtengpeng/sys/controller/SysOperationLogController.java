@@ -3,6 +3,8 @@ package com.zengtengpeng.sys.controller;
 import javax.annotation.Resource;
 
 import com.zengtengpeng.common.utils.ExcelUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,12 +18,15 @@ import com.zengtengpeng.sys.bean.SysOperationLog;
 import com.zengtengpeng.sys.service.SysOperationLogService;
 import org.springframework.stereotype.Controller;
 import com.zengtengpeng.common.annotation.Auth;
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * 
  * @author zengtp
  *
  */
 @Controller
+@Api(description = "操作日志")
 public class SysOperationLogController {
 	
 	@Resource
@@ -35,6 +40,7 @@ public class SysOperationLogController {
      */
 	@RequestMapping("sysOperationLog/selectByPrimaryKey")
 	@ResponseBody
+	@ApiOperation(value="根据主键查询", notes="根据主键查询" ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysOperationLogService.selectByPrimaryKey(sysOperationLog));
     }
@@ -44,6 +50,7 @@ public class SysOperationLogController {
 	*/
 	@RequestMapping("sysOperationLog/querySysOperationLogByCondition")
 	@ResponseBody
+	@ApiOperation(value="根据条件查询", notes="根据条件查询" ,httpMethod="POST")
 	public DataRes queryByCondition(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysOperationLogService.selectByCondition(sysOperationLog));
     }
@@ -55,6 +62,7 @@ public class SysOperationLogController {
 	*/
 	@RequestMapping("sysOperationLog/selectAll")
 	@ResponseBody
+	@ApiOperation(value="分页查询", notes="分页查询" ,httpMethod="POST")
 	public DataRes selectAll(SysOperationLog sysOperationLog,HttpServletRequest request, HttpServletResponse response){
 		sysOperationLog.setOrderByString("order by id desc");
     	return DataRes.success(sysOperationLogService.selectAllByPaging(sysOperationLog));
@@ -66,6 +74,7 @@ public class SysOperationLogController {
 	* @return
 	*/
 	@RequestMapping("sysOperationLog/export")
+	@ApiOperation(value="导出数据", notes="导出数据" ,httpMethod="POST")
 	public void export(SysOperationLog sysOperationLog,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysOperationLog> list= sysOperationLogService.selectAll(sysOperationLog);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -86,6 +95,7 @@ public class SysOperationLogController {
 	* @return
 	*/
 	@RequestMapping("sysOperationLog/gotoList")
+	@ApiIgnore
 	public String gotoList(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_operation_log_list";
 	}
@@ -96,6 +106,7 @@ public class SysOperationLogController {
 	*/
 	@RequestMapping("sysOperationLog/gotoDetail")
 	@Auth("sysOperationLog/save")
+	@ApiIgnore
 	public String gotoDetail(SysOperationLog sysOperationLog, HttpServletRequest request, HttpServletResponse response){
 		if(sysOperationLog.getId()!=null){
 			request.setAttribute("sys_operation_log",sysOperationLogService.selectByPrimaryKey(sysOperationLog));

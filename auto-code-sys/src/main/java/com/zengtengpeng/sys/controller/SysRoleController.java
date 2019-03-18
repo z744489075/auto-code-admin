@@ -8,6 +8,8 @@ import com.zengtengpeng.sys.bean.SysAuth;
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.service.SysAuthService;
 import com.zengtengpeng.utils.UserUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +22,7 @@ import java.util.*;
 import com.zengtengpeng.sys.bean.SysRole;
 import com.zengtengpeng.sys.service.SysRoleService;
 import org.springframework.stereotype.Controller;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 
@@ -27,6 +30,7 @@ import org.springframework.stereotype.Controller;
  *
  */
 @Controller
+@Api(description = "用户角色")
 public class SysRoleController {
 	
 	@Resource
@@ -42,6 +46,7 @@ public class SysRoleController {
 	@RequestMapping("sysRole/updateStatus")
 	@ResponseBody
 	@Auth("sysRole/save")
+	@ApiOperation(value="修改状态", notes="修改状态" ,httpMethod="POST")
 	public DataRes updateStatus(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = UserUtils.getUser(request.getSession());
 		sysRole.setUpdateUserId(user.getId());
@@ -55,6 +60,7 @@ public class SysRoleController {
 	 */
 	@RequestMapping("sysRole/save")
 	@ResponseBody
+	@ApiOperation(value="保存", notes="保存" ,httpMethod="POST")
 	public DataRes save( @RequestParam(value = "auths[]",required=false) List<String> auths,SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = UserUtils.getUser(request.getSession());
 		sysRole.setCreateUserId(user.getId());
@@ -72,6 +78,7 @@ public class SysRoleController {
      */
 	@RequestMapping("sysRole/selectByPrimaryKey")
 	@ResponseBody
+	@ApiOperation(value="根据主键查询", notes="根据主键查询" ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysRoleService.selectByPrimaryKey(sysRole));
     }
@@ -81,6 +88,7 @@ public class SysRoleController {
 	*/
 	@RequestMapping("sysRole/querySysRoleByCondition")
 	@ResponseBody
+	@ApiOperation(value="根据条件查询", notes="根据条件查询" ,httpMethod="POST")
 	public DataRes queryByCondition(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysRoleService.selectByCondition(sysRole));
     }
@@ -92,6 +100,7 @@ public class SysRoleController {
 	*/
 	@RequestMapping("sysRole/selectAll")
 	@ResponseBody
+	@ApiOperation(value="分页查询", notes="分页查询" ,httpMethod="POST")
 	public DataRes selectAll(SysRole sysRole,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysRoleService.selectAllByPaging(sysRole));
     }
@@ -101,6 +110,7 @@ public class SysRoleController {
 	* @return
 	*/
 	@RequestMapping("sysRole/export")
+	@ApiOperation(value="导出数据", notes="导出数据" ,httpMethod="POST")
 	public void export(SysRole sysRole,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysRole> list= sysRoleService.selectAll(sysRole);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -120,6 +130,7 @@ public class SysRoleController {
 	* @return
 	*/
 	@RequestMapping("sysRole/gotoList")
+	@ApiIgnore
 	public String gotoList(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_role_list";
 	}
@@ -130,6 +141,7 @@ public class SysRoleController {
 	*/
 	@RequestMapping("sysRole/gotoDetail")
 	@Auth("sysRole/save")
+	@ApiIgnore
 	public String gotoDetail(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		if(sysRole.getId()!=null){
 			request.setAttribute("sys_role",sysRoleService.selectByPrimaryKey(sysRole));
@@ -142,6 +154,7 @@ public class SysRoleController {
 	@RequestMapping("sysRole/detail")
 	@Auth("sysRole/save")
 	@ResponseBody
+	@ApiIgnore
 	public DataRes detail(SysRole sysRole, HttpServletRequest request, HttpServletResponse response){
 		SysAuth sysAuth=new SysAuth();
 		sysAuth.setOrderByString(" order by sort asc");

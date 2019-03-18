@@ -3,6 +3,8 @@ package com.zengtengpeng.sys.controller;
 import javax.annotation.Resource;
 
 import com.zengtengpeng.common.utils.ExcelUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,41 +18,22 @@ import com.zengtengpeng.sys.bean.SysLoginLog;
 import com.zengtengpeng.sys.service.SysLoginLogService;
 import org.springframework.stereotype.Controller;
 import com.zengtengpeng.common.annotation.Auth;
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * 
  * @author zengtp
  *
  */
 @Controller
+@Api(description = "登录日志")
 public class SysLoginLogController {
 	
 	@Resource
 	private SysLoginLogService sysLoginLogService;
 
-	/**
-	 * 删除
-	 * @param sysLoginLog
-	 * @return
-	 */
-	@RequestMapping("sysLoginLog/deleteByPrimaryKey")
-	@ResponseBody
-	public DataRes deleteByPrimaryKey(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
-		return DataRes.success(sysLoginLogService.deleteByPrimaryKey(sysLoginLog));
-	}
 
-    /**
-	 * 保存 如果id存在则修改否则新增
-	 * @param sysLoginLog
-	 * @return
-	 */
-	@RequestMapping("sysLoginLog/save")
-	@ResponseBody
-	public DataRes save(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
-		if(sysLoginLog.getId()==null){
-			return DataRes.success(sysLoginLogService.insert(sysLoginLog));
-		}
-		return DataRes.success(sysLoginLogService.update(sysLoginLog));
-	}
+
 
     /**
      * 根据主键查询
@@ -59,6 +42,7 @@ public class SysLoginLogController {
      */
 	@RequestMapping("sysLoginLog/selectByPrimaryKey")
 	@ResponseBody
+	@ApiOperation(value="根据主键查询", notes="根据主键查询" ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysLoginLogService.selectByPrimaryKey(sysLoginLog));
     }
@@ -68,6 +52,7 @@ public class SysLoginLogController {
 	*/
 	@RequestMapping("sysLoginLog/querySysLoginLogByCondition")
 	@ResponseBody
+	@ApiOperation(value="根据条件查询", notes="根据条件查询" ,httpMethod="POST")
 	public DataRes queryByCondition(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysLoginLogService.selectByCondition(sysLoginLog));
     }
@@ -79,6 +64,7 @@ public class SysLoginLogController {
 	*/
 	@RequestMapping("sysLoginLog/selectAll")
 	@ResponseBody
+	@ApiOperation(value="分页查询", notes="分页查询" ,httpMethod="POST")
 	public DataRes selectAll(SysLoginLog sysLoginLog,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysLoginLogService.selectAllByPaging(sysLoginLog));
     }
@@ -89,6 +75,7 @@ public class SysLoginLogController {
 	* @return
 	*/
 	@RequestMapping("sysLoginLog/export")
+	@ApiOperation(value="导出数据", notes="导出数据" ,httpMethod="POST")
 	public void export(SysLoginLog sysLoginLog,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysLoginLog> list= sysLoginLogService.selectAll(sysLoginLog);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -105,6 +92,7 @@ public class SysLoginLogController {
 	* @return
 	*/
 	@RequestMapping("sysLoginLog/gotoList")
+	@ApiIgnore
 	public String gotoList(SysLoginLog sysLoginLog, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_login_log_list";
 	}

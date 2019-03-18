@@ -4,10 +4,12 @@ import com.zengtengpeng.common.annotation.Pass;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
+@ApiIgnore
 public class ErrorPageController implements ErrorController {
 
     @Override

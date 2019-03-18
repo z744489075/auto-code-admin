@@ -128,7 +128,7 @@ insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`h
 insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (365,363,NULL,'导出',2,'oneToManyAddr/export','layui-icon layui-icon-next',1,NULL,'2019-03-13 09:30:33',NULL,NULL);
 insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (366,363,NULL,'编辑',3,'oneToManyAddr/save','layui-icon layui-icon-edit',1,NULL,'2019-03-13 09:30:33',NULL,NULL);
 insert  into `sys_auth`(`id`,`parent_auth_id`,`parent_auth_ids`,`name`,`sort`,`href`,`icon`,`shows`,`create_user_id`,`create_time`,`update_user_id`,`update_time`) values (367,363,NULL,'删除',4,'oneToManyAddr/deleteByPrimaryKey','layui-icon layui-icon-fonts-del',1,NULL,'2019-03-13 09:30:33',NULL,NULL);
-
+INSERT INTO `sys_auth` (`id`, `parent_auth_id`, `parent_auth_ids`, `name`, `sort`, `href`, `icon`, `shows`, `create_user_id`, `create_time`, `update_user_id`, `update_time`) VALUES('368','0',NULL,'swagger-api','5','swagger-ui.html#/','layui-icon layui-icon-app','0','1','2019-03-18 16:24:14','1',NULL);
 /*Table structure for table `sys_login_log` */
 
 DROP TABLE IF EXISTS `sys_login_log`;

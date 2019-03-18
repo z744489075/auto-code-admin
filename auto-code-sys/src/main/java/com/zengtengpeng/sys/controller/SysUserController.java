@@ -7,6 +7,8 @@ import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysRole;
 import com.zengtengpeng.sys.service.SysRoleService;
 import com.zengtengpeng.utils.UserUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +26,15 @@ import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.sys.service.SysUserService;
 import org.springframework.stereotype.Controller;
 import com.zengtengpeng.common.annotation.Auth;
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * 
  * @author zengtp
  *
  */
 @Controller
+@Api(description = "后台用户")
 public class SysUserController {
 	
 	@Resource
@@ -44,6 +49,7 @@ public class SysUserController {
 	 */
 	@RequestMapping("sysUser/deleteByPrimaryKey")
 	@ResponseBody
+	@ApiOperation(value="删除", notes="删除" ,httpMethod="POST")
 	public DataRes deleteByPrimaryKey(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(sysUserService.deleteByPrimaryKey(sysUser));
 	}
@@ -58,6 +64,7 @@ public class SysUserController {
 	@RequestMapping("sysUser/updateStatus")
 	@ResponseBody
 	@Auth("sysUser/save")
+	@ApiOperation(value="修改状态", notes="修改状态" ,httpMethod="POST")
 	public DataRes updateStatus(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = UserUtils.getUser(request.getSession());
 		sysUser.setUpdateUserId(user.getId());
@@ -67,6 +74,7 @@ public class SysUserController {
 
 	@RequestMapping("sysUser/gotoChangePassword")
 	@Auth
+	@ApiIgnore
 	public String gotoChangePassword(SysUser sysUser,String newPassword, HttpServletRequest request, HttpServletResponse response){
 		return "sys/change_password";
 	}
@@ -80,6 +88,7 @@ public class SysUserController {
 	@RequestMapping("sysUser/changePassword")
 	@ResponseBody
 	@Auth
+	@ApiOperation(value="修改密码", notes="修改密码" ,httpMethod="POST")
 	public DataRes changePassword(SysUser sysUser,String newPassword, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = UserUtils.getUser(request.getSession());
 		if(!user.getPassword().equals(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()))){
@@ -97,6 +106,7 @@ public class SysUserController {
 	 */
 	@RequestMapping("sysUser/save")
 	@ResponseBody
+	@ApiOperation(value="保存", notes="保存" ,httpMethod="POST")
 	public DataRes save(@RequestParam(value = "roles[]",required=false) List<String> roles,SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 	    if(!StringUtils.isEmpty(sysUser.getPassword())){
 	        sysUser.setPassword(DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes()));
@@ -117,6 +127,7 @@ public class SysUserController {
      */
 	@RequestMapping("sysUser/selectByPrimaryKey")
 	@ResponseBody
+	@ApiOperation(value="根据主键查询", notes="根据主键查询" ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysUserService.selectByPrimaryKey(sysUser));
     }
@@ -126,6 +137,7 @@ public class SysUserController {
 	*/
 	@RequestMapping("sysUser/querySysUserByCondition")
 	@ResponseBody
+	@ApiOperation(value="根据条件查询", notes="根据条件查询" ,httpMethod="POST")
 	public DataRes queryByCondition(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysUserService.selectByCondition(sysUser));
     }
@@ -137,6 +149,7 @@ public class SysUserController {
 	*/
 	@RequestMapping("sysUser/selectAll")
 	@ResponseBody
+	@ApiOperation(value="分页查询", notes="分页查询" ,httpMethod="POST")
 	public DataRes selectAll(SysUser sysUser,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(sysUserService.selectAllByPaging(sysUser));
     }
@@ -146,6 +159,7 @@ public class SysUserController {
 	* @return
 	*/
 	@RequestMapping("sysUser/export")
+	@ApiOperation(value="导出数据", notes="导出数据" ,httpMethod="POST")
 	public void export(SysUser sysUser,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<SysUser> list= sysUserService.selectAll(sysUser);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -169,6 +183,7 @@ public class SysUserController {
 	* @return
 	*/
 	@RequestMapping("sysUser/gotoList")
+	@ApiIgnore
 	public String gotoList(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		return "sys/sys_user_list";
 	}
@@ -179,6 +194,7 @@ public class SysUserController {
 	*/
 	@RequestMapping("sysUser/gotoDetail")
 	@Auth("sysUser/save")
+	@ApiIgnore
 	public String gotoDetail(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		SysRole t=new SysRole();
 		t.setStatus(0);

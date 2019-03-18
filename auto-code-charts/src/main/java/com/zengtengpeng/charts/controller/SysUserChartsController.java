@@ -4,6 +4,7 @@ import com.zengtengpeng.common.annotation.Auth;
 import com.zengtengpeng.sys.service.SysUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.util.*;
  * 系统用户charts
  */
 @Controller
+@ApiIgnore
 public class SysUserChartsController {
 
 

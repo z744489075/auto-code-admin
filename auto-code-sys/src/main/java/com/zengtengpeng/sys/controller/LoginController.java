@@ -14,11 +14,14 @@ import com.zengtengpeng.utils.AuthTreeUtils;
 import com.zengtengpeng.utils.RandomCodeUtil;
 import com.zengtengpeng.utils.RequestUtils;
 import com.zengtengpeng.utils.UserUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +36,7 @@ import java.util.stream.Collectors;
  * 登录控制器
  */
 @Controller
+@Api(description = "登录控制器")
 public class LoginController {
 
     @Resource
@@ -50,6 +54,7 @@ public class LoginController {
      */
     @RequestMapping("login/gotoLogin")
     @Pass
+    @ApiIgnore
     public String gotoLogin(){
         return "login";
     }
@@ -60,6 +65,7 @@ public class LoginController {
      */
     @RequestMapping("login/imageCode")
     @Pass
+    @ApiIgnore
     public void gotoIndex(HttpSession session,HttpServletResponse response){
         String rand = RandomCodeUtil.getVerifyCode(4);// 生成随机四位验证码
         session.setAttribute(SessionConstant.imageLgoinCode, rand);
@@ -72,6 +78,7 @@ public class LoginController {
      */
     @RequestMapping("login/loginout")
     @Pass
+    @ApiIgnore
     public String loginout(HttpSession session){
         UserUtils.removeUser(session);
         return "login";
@@ -84,6 +91,7 @@ public class LoginController {
     @RequestMapping("login/login")
     @ResponseBody
     @Pass
+    @ApiOperation(value="登录", notes="登录" ,httpMethod="POST")
     public DataRes login(SysUser sysUser, HttpServletRequest request){
 
         if(!RandomCodeUtil.isValidImageVerifyCode(request,"verifyCode")){

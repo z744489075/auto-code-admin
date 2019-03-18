@@ -7,6 +7,8 @@ import com.zengtengpeng.common.utils.DateUtils;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import com.zengtengpeng.sys.bean.SysUser;
 import com.zengtengpeng.utils.UserUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +28,7 @@ import com.zengtengpeng.file.service.FileImagesService;
 import org.springframework.stereotype.Controller;
 import com.zengtengpeng.common.annotation.Auth;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 
@@ -33,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 @Controller
+@Api(description = "图片管理")
 public class FileImagesController {
 	
 	@Resource
@@ -48,6 +52,7 @@ public class FileImagesController {
 	 */
 	@RequestMapping("fileImages/deleteByPrimaryKey")
 	@ResponseBody
+	@ApiOperation(value="删除", notes="删除" ,httpMethod="POST")
 	public DataRes deleteByPrimaryKey(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		return DataRes.success(fileImagesService.deleteByPrimaryKey(fileImages));
 	}
@@ -59,6 +64,7 @@ public class FileImagesController {
 	 */
 	@RequestMapping("fileImages/save")
 	@ResponseBody
+	@ApiOperation(value="保存", notes="保存" ,httpMethod="POST")
 	public DataRes save(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = UserUtils.getUser(request.getSession());
 		fileImages.setCreateUserId(user.getId());
@@ -75,6 +81,7 @@ public class FileImagesController {
 	@RequestMapping("fileImages/upload")
 	@ResponseBody
 	@Auth("fileImages/save")
+	@ApiOperation(value="上传图片", notes="上传图片" ,httpMethod="POST")
 	public DataRes upload(@RequestParam("file") MultipartFile uploadfile) throws IOException {
 		// 获得文件：
 		// 获得文件名：
@@ -96,6 +103,7 @@ public class FileImagesController {
 	 */
 	@RequestMapping("fileImages/watch")
 	@Pass
+	@ApiOperation(value="查看图片", notes="查看图片" ,httpMethod="POST")
 	public void watch(String path,HttpServletResponse response) throws IOException {
 		File file=new File(filePath+path);
 		FileInputStream fileInputStream=null;
@@ -122,6 +130,7 @@ public class FileImagesController {
      */
 	@RequestMapping("fileImages/selectByPrimaryKey")
 	@ResponseBody
+	@ApiOperation(value="根据主键查询", notes="根据主键查询" ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(fileImagesService.selectByPrimaryKey(fileImages));
     }
@@ -131,6 +140,7 @@ public class FileImagesController {
 	*/
 	@RequestMapping("fileImages/queryFileImagesByCondition")
 	@ResponseBody
+	@ApiOperation(value="根据条件查询", notes="根据条件查询" ,httpMethod="POST")
 	public DataRes queryByCondition(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(fileImagesService.selectByCondition(fileImages));
     }
@@ -143,6 +153,7 @@ public class FileImagesController {
 	@RequestMapping("fileImages/selectAll")
 	@ResponseBody
 	@Auth({"fileImages/selectAll","sysUser/save"})
+	@ApiOperation(value="分页查询", notes="分页查询" ,httpMethod="POST")
 	public DataRes selectAll(FileImages fileImages,HttpServletRequest request, HttpServletResponse response){
     	return DataRes.success(fileImagesService.selectAllByPaging(fileImages));
     }
@@ -153,6 +164,7 @@ public class FileImagesController {
 	* @return
 	*/
 	@RequestMapping("fileImages/export")
+	@ApiOperation(value="导出数据", notes="导出数据" ,httpMethod="POST")
 	public void export(FileImages fileImages,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<FileImages> list= fileImagesService.selectAll(fileImages);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -169,6 +181,7 @@ public class FileImagesController {
 	* @return
 	*/
 	@RequestMapping("fileImages/gotoList")
+	@ApiIgnore
 	public String gotoList(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		return "file/file_images_list";
 	}
@@ -178,6 +191,7 @@ public class FileImagesController {
 	*/
 	@RequestMapping("fileImages/selectList")
 	@Auth
+	@ApiIgnore
 	public String selectList(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		return "file/select_images_list";
 	}
@@ -188,6 +202,7 @@ public class FileImagesController {
 	*/
 	@RequestMapping("fileImages/gotoDetail")
 	@Auth("fileImages/save")
+	@ApiIgnore
 	public String gotoDetail(FileImages fileImages, HttpServletRequest request, HttpServletResponse response){
 		if(fileImages.getId()!=null){
 			request.setAttribute("file_images",fileImagesService.selectByPrimaryKey(fileImages));

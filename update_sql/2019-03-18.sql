@@ -1,0 +1,1 @@
+INSERT INTO `sys_auth` (`id`, `parent_auth_id`, `parent_auth_ids`, `name`, `sort`, `href`, `icon`, `shows`, `create_user_id`, `create_time`, `update_user_id`, `update_time`) VALUES('368','0',NULL,'swagger-api','5','swagger-ui.html#/','layui-icon layui-icon-app','0','1','2019-03-18 16:24:14','1',NULL);
