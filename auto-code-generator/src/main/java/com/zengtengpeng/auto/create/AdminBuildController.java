@@ -40,6 +40,7 @@ public class AdminBuildController implements BuildController {
     public List<String> buildImports(AutoCodeConfig autoCodeConfig){
         List<String> list=new ArrayList<>();
         list.add("com.zengtengpeng.common.annotation.Auth");
+        list.add("springfox.documentation.annotations.ApiIgnore");
         return list;
     }
 
@@ -53,6 +54,9 @@ public class AdminBuildController implements BuildController {
         List<String> an=new ArrayList<>();
         Bean bean = autoCodeConfig.getBean();
         an.add("@RequestMapping(\""+bean.getTableValue()+"/gotoList\")");
+        if(autoCodeConfig.getGlobalConfig().getSwagger()){
+            an.add("@ApiIgnore");
+        }
         buildJavaMethod.setAnnotation(an);
         buildJavaMethod.setRemark("跳转到列表页面");
         List<String> params=new ArrayList<>();
@@ -79,6 +83,9 @@ public class AdminBuildController implements BuildController {
         GlobalConfig globalConfig = autoCodeConfig.getGlobalConfig();
         an.add("@RequestMapping(\""+bean.getTableValue()+"/gotoDetail\")");
         an.add(String.format("@Auth(\"%s/save\")",bean.getTableValue()));
+        if(autoCodeConfig.getGlobalConfig().getSwagger()){
+            an.add("@ApiIgnore");
+        }
         buildJavaMethod.setAnnotation(an);
         buildJavaMethod.setRemark("跳转到详情页面");
         List<String> params=new ArrayList<>();

@@ -8,20 +8,25 @@ import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 
 /**
  *多对多角色 bean
  */
+@ApiModel(description="多对多角色")
 public class ManyToManyRole   extends Page  {
 
 	/**
 	 * 多对多用户
 	 */
+	@ApiModelProperty(hidden = true)
 	private List<ManyToManyUser> manyToManyUserList;
 	/**
 	 * 多对多用户id
 	 */
+	@ApiModelProperty(value = "多对多用户id")
 	private String userId;
 
 
@@ -29,34 +34,42 @@ public class ManyToManyRole   extends Page  {
 	/**
 	 * 角色
 	 */
+	@ApiModelProperty(value = "角色")
 	private Integer id;
 	/**
 	 * 角色名称
 	 */
+	@ApiModelProperty(value = "角色名称")
 	private String name;
 	/**
 	 * {"name":"状态","0":"启用","1":"禁用"}
 	 */
+	@ApiModelProperty(value = "{\"name\":\"状态\",\"0\":\"启用\",\"1\":\"禁用\"}")
 	private Integer status;
 	/**
 	 * 创建者
 	 */
+	@ApiModelProperty(value = "创建者")
 	private Integer createUserId;
 	/**
 	 * 创建时间
 	 */
+	@ApiModelProperty(value = "创建时间")
 	private Date createTime;
 	/**
 	 * 更新者
 	 */
+	@ApiModelProperty(value = "更新者")
 	private Integer updateUserId;
 	/**
 	 * 更新时间
 	 */
+	@ApiModelProperty(value = "更新时间")
 	private Date updateTime;
 	/**
 	 * {"name":"是否删除","0":"正常","1":"删除"}
 	 */
+	@ApiModelProperty(value = "{\"name\":\"是否删除\",\"0\":\"正常\",\"1\":\"删除\"}")
 	private Integer dels;
 	public Integer getId(){
 		return id;

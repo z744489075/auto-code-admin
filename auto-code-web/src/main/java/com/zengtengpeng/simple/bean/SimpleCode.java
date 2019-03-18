@@ -5,41 +5,51 @@ import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 
 /**
  *单表代码生成 bean
  */
+@ApiModel(description="单表代码生成")
 public class SimpleCode   extends Page  {
 
 
 	/**
 	 * 主键
 	 */
+	@ApiModelProperty(value = "主键")
 	private Integer id;
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty(value = "名称")
 	private String name;
 	/**
 	 * 年龄
 	 */
+	@ApiModelProperty(value = "年龄")
 	private Integer age;
 	/**
 	 * {"name":"状态","1":"启用","0":"禁用"}
 	 */
+	@ApiModelProperty(value = "{\"name\":\"状态\",\"1\":\"启用\",\"0\":\"禁用\"}")
 	private Integer status;
 	/**
 	 * 生日
 	 */
+	@ApiModelProperty(value = "生日")
 	private Date birthday;
 	/**
 	 * 备注
 	 */
+	@ApiModelProperty(value = "备注")
 	private String remarks;
 	/**
 	 * 创建时间
 	 */
+	@ApiModelProperty(value = "创建时间")
 	private Date createTime;
 	public Integer getId(){
 		return id;

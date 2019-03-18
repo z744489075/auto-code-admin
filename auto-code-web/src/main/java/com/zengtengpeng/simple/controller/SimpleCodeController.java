@@ -1,5 +1,6 @@
 package com.zengtengpeng.simple.controller;
 import com.zengtengpeng.common.annotation.Auth;
+import springfox.documentation.annotations.ApiIgnore;
 import javax.annotation.Resource;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,8 @@ import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import com.zengtengpeng.simple.bean.SimpleCode;
 import com.zengtengpeng.simple.service.SimpleCodeService;
 
@@ -18,6 +21,7 @@ import com.zengtengpeng.simple.service.SimpleCodeService;
 /**
  *单表代码生成 controller
  */
+@Api(description="单表代码生成")
 @Controller
 public class SimpleCodeController  {
 
@@ -28,6 +32,7 @@ public class SimpleCodeController  {
 	 * 跳转到列表页面
 	 */
 	@RequestMapping("simpleCode/gotoList")
+	@ApiIgnore
 	public String gotoList(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		return "simple/test_simple_code_list";
 	}
@@ -38,6 +43,7 @@ public class SimpleCodeController  {
 	 */
 	@RequestMapping("simpleCode/gotoDetail")
 	@Auth("simpleCode/save")
+	@ApiIgnore
 	public String gotoDetail(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		if(simpleCode.getId()!=null){
 			 request.setAttribute("test_simple_code",simpleCodeService.selectByPrimaryKey(simpleCode));
@@ -54,16 +60,18 @@ public class SimpleCodeController  {
 	 */
 	@ResponseBody
 	@RequestMapping("simpleCode/deleteByPrimaryKey")
+	@ApiOperation(value="根据主键删除", notes="参数只用到了主键id,其他参数忽略" ,httpMethod="POST")
 	public DataRes deleteByPrimaryKey(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(simpleCodeService.deleteByPrimaryKey(simpleCode));
 	}
 
 
 	/**
-	 *  保存 (主键为空则增加 否则 修改)-> 单表代码生成
+	 *  保存 (主键为空则增加否则修改)-> 单表代码生成
 	 */
 	@ResponseBody
 	@RequestMapping("simpleCode/save")
+	@ApiOperation(value="保存", notes="主键为空则增加否则修改" ,httpMethod="POST")
 	public DataRes save(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		if(simpleCode.getId()==null){
 			return DataRes.success(simpleCodeService.insert(simpleCode));
@@ -78,6 +86,7 @@ public class SimpleCodeController  {
 	 */
 	@ResponseBody
 	@RequestMapping("simpleCode/selectByPrimaryKey")
+	@ApiOperation(value="根据主键查询", notes="参数只用到了主键." ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(simpleCodeService.selectByPrimaryKey(simpleCode));
 	}
@@ -88,6 +97,7 @@ public class SimpleCodeController  {
 	 */
 	@ResponseBody
 	@RequestMapping("simpleCode/selectByCondition")
+	@ApiOperation(value="根据条件查询", notes="参数为空则忽略." ,httpMethod="POST")
 	public DataRes selectByCondition(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(simpleCodeService.selectByCondition(simpleCode));
 	}
@@ -98,6 +108,7 @@ public class SimpleCodeController  {
 	 */
 	@ResponseBody
 	@RequestMapping("simpleCode/selectAllByPaging")
+	@ApiOperation(value="分页查询", notes="默认page=1pageSize等于10详见Page类(所有bean都继承该类).参数为空则忽略" ,httpMethod="POST")
 	public DataRes selectAllByPaging(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(simpleCodeService.selectAllByPaging(simpleCode));
 	}
@@ -107,6 +118,7 @@ public class SimpleCodeController  {
 	 * 导出报表->单表代码生成
 	 */
 	@RequestMapping("simpleCode/export")
+	@ApiOperation(value="导出excel", notes="导出全部数据.参数为空则忽略." ,httpMethod="POST")
 	public void export(SimpleCode simpleCode,HttpServletRequest request,HttpServletResponse response){
 		List<SimpleCode> list= simpleCodeService.selectAll(simpleCode);
 		Map<String, String> header = new LinkedHashMap<>();

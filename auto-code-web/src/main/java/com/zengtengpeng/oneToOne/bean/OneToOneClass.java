@@ -8,16 +8,20 @@ import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 
 /**
  *一对一班级 bean
  */
+@ApiModel(description="一对一班级")
 public class OneToOneClass   extends Page  {
 
 	/**
 	 * 一对一用户
 	 */
+	@ApiModelProperty(hidden = true)
 	private OneToOneUser oneToOneUser;
 
 
@@ -25,22 +29,27 @@ public class OneToOneClass   extends Page  {
 	/**
 	 * 班级id
 	 */
+	@ApiModelProperty(value = "班级id")
 	private Integer id;
 	/**
 	 * 用户id
 	 */
+	@ApiModelProperty(value = "用户id")
 	private Integer userId;
 	/**
 	 * 班级名称
 	 */
+	@ApiModelProperty(value = "班级名称")
 	private String className;
 	/**
 	 * 班级人数
 	 */
+	@ApiModelProperty(value = "班级人数")
 	private Integer quantity;
 	/**
 	 * create_time
 	 */
+	@ApiModelProperty(value = "create_time")
 	private Date createTime;
 	public Integer getId(){
 		return id;

@@ -4,6 +4,7 @@ import com.zengtengpeng.manyToMany.service.ManyToManyRoleService;
 import com.zengtengpeng.manyToMany.bean.ManyToManyRole;
 import java.util.ArrayList;
 import com.zengtengpeng.common.annotation.Auth;
+import springfox.documentation.annotations.ApiIgnore;
 import javax.annotation.Resource;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import com.zengtengpeng.manyToMany.bean.ManyToManyUser;
 import com.zengtengpeng.manyToMany.service.ManyToManyUserService;
 
@@ -22,6 +25,7 @@ import com.zengtengpeng.manyToMany.service.ManyToManyUserService;
 /**
  *多对多用户 controller
  */
+@Api(description="多对多用户")
 @Controller
 public class ManyToManyUserController  {
 
@@ -39,6 +43,7 @@ public class ManyToManyUserController  {
 	 * 跳转到列表页面
 	 */
 	@RequestMapping("manyToManyUser/gotoList")
+	@ApiIgnore
 	public String gotoList(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return "manyToMany/test_many_to_many_user_list";
 	}
@@ -49,6 +54,7 @@ public class ManyToManyUserController  {
 	 */
 	@RequestMapping("manyToManyUser/gotoDetail")
 	@Auth("manyToManyUser/save")
+	@ApiIgnore
 	public String gotoDetail(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		List<ManyToManyRole> data = manyToManyRoleService.selectAll(null);
 		request.setAttribute("goto_detail_test_many_to_many_role",data);
@@ -79,16 +85,18 @@ public class ManyToManyUserController  {
 	@ResponseBody
 	@Auth("manyToManyUser/deleteByPrimaryKey")
 	@RequestMapping("manyToManyUser/deleteByPrimaryKey")
+	@ApiOperation(value="根据主键删除", notes="参数只用到了主键id,其他参数忽略" ,httpMethod="POST")
 	public DataRes deleteByPrimaryKey(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(manyToManyUserService.deleteByPrimaryKey(manyToManyUser));
 	}
 
 
 	/**
-	 *  保存 (主键为空则增加 否则 修改)-> 多对多用户
+	 *  保存 (主键为空则增加否则修改)-> 多对多用户
 	 */
 	@ResponseBody
 	@RequestMapping("manyToManyUser/save")
+	@ApiOperation(value="保存", notes="主键为空则增加否则修改" ,httpMethod="POST")
 	public DataRes save(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		if(manyToManyUser.getId()==null){
 			return DataRes.success(manyToManyUserService.insert(manyToManyUser));
@@ -104,6 +112,7 @@ public class ManyToManyUserController  {
 	@ResponseBody
 	@Auth("manyToManyUser/selectAllByPaging")
 	@RequestMapping("manyToManyUser/selectByPrimaryKey")
+	@ApiOperation(value="根据主键查询", notes="参数只用到了主键." ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(manyToManyUserService.selectByPrimaryKey(manyToManyUser));
 	}
@@ -115,6 +124,7 @@ public class ManyToManyUserController  {
 	@ResponseBody
 	@Auth("manyToManyUser/selectAllByPaging")
 	@RequestMapping("manyToManyUser/selectByCondition")
+	@ApiOperation(value="根据条件查询", notes="参数为空则忽略." ,httpMethod="POST")
 	public DataRes selectByCondition(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(manyToManyUserService.selectByCondition(manyToManyUser));
 	}
@@ -126,6 +136,7 @@ public class ManyToManyUserController  {
 	@ResponseBody
 	@Auth("manyToManyUser/selectAllByPaging")
 	@RequestMapping("manyToManyUser/selectAllByPaging")
+	@ApiOperation(value="分页查询", notes="默认page=1pageSize等于10详见Page类(所有bean都继承该类).参数为空则忽略" ,httpMethod="POST")
 	public DataRes selectAllByPaging(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(manyToManyUserService.selectAllByPaging(manyToManyUser));
 	}
@@ -135,6 +146,7 @@ public class ManyToManyUserController  {
 	 * 导出报表->多对多用户
 	 */
 	@RequestMapping("manyToManyUser/export")
+	@ApiOperation(value="导出excel", notes="导出全部数据.参数为空则忽略." ,httpMethod="POST")
 	public void export(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		List<ManyToManyUser> list= manyToManyUserService.selectAll(manyToManyUser);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -158,6 +170,7 @@ public class ManyToManyUserController  {
 	@Auth("manyToManyUser/selectAllByPaging")
 	@RequestMapping("manyToManyUser/selectManyToManyUserAndManyToManyRole")
 	@ResponseBody
+	@ApiOperation(value="主表级联查询(带分页)", notes="主表级联查询(带分页)  默认 page=1 pageSize等于10 详见 Page类(所有bean都继承该类)" ,httpMethod="POST")
 	public DataRes selectManyToManyUserAndManyToManyRole(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(manyToManyUserService.selectManyToManyUserAndManyToManyRole(manyToManyUser));
 	}
@@ -169,6 +182,7 @@ public class ManyToManyUserController  {
 	@Auth("manyToManyUser/selectAllByPaging")
 	@RequestMapping("manyToManyUser/selectManyToManyUserAndManyToManyRoleByCondition")
 	@ResponseBody
+	@ApiOperation(value="主表级联条件查询", notes="主表级联条件查询" ,httpMethod="POST")
 	public DataRes selectManyToManyUserAndManyToManyRoleByCondition(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(manyToManyUserService.selectManyToManyUserAndManyToManyRoleByCondition(manyToManyUser));
 	}
@@ -180,6 +194,7 @@ public class ManyToManyUserController  {
 	@Auth("manyToManyUser/deleteByPrimaryKey")
 	@RequestMapping("manyToManyUser/deleteManyToManyUserAndManyToManyRole")
 	@ResponseBody
+	@ApiOperation(value="主表级联删除(根据主键删除)", notes="主表级联删除(根据主键删除)" ,httpMethod="POST")
 	public DataRes deleteManyToManyUserAndManyToManyRole(ManyToManyUser manyToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(manyToManyUserService.deleteManyToManyUserAndManyToManyRole(manyToManyUser));
 	}
@@ -191,6 +206,7 @@ public class ManyToManyUserController  {
 	@Auth("manyToManyUser/selectAllByPaging")
 	@RequestMapping("manyToManyUser/selectManyToManyUserByManyToManyRole")
 	@ResponseBody
+	@ApiOperation(value="根据外表id查询主表表所有数据(带分页)", notes="根据外表id查询主表表所有数据(带分页)" ,httpMethod="POST")
 	public DataRes selectManyToManyUserByManyToManyRole(HttpServletRequest request,HttpServletResponse response,ManyToManyUser manyToManyUser){
 		return DataRes.success(manyToManyUserService.selectManyToManyUserByManyToManyRole(manyToManyUser));
 	}
