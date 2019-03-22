@@ -34,7 +34,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(userInterceptor()).addPathPatterns("/**").excludePathPatterns("/swagger-ui.html#/**","/swagger-resources/**");
-        registry.addInterceptor(logInterceptor()).addPathPatterns("/**").excludePathPatterns("/swagger-ui.html#/**","/swagger-resources/**");
+        registry.addInterceptor(userInterceptor()).addPathPatterns("/**").excludePathPatterns("/swagger-ui.html#/**","/swagger-resources/**","/auto-code-ui/**");
+        registry.addInterceptor(logInterceptor()).addPathPatterns("/**").excludePathPatterns("/swagger-ui.html#/**","/swagger-resources/**","/auto-code-ui/**");
     }
 }

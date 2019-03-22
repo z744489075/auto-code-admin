@@ -1,7 +1,6 @@
 package com.zengtengpeng.common.aop;
 
 import com.alibaba.fastjson.JSON;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -24,7 +23,7 @@ import java.util.UUID;
 public class LogAop {
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("execution( * com.zengtengpeng.*.controller.*.*(..))")
+    @Pointcut("!execution( * com.zengtengpeng.ui.controller.*.*(..)) && execution( * com.zengtengpeng.*.controller.*.*(..))")
     public void controllerAspect() {
     }
 

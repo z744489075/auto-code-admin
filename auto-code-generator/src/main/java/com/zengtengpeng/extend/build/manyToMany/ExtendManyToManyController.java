@@ -1,6 +1,6 @@
 package com.zengtengpeng.extend.build.manyToMany;
 
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
+import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
 import com.zengtengpeng.extend.base.ExtendBaseController;
@@ -19,20 +19,20 @@ public class ExtendManyToManyController implements ExtendBaseController {
 
     /**
      * 构建
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void build(AdminAutoCodeConfig adminAutoCodeConfig){
-        foreignGotoDetail(adminAutoCodeConfig);
-        primaryGotoDetail(adminAutoCodeConfig);
-        foreignAuth(adminAutoCodeConfig);
-        primaryAuth(adminAutoCodeConfig);
+    public void build(AutoCodeConfig AutoCodeConfig){
+        foreignGotoDetail(AutoCodeConfig);
+        primaryGotoDetail(AutoCodeConfig);
+        foreignAuth(AutoCodeConfig);
+        primaryAuth(AutoCodeConfig);
     }
     /**
      * 修改外表的 gotoDetail 方法
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void foreignGotoDetail(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    public void foreignGotoDetail(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
@@ -112,10 +112,10 @@ public class ExtendManyToManyController implements ExtendBaseController {
     }
     /**
      * 修改主表的 gotoDetail 方法
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void primaryGotoDetail(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    public void primaryGotoDetail(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();

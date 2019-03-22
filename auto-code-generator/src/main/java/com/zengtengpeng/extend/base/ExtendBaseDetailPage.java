@@ -1,6 +1,7 @@
 package com.zengtengpeng.extend.base;
 
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
+import com.zengtengpeng.auto.config.AdminGlobalConfig;
+import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
 import com.zengtengpeng.relation.bean.RelationTable;
@@ -22,32 +23,32 @@ public interface ExtendBaseDetailPage {
 
     /**
      * 构建
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    default void build(AdminAutoCodeConfig adminAutoCodeConfig){
-        foreignDetailPage(adminAutoCodeConfig);
+    default void build(AutoCodeConfig AutoCodeConfig){
+        foreignDetailPage(AutoCodeConfig);
     }
 
     /**
      * 获取文件路径
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      * @param relationTable
      * @return
      */
-    default String getFilePath(AdminAutoCodeConfig adminAutoCodeConfig,RelationTable relationTable){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
-        return globalConfig.getParentPathResources()+"/"+adminAutoCodeConfig.getThymeleafPath()+"/"+relationTable.getExistParentPackage_()+"/"+relationTable.getDataName()+"_detail.html";
+    default String getFilePath(AutoCodeConfig AutoCodeConfig,RelationTable relationTable){
+        AdminGlobalConfig globalConfig = (AdminGlobalConfig) AutoCodeConfig.getGlobalConfig();
+        return globalConfig.getParentPathResources()+"/"+globalConfig.getThymeleafPath()+"/"+relationTable.getExistParentPackage_()+"/"+relationTable.getDataName()+"_detail.html";
     }
     /**
      * 修改外表的 详情页面
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    default void foreignDetailPage(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    default void foreignDetailPage(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
-        File file=new File(getFilePath(adminAutoCodeConfig,foreign));
+        File file=new File(getFilePath(AutoCodeConfig,foreign));
         if (!file.exists()){
             logger.info("{}不存在,忽略修改",file.getAbsolutePath());
             return;

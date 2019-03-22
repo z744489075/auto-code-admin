@@ -1,7 +1,7 @@
 package com.zengtengpeng.auto.utils;
 
 import com.zengtengpeng.auto.AdminStartCode;
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
+import com.zengtengpeng.auto.config.AdminGlobalConfig;
 import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.jdbc.bean.Bean;
@@ -29,15 +29,15 @@ public class FreemarkerUtils {
     /**
      * 创建页面
      * @param ftlName
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public static void createPageFile(String ftlName, AdminAutoCodeConfig adminAutoCodeConfig) {
+    public static void createPageFile(String ftlName, AutoCodeConfig AutoCodeConfig) {
         FileWriter writer = null;
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+        AdminGlobalConfig globalConfig = (AdminGlobalConfig) AutoCodeConfig.getGlobalConfig();
         try {
             Template template = cfg.getTemplate(ftlName +".ftl");
-            Bean bean = adminAutoCodeConfig.getBean();
-            File file = new File(globalConfig.getParentPathResources(), adminAutoCodeConfig.getThymeleafPath() +"/"+ bean.getMobelName()+"/");
+            Bean bean = AutoCodeConfig.getBean();
+            File file = new File(globalConfig.getParentPathResources(), globalConfig.getThymeleafPath() +"/"+ bean.getMobelName()+"/");
             if(!file.exists()){
                 file.mkdirs();
             }

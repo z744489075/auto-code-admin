@@ -1,5 +1,6 @@
 # auto-code-admin
-欢迎使用auto-code-admin后台代码自动生成引擎.2.0重大升级.支持`单表`, `一对一`, `一对多` ,`多对多`代码生成,支持无限级联 [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
+欢迎使用auto-code-admin后台代码自动生成引擎.2.1.0再次升级.支持可视化生成`单表`, `一对一`, `一对多` ,`多对多`代码.
+不再需要写yaml文件,支持无限级联 [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
 (服务器在美国,有时访问可能比较慢.)
 # 目录
 1. <a href="#1">项目介绍</a>
@@ -20,13 +21,15 @@
 3. <a href="#3">进阶篇</a>
     1. <a href="#3.1">如何进行项目集群</a>
     2. <a href="#3.2">权限机制的实现</a>
-    3. <a href="#3.3">如何自定义方法</a>
+    3. <a href="#3.3">配置参数介绍</a>
     4. <a href="#3.4">如何升级</a>
 4. <a href="#4">项目部分截图</a>
     1. <a href="#4.1">PC端</a>
     2. <a href="#4.2">移动端</a>
     
 ## 更新
+
+> 2019-03-22: 版本:2.1.0 生成代码增加可视化视图,不再需要写yaml文件配置了
 
 > 2019-03-18 增加 swagger api支持
 
@@ -72,7 +75,7 @@
     auto-code-admin(根节点)
       -auto-code-generator  代码生成配置
       -auto-code-common ->一些公共的类,以及配置
-      -auto-code-sys ->系统设置模块
+      -auto-code-sys ->系统设置,权限,日志模块
       -auto-code-charts ->报表模块
       -auto-code-web ->发布模块(该模块聚合以上模块进行发布,如果报表模块不想使用直接在pom.xml将该模块注释掉就好.)
 
@@ -94,331 +97,60 @@
 > 1.代码生成主要在 auto-code-generator 子模块中. 改模块基于 [auto-code](https://gitee.com/ztp/auto-code)
 做的扩展.扩展了怎么生成 `单表` `一对一` `一对多` `多对多` 的页面展示关系.
 
-> 2.在src/main/resources 下有 已 auto-code_*.yaml 开头的配置文件.
-其实采用一个文件就行了.这里写这么多文件是怕开发人员引起不必要的误会所以一个关系就写了一个文件.
-实际开发中.可以只保留一个文件(默认是 `auto-code.yaml`)
+> 2. 在 `application.properties` 文件中填写参数(不填也没事,可以到页面配置.不过建议填写.当项目重新页面参数会重置的)
 
-> 3.com.zengtengpeng 包下 有 `Demo1simple` 单表 `Demo2OneToOne` 一对一 `Demo3OneToMany` 一对多
-`Demo4ManyToMany`多对多 例子.具体可以参考下.下面的例子就是拷贝这里代码.
+    # 代码生成器
+    #生成代码的项目根路径
+    auto-code.parentPath=E:\\resource\\workspaceJDB\\auto-code-admin\\auto-code-web
+    #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
+    auto-code.parentPack=com.zengtengpeng.simple
+    #添加权限到表的父id.如果为空则需要手动添加权限
+    auto-code.authParentId=89
+    
+> 2.这是代码生成的页面地址  http://localhost:8080/auto-code-ui/ui/index.html
 
 #### <a name="2.1.2">单表生成</a>
 
-> 书写yaml文件,每个字段对应的注释下面有(对应 auto-code_simple.yaml)
-```yaml 
-    datasourceConfig:
-        #驱动名称
-        driverClassName: com.mysql.jdbc.Driver
-        #数据库名称
-        name: auto_code
-        #jdbc链接
-        url: jdbc:mysql://127.0.0.1:3306/auto_code?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
-        #数据库用户名
-        username: root
-        #数据库密码
-        password: 111111
-    #thymeleaf 放置页面的文件夹
-    thymeleafPath: templates
-    #添加权限到表的父id.如果为空则需要手动添加权限
-    authParentId: 89
-    globalConfig:
-        #数据库表配置
-        tableNames:
-        #表名称
-        - dataName: test_simple_code
-            #别名 不写默认采用驼峰命名法 test_simple_code->TestSimpleCode
-          aliasName: SimpleCode
-            #如果用多张表,请按照如下写法,继续往下写.
-        #        - dataName: test_code2
-        #          aliasName: DDDDDDD
-        #生成代码的项目路径
-        parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
-        #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
-        parentPack: com.zengtengpeng.simple
-        #是否覆盖生成文件 如果为true将会把以前的文件覆盖掉
-        cover: false
-        #xml存放的文件夹默认 mybatisMapper
-        xmlPath: mybatisMapper
-        #是否生成swagger注解
-        swagger: true
-```
+>1.界面选择单表生成.选择对应的表,点击`生成预览`. 最后点击`确认生成`. 完毕.
 
-> 编写java代码
-```java
-import com.zengtengpeng.auto.AdminStartCode;
-import com.zengtengpeng.autoCode.StartCode;
+![simple](http://images.zengtengpeng.com/auto-code-ui/simple.png)
 
-public class Demo1simple {
-    public static void main(String[] args) {
-        StartCode startCode= new AdminStartCode();
-        //对应书写
-        startCode.start(AdminStartCode.saxYaml("auto-code_simple.yaml"));
-    }
-}
-```
-
-> 生成代码如下图
-
+>2.生成的文件如下:
 ![select](http://images.zengtengpeng.com/auto-code-web/simple.png)
 
 #### <a name="2.1.3">一对一代码生成 对应 auto-code_one-to-one.yaml (代码采用追加的方式.无需担心代码被覆盖) </a>
 
-```yaml
-datasourceConfig:
-    #驱动名称
-    driverClassName: com.mysql.jdbc.Driver
-    #数据库名称
-    name: auto_code
-    #jdbc链接
-    url: jdbc:mysql://127.0.0.1:3306/auto_code?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
-    #数据库用户名
-    username: root
-    #数据库密码
-    password: 111111
-#thymeleaf 放置页面的文件夹
-thymeleafPath: templates
-#添加权限到表的父id.如果为空则需要手动添加权限
-authParentId: 90
-globalConfig:
-    #生成代码的项目路径
-    parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
-    #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
-    parentPack: com.zengtengpeng.oneToOne
-    #是否覆盖生成文件 如果为true将会把以前的文件覆盖掉
-    cover: false
-    #xml存放的文件夹默认 mybatisMapper
-    xmlPath: mybatisMapper
-    #是否生成swagger注解
-    swagger: true
-    # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式不需要担心代码覆盖
-    relationConfig:
-        #主表
-        primary:
-            #数据库表名
-            dataName: test_one_to_one_user
-            #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: OneToOneUser
-            #主键名称
-            primaryKey: id
-            #是否生成 单表 代码
-#            generate: false
-            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
-#            existParentPackage: com.zengtengpeng.manyToMany 
-            #备注
-            remark: "一对一用户"
-        #外表
-        foreign:
-            #数据库表名
-            dataName: test_one_to_one_class
-            #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: OneToOneClass
-            #外键名称 就是已哪个字段和主表关联 填写数据库字段名
-            foreignKey: user_id
-            #是否生成 单表 代码
-#            generate: false
-            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
-#            existParentPackage: com.zengtengpeng.manyToMany 
-            #备注
-            remark: "一对一班级"
-```
+>1. 打开界面.选择对应的表,一对一比单表多了一个外键id.
+比如界面两张表的关系就是通过 user_id来关联的 如下:
 
-> 1.执行代码
-```java
-import com.zengtengpeng.auto.AdminStartCode;
-import com.zengtengpeng.auto.build.AdminBuildOneToOne;
-import com.zengtengpeng.relation.utils.RelationUtils;
+    test_one_to_one_user.id=test_one_to_one_class.user_id
 
-public class Demo2OneToOne {
-    public static void main(String[] args) {
-        //auto-code_one-to-one.yaml 为配置文件名 不写默认是 auto-code.yaml
-        RelationUtils.oneToOne(AdminStartCode.saxYaml("auto-code_one-to-one.yaml"), new AdminStartCode(), new AdminBuildOneToOne());
-    }
-}
-```
+![one-to-one](http://images.zengtengpeng.com/auto-code-ui/one-to-one1.png)
+![one-to-one](http://images.zengtengpeng.com/auto-code-ui/one-to-one2.png)
 
-> 生成代码如下图
-
-![select](http://images.zengtengpeng.com/auto-code-web/one-to-one.png)
+>2.点击生成完毕.生成的文件和单表是一样的.里面会增加新的方法
 
 #### <a name="2.1.4">一对多 代码生成 auto-code_one-to-many.yaml (代码采用追加的方式.无需担心代码被覆盖)</a>
 
-```yaml
-datasourceConfig:
-    #驱动名称
-    driverClassName: com.mysql.jdbc.Driver
-    #数据库名称
-    name: auto_code
-    #jdbc链接
-    url: jdbc:mysql://127.0.0.1:3306/auto_code?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
-    #数据库用户名
-    username: root
-    #数据库密码
-    password: 111111
-#thymeleaf 放置页面的文件夹
-thymeleafPath: templates
-#添加权限到表的父id.如果为空则需要手动添加权限
-authParentId: 91
-globalConfig:
-    #生成代码的项目路径
-    parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
-    #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
-    parentPack: com.zengtengpeng.oneToMany
-    #是否覆盖生成文件 如果为true将会把以前的文件覆盖掉
-    cover: false
-    #xml存放的文件夹默认 mybatisMapper
-    xmlPath: mybatisMapper
-    #是否生成swagger注解
-    swagger: true
-    # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式不需要担心代码覆盖
-    relationConfig:
-        #主表
-        primary:
-            #数据库表名
-            dataName: test_one_to_many_user
-            #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: OneToManyUser
-            #主键名称
-            primaryKey: id
-            #是否生成 单表 代码
-#            generate: false
-            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
-#            existParentPackage: com.zengtengpeng.manyToMany 
-            #备注
-            remark: "一对多用户"
-        #外表
-        foreign:
-            #数据库表名
-            dataName: test_one_to_many_addr
-            #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: OneToManyAddr
-            #外键名称 就是已哪个字段和主表关联 填写数据库字段名
-            foreignKey: user_id
-            #是否生成 单表 代码
-#            generate: false
-            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
-#            existParentPackage: com.zengtengpeng.manyToMany 
-            #备注
-            remark: "一对多收货地址"
-```
-
-> 执行java代码
-```java
-import com.zengtengpeng.auto.AdminStartCode;
-import com.zengtengpeng.auto.build.AdminBuildOneToMany;
-import com.zengtengpeng.relation.utils.RelationUtils;
-
-public class Demo3OneToMany {
-    public static void main(String[] args) {
-        //auto-code_one-to-many.yaml 为配置文件名 不写默认是 auto-code.yaml
-        RelationUtils.oneToMany(AdminStartCode.saxYaml("auto-code_one-to-many.yaml"), new AdminStartCode(), new AdminBuildOneToMany());
-    }
-}
-```
-> 生成代码如下图
-
-![select](http://images.zengtengpeng.com/auto-code-web/one-to-many.png)
+>  `一对多`与`一对一`一样不再描述
 
 #### <a name="2.1.5">多对多 代码生成 auto-code_many-to-many.yaml (代码采用追加的方式.无需担心代码被覆盖)</a>
 
-```yaml
-datasourceConfig:
-    #驱动名称
-    driverClassName: com.mysql.jdbc.Driver
-    #数据库名称
-    name: auto_code
-    #jdbc链接
-    url: jdbc:mysql://127.0.0.1:3306/auto_code?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
-    #数据库用户名
-    username: root
-    #数据库密码
-    password: 111111
-#thymeleaf 放置页面的文件夹
-thymeleafPath: templates
-#添加权限到表的父id.如果为空则需要手动添加权限
-authParentId: 92
-globalConfig:
-    #生成代码的项目路径
-    parentPath: E:\resource\workspaceJDB\auto-code-admin\auto-code-web
-    #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
-    parentPack: com.zengtengpeng.manyToMany
-    #是否覆盖生成文件 如果为true将会把以前的文件覆盖掉
-    cover: false
-    #xml存放的文件夹默认 mybatisMapper
-    xmlPath: mybatisMapper
-    #是否生成swagger注解
-    swagger: true
-    # 表关系配置  一对一 一对多 多对多 代码生成 采用追加的方式不需要担心代码覆盖
-    relationConfig:
-        #主表
-        primary:
-            #数据库表名
-            dataName: test_many_to_many_user
-            #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: ManyToManyUser
-            #主键名称
-            primaryKey: id
-            #是否生成 单表 代码
-#            generate: false
-                        #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
-#            existParentPackage: com.zengtengpeng.manyToMany 
-            #备注
-            remark: "多对多用户"
-        #外表
-        foreign:
-            #数据库表名
-            dataName: test_many_to_many_role
-            #别名: 如果不设置将采用驼峰命名法 test_user=TestUser
-            beanName: ManyToManyRole
-            #外键名称 就是已哪个字段和主表关联 填写数据库字段名
-            foreignKey: id
-            #备注
-            remark: "多对多角色"
-            #是否生成 单表 代码
-#            generate: false
-            #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
-#            existParentPackage: com.zengtengpeng.manyToMany 
-        #第三表 -当生成多对多代码时该参数必填.否则会忽略该参数
-        thirdparty:
-            #数据库表名
-            dataName: test_many_to_many_user_role
-            #主键名称 该字段将和主表关联起来
-            primaryKey: user_id
-            #外键名称 该字段将和外表配置关联起来
-            foreignKey: role_id
-            #备注
-            remark: "多对多用户角色"
 
-```
+> 1.打开界面.选择对应的表,`多对多`比`一对一`多了一个关系描述表
+    比如图片三张表的关系是通过 test_many_to_many_user_role来表述的.如下:
+    
+    test_many_to_many_user_role.user_id=test_many_to_many_user.id and test_many_to_many_user_role.role_id=test_many_to_many_role.id
 
-> 执行代码
-```java
-import com.zengtengpeng.auto.AdminStartCode;
-import com.zengtengpeng.auto.build.AdminBuildManyToMany;
-import com.zengtengpeng.relation.utils.RelationUtils;
+![many-to-many](http://images.zengtengpeng.com/auto-code-ui/many-to-many1.png)
+![many-to-many](http://images.zengtengpeng.com/auto-code-ui/many-to-many2.png)
+![many-to-many](http://images.zengtengpeng.com/auto-code-ui/many-to-many3.png)
 
-public class Demo4ManyToMany {
-    public static void main(String[] args) {
-        //auto-code_many-to-many.yaml 为配置文件名 不写默认是 auto-code.yaml
-        RelationUtils.manyToMany(AdminStartCode.saxYaml("auto-code_many-to-many.yaml"), new AdminStartCode(), new AdminBuildManyToMany());
-    }
-}
-```
-
-> 生成代码如下图
-
-![select](http://images.zengtengpeng.com/auto-code-web/one-to-many.png)
-
-
+>2.点击生成完毕.生成的文件和单表是一样的.里面会增加新的方法
 
 ### <a name="2.2">生成代码注意事项</a>
 
-> 1.多表支持无限级联生成. 比如 用户和收货地址对应,用户表和班级对应,等等.. 只要注意在书写yaml文件时 将 
-```
- #是否生成 单表 代码
-  generate: false
-  #如果单表代码已经生成,请填写代码的父包 如 com.zengtengpeng.manyToMany.bean.ManyToManyUser  请填写 com.zengtengpeng.manyToMany
-  existParentPackage: com.zengtengpeng.manyToMany 
-```
-填上就行. 如上我为了程序的可读性故意将user建成3张表,其实只要一张表就够了
+> 1.多表支持无限级联生成. 比如 用户和收货地址对应,用户表和班级对应...
 
 > 2.创建表结构时如果写上表与字段的注释将大大增加程序的可读性.我会将注释写到bean上面.
 以及页面上.没有写注释还需要页面修改对应的值.会加大工作量.举例:
@@ -439,7 +171,6 @@ CREATE TABLE `test_code` (
 
 > 3.如果注释为json键值对字符串我将会在实体类生成一个字典方法
     如:  {"name":"状态","1":"启用","0":"禁用"} 将会在实体类里面生成如下,同时页面展示的名称将是 "状态"
-    
     
 ```
 public String getStatus_(){
@@ -496,10 +227,16 @@ spring.redis.port=6379
     3.如果该方法不需要登录就能访问怎么办? com.zengtengpeng.common.annotation.Pass 
     注解标注在方法上.该方法就不需要授权
 
-### <a name="3.3">如何自定义方法</a>
+### <a name="3.3">配置参数介绍</a>
 
-> 具体请参照 [auto-code](https://gitee.com/ztp/auto-code#3)
+> 基础请参照参数 [auto-code](https://gitee.com/ztp/auto-code#3),admin在基础参数的基础上扩展了两个特有的参数
 
+参数名 |  默认值 |介绍
+---|---|---
+ authParentId| 无 | 添加权限到表的父id.如果为空则不自动生成权限
+ thymeleafPath | templates |thymeleaf 放置页面的文件目录
+ 
+ 
 ### <a name="3.4">如何升级</a>
 
     1.下载项目后,自己的代码请放到 auto-code-web子模块或者自己重新新建模块

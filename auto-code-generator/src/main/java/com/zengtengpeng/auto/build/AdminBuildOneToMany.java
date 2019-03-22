@@ -1,6 +1,5 @@
 package com.zengtengpeng.auto.build;
 
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
 import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.extend.build.oneToMany.ExtendOneToManyController;
 import com.zengtengpeng.extend.build.oneToMany.ExtendOneToManyDetailPage;
@@ -18,16 +17,15 @@ public class AdminBuildOneToMany implements BuildOneToMany {
     Logger logger = LoggerFactory.getLogger(AdminBuildOneToMany.class);
     @Override
     public void custom(AutoCodeConfig autoCodeConfig) {
-        AdminAutoCodeConfig adminAutoCodeConfig= (AdminAutoCodeConfig) autoCodeConfig;
 
         ExtendOneToManyListPage buildOneToOneListPage=new ExtendOneToManyListPage();
-        buildOneToOneListPage.build(adminAutoCodeConfig);
+        buildOneToOneListPage.build(autoCodeConfig);
 
         ExtendOneToManyController extendOneToOneController=new ExtendOneToManyController();
-        extendOneToOneController.build(adminAutoCodeConfig);
+        extendOneToOneController.build(autoCodeConfig);
 
         ExtendOneToManyDetailPage extendOneToOneDetailpage=new ExtendOneToManyDetailPage();
-        extendOneToOneDetailpage.build(adminAutoCodeConfig);
+        extendOneToOneDetailpage.build(autoCodeConfig);
     }
 
 }

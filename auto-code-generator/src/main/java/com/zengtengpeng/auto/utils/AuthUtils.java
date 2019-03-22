@@ -1,7 +1,9 @@
 package com.zengtengpeng.auto.utils;
 
 import com.zengtengpeng.auto.AdminStartCode;
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
+import com.zengtengpeng.auto.config.AdminGlobalConfig;
+import com.zengtengpeng.autoCode.config.AutoCodeConfig;
+import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
 import com.zengtengpeng.jdbc.bean.Bean;
 import org.slf4j.Logger;
@@ -17,18 +19,18 @@ public class AuthUtils {
    static Logger logger = LoggerFactory.getLogger(AuthUtils.class);
     /**
      * 添加权限
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public static void addAuth(AdminAutoCodeConfig adminAutoCodeConfig) {
-        Bean bean = adminAutoCodeConfig.getBean();
+    public static void addAuth(AutoCodeConfig AutoCodeConfig) {
+        Bean bean = AutoCodeConfig.getBean();
+        AdminGlobalConfig globalConfig = (AdminGlobalConfig) AutoCodeConfig.getGlobalConfig();
 
-
-        String authParentId = adminAutoCodeConfig.getAuthParentId();
+        String authParentId = globalConfig.getAuthParentId();
         if(!MyStringUtils.isEmpty(authParentId)){
             AdminStartCode adminStartCode=new AdminStartCode();
             Connection connection =null;
             try {
-                connection = adminStartCode.getConnection(adminAutoCodeConfig);
+                connection = adminStartCode.getConnection(AutoCodeConfig);
                 connection.setAutoCommit(false);
                 int index=0;
                 //根权限

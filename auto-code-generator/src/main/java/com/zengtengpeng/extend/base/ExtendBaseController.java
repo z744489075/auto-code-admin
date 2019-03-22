@@ -1,6 +1,6 @@
 package com.zengtengpeng.extend.base;
 
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
+import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
 import com.zengtengpeng.relation.bean.RelationTable;
@@ -22,12 +22,12 @@ public interface ExtendBaseController {
 
     /**
      * 构建
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    default void build(AdminAutoCodeConfig adminAutoCodeConfig){
-        foreignGotoDetail(adminAutoCodeConfig);
-        foreignAuth(adminAutoCodeConfig);
-        primaryAuth(adminAutoCodeConfig);
+    default void build(AutoCodeConfig AutoCodeConfig){
+        foreignGotoDetail(AutoCodeConfig);
+        foreignAuth(AutoCodeConfig);
+        primaryAuth(AutoCodeConfig);
     }
 
     /**
@@ -42,8 +42,8 @@ public interface ExtendBaseController {
     /**
      * 修改主表权限
      */
-    default void primaryAuth(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    default void primaryAuth(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable primary = relationConfig.getPrimary();
         String filePath = getFilePath(globalConfig, primary);
@@ -97,8 +97,8 @@ public interface ExtendBaseController {
     /**
      * 修改外表权限
      */
-    default void foreignAuth(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    default void foreignAuth(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
@@ -152,10 +152,10 @@ public interface ExtendBaseController {
     }
     /**
      * 修改外表的 gotoDetail 方法
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    default void foreignGotoDetail(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    default void foreignGotoDetail(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();

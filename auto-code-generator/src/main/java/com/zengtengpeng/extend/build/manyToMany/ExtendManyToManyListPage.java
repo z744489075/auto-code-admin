@@ -1,6 +1,7 @@
 package com.zengtengpeng.extend.build.manyToMany;
 
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
+import com.zengtengpeng.auto.config.AdminGlobalConfig;
+import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.extend.base.ExtendBaseListPage;
 import com.zengtengpeng.relation.bean.RelationTable;
@@ -18,15 +19,15 @@ public class ExtendManyToManyListPage implements ExtendBaseListPage {
 
     /**
      * 修改外表的 list页面
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void foreignChangeListPage(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    public void foreignChangeListPage(AutoCodeConfig AutoCodeConfig){
+        AdminGlobalConfig globalConfig = (AdminGlobalConfig) AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
         RelationTable thirdparty = relationConfig.getThirdparty();
-        String path=globalConfig.getParentPathResources()+"/"+adminAutoCodeConfig.getThymeleafPath()+"/"+foreign.getExistParentPackage_()+"/"+foreign.getDataName()+"_list.html";
+        String path=globalConfig.getParentPathResources()+"/"+globalConfig.getThymeleafPath()+"/"+foreign.getExistParentPackage_()+"/"+foreign.getDataName()+"_list.html";
         File file=new File(path);
         if (!file.exists()){
             logger.info("{}不存在,忽略修改",path);
@@ -119,15 +120,15 @@ public class ExtendManyToManyListPage implements ExtendBaseListPage {
     }
     /**
      * 修改主表的 list页面
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void primaryChangeListPage(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    public void primaryChangeListPage(AutoCodeConfig AutoCodeConfig){
+        AdminGlobalConfig globalConfig = (AdminGlobalConfig) AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
         RelationTable thirdparty = relationConfig.getThirdparty();
-        String path=globalConfig.getParentPathResources()+"/"+adminAutoCodeConfig.getThymeleafPath()+"/"+primary.getExistParentPackage_()+"/"+relationConfig.getPrimary().getDataName()+"_list.html";
+        String path=globalConfig.getParentPathResources()+"/"+globalConfig.getThymeleafPath()+"/"+primary.getExistParentPackage_()+"/"+relationConfig.getPrimary().getDataName()+"_list.html";
         File file=new File(path);
         if (!file.exists()){
             logger.info("{}不存在,忽略修改",path);

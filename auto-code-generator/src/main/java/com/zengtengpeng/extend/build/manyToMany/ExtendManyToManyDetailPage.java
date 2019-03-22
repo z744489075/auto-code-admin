@@ -1,6 +1,6 @@
 package com.zengtengpeng.extend.build.manyToMany;
 
-import com.zengtengpeng.auto.config.AdminAutoCodeConfig;
+import com.zengtengpeng.autoCode.config.AutoCodeConfig;
 import com.zengtengpeng.autoCode.config.GlobalConfig;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
 import com.zengtengpeng.extend.base.ExtendBaseDetailPage;
@@ -19,23 +19,23 @@ public class ExtendManyToManyDetailPage implements ExtendBaseDetailPage {
 
     /**
      * 构建
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void build(AdminAutoCodeConfig adminAutoCodeConfig){
-        foreignDetailPage(adminAutoCodeConfig);
-        primaryDetailPage(adminAutoCodeConfig);
+    public void build(AutoCodeConfig AutoCodeConfig){
+        foreignDetailPage(AutoCodeConfig);
+        primaryDetailPage(AutoCodeConfig);
     }
     /**
      * 修改外表的 详情页面
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void foreignDetailPage(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    public void foreignDetailPage(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
         RelationTable thirdparty = relationConfig.getThirdparty();
-        File file=new File(getFilePath(adminAutoCodeConfig,foreign));
+        File file=new File(getFilePath(AutoCodeConfig,foreign));
         if (!file.exists()){
             logger.info("{}不存在,忽略修改",file.getAbsolutePath());
             return;
@@ -100,15 +100,15 @@ public class ExtendManyToManyDetailPage implements ExtendBaseDetailPage {
     }
     /**
      * 修改主表的 详情页面
-     * @param adminAutoCodeConfig
+     * @param AutoCodeConfig
      */
-    public void primaryDetailPage(AdminAutoCodeConfig adminAutoCodeConfig){
-        GlobalConfig globalConfig = adminAutoCodeConfig.getGlobalConfig();
+    public void primaryDetailPage(AutoCodeConfig AutoCodeConfig){
+        GlobalConfig globalConfig = AutoCodeConfig.getGlobalConfig();
         RelationConfig relationConfig = globalConfig.getRelationConfig();
         RelationTable foreign = relationConfig.getForeign();
         RelationTable primary = relationConfig.getPrimary();
         RelationTable thirdparty = relationConfig.getThirdparty();
-        File file=new File(getFilePath(adminAutoCodeConfig,primary));
+        File file=new File(getFilePath(AutoCodeConfig,primary));
         if (!file.exists()){
             logger.info("{}不存在,忽略修改",file.getAbsolutePath());
             return;
