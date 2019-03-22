@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-	<property name="myLog_path" value="/data/docker/auto-code-admin/logs"/>
+	<springProperty scop="context" name="myLog_level" source="myLog.level" defaultValue="info"/>
+	<springProperty scop="context" name="myLog_path" source="myLog.path" defaultValue=""/>
 	<appender name="file"
 			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${myLog_path}/info.log</file>
@@ -44,7 +45,7 @@
 		</encoder>
 	</appender>
 
-	<root level="error">
+	<root level="${myLog_level}">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="file" />
 		<appender-ref ref="error" />
