@@ -107,7 +107,7 @@
     #添加权限到表的父id.如果为空则需要手动添加权限
     auto-code.authParentId=89
     
-> 2.这是代码生成的页面地址  http://localhost:8080/auto-code-ui/ui/index.html
+> 3.这是代码生成的页面地址  http://localhost:8080/auto-code-ui/ui/index.html
 
 #### <a name="2.1.2">单表生成</a>
 

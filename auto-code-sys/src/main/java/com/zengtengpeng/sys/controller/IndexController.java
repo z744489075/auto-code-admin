@@ -20,13 +20,22 @@ public class IndexController  {
         return "index";
     }
     /**
-     * 跳转到列表页面
+     * 跳转到新版欢迎页面
      * @return
      */
     @RequestMapping("index/gotoWelcome")
     @Pass
     public String gotoWelcome(){
         return "welcome";
+    }
+    /**
+     * 跳转到旧版欢迎页面
+     * @return
+     */
+    @RequestMapping("index/gotoWelcomeOld")
+    @Pass
+    public String gotoWelcomeOld(){
+        return "welcome_old";
     }
 
 

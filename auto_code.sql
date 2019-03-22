@@ -543,7 +543,7 @@ insert  into `test_simple_code`(`id`,`name`,`age`,`status`,`birthday`,`remarks`,
 insert  into `test_simple_code`(`id`,`name`,`age`,`status`,`birthday`,`remarks`,`create_time`) values (12,'单表测试9',1,0,'2019-03-12','213','2019-03-12 15:51:52');
 insert  into `test_simple_code`(`id`,`name`,`age`,`status`,`birthday`,`remarks`,`create_time`) values (13,'单表测试10',1,0,'2019-03-12','213','2019-03-12 15:51:52');
 insert  into `test_simple_code`(`id`,`name`,`age`,`status`,`birthday`,`remarks`,`create_time`) values (14,'单表测试11',1,0,'2019-03-12','213','2019-03-12 15:51:52');
-
+UPDATE `sys_auth` SET `name` = '代码生成实例' WHERE `id` = '3';
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
