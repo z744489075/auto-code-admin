@@ -1,6 +1,6 @@
 # auto-code-admin
 欢迎使用auto-code-admin后台代码自动生成引擎.2.1.0再次升级.支持可视化生成`单表`, `一对一`, `一对多` ,`多对多`代码.
-不再需要写yaml文件,支持无限级联 [演示地址](http://www.zengtengpeng.com/login/gotoLogin) 账号 `ztp`  密码 `111111`
+不再需要写yaml文件,支持无限级联 [演示地址](http://106.13.119.110:8010/login/gotoLogin) 账号 `ztp`  密码 `111111`
 (服务器在美国,有时访问可能比较慢.)
 # 目录
 1. <a href="#1">项目介绍</a>
@@ -60,7 +60,7 @@
 
 ### <a name="1.4">如果您觉得项目还行.请点赞.您的支持是我最大的动力[项目地址](https://gitee.com/ztp/auto-code-admin)</a>
 
-![start](http://images.zengtengpeng.com/auto-code-web/start.png)
+![start](http://106.13.119.110/auto-code-web/start.png)
 
 ### <a name="1.5">软件架构</a>
 
@@ -113,10 +113,10 @@
 
 >1.界面选择单表生成.选择对应的表,点击`生成预览`. 最后点击`确认生成`. 完毕.
 
-![simple](http://images.zengtengpeng.com/auto-code-ui/simple.png)
+![simple](http://106.13.119.110/auto-code-ui/simple.png)
 
 >2.生成的文件如下:
-![select](http://images.zengtengpeng.com/auto-code-web/simple.png)
+![select](http://106.13.119.110/auto-code-web/simple.png)
 
 #### <a name="2.1.3">一对一代码生成 对应 auto-code_one-to-one.yaml (代码采用追加的方式.无需担心代码被覆盖) </a>
 
@@ -125,8 +125,8 @@
 
     test_one_to_one_user.id=test_one_to_one_class.user_id
 
-![one-to-one](http://images.zengtengpeng.com/auto-code-ui/one-to-one1.png)
-![one-to-one](http://images.zengtengpeng.com/auto-code-ui/one-to-one2.png)
+![one-to-one](http://106.13.119.110/auto-code-ui/one-to-one1.png)
+![one-to-one](http://106.13.119.110/auto-code-ui/one-to-one2.png)
 
 >2.点击生成完毕.生成的文件和单表是一样的.里面会增加新的方法
 
@@ -142,9 +142,9 @@
     
     test_many_to_many_user_role.user_id=test_many_to_many_user.id and test_many_to_many_user_role.role_id=test_many_to_many_role.id
 
-![many-to-many](http://images.zengtengpeng.com/auto-code-ui/many-to-many1.png)
-![many-to-many](http://images.zengtengpeng.com/auto-code-ui/many-to-many2.png)
-![many-to-many](http://images.zengtengpeng.com/auto-code-ui/many-to-many3.png)
+![many-to-many](http://106.13.119.110/auto-code-ui/many-to-many1.png)
+![many-to-many](http://106.13.119.110/auto-code-ui/many-to-many2.png)
+![many-to-many](http://106.13.119.110/auto-code-ui/many-to-many3.png)
 
 >2.点击生成完毕.生成的文件和单表是一样的.里面会增加新的方法
 
@@ -185,7 +185,7 @@ public String getStatus_(){
 }
 ```
 页面展示
-![select](http://images.zengtengpeng.com/auto-code-web/select.png)
+![select](http://106.13.119.110/auto-code-web/select.png)
 
 
 ## <a name="3">进阶篇</a>
@@ -247,26 +247,26 @@ spring.redis.port=6379
 
 ### <a name="4.1">pc</a>
 
-![登录](http://images.zengtengpeng.com/auto-code-web/login.png)
+![登录](http://106.13.119.110/auto-code-web/login.png)
 
-![主页](http://images.zengtengpeng.com/auto-code-web/welcome.png)
+![主页](http://106.13.119.110/auto-code-web/welcome.png)
 
-![权限](http://images.zengtengpeng.com/auto-code-web/role.png)
+![权限](http://106.13.119.110/auto-code-web/role.png)
 
-![用户](http://images.zengtengpeng.com/auto-code-web/user.png)
+![用户](http://106.13.119.110/auto-code-web/user.png)
 
-![用户详情](http://images.zengtengpeng.com/auto-code-web/user_detail.png)
+![用户详情](http://106.13.119.110/auto-code-web/user_detail.png)
 
 ### <a name="4.2">mobile</a>
 
-![登录](http://images.zengtengpeng.com/auto-code-web/mobile/login.png)
+![登录](http://106.13.119.110/auto-code-web/mobile/login.png)
 
-![菜单](http://images.zengtengpeng.com/auto-code-web/mobile/menu.png)
+![菜单](http://106.13.119.110/auto-code-web/mobile/menu.png)
 
-![主页](http://images.zengtengpeng.com/auto-code-web/mobile/welcome.png)
+![主页](http://106.13.119.110/auto-code-web/mobile/welcome.png)
 
-![权限](http://images.zengtengpeng.com/auto-code-web/mobile/auth.png)
+![权限](http://106.13.119.110/auto-code-web/mobile/auth.png)
 
-![用户](http://images.zengtengpeng.com/auto-code-web/mobile/user.png)
+![用户](http://106.13.119.110/auto-code-web/mobile/user.png)
 
-![用户详情](http://images.zengtengpeng.com/auto-code-web/mobile/user_detail.png)
+![用户详情](http://106.13.119.110/auto-code-web/mobile/user_detail.png)
