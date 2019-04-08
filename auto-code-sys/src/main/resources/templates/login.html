@@ -16,8 +16,6 @@
     <script type="text/javascript" th:src="@{/static/js/jquery-ui.min.js}"></script>
     <!--粒子背景依赖js-->
     <script type="text/javascript" th:src="@{/static/js/Particleground.js}"></script>
-    <!--使用 jQuery Mockjax 插件模拟Ajax请求-->
-    <script type="text/javascript" th:src="@{/static/js/jquery.mockjax.js}"></script>
 
     <script th:src="@{/static/js/global.js}"></script>
     <script type="text/javascript" th:inline="javascript">
@@ -97,9 +95,7 @@
 <!--<div class="OverWindows"></div>-->
 
 <script type="text/javascript">
-    /*<![CDATA[*/
-    var rootPath = /*[[@{/}]]*/ '';
-    /*]]>*/
+
     //登录回车键事件
     $(document).keypress(function (e) {
         // 回车键事件
@@ -155,7 +151,10 @@
             layer.alert("图形验证码不能为空");
             return;
         }
-        $.post(rootPath+"login/login",$("#loginForm").serialize(),function (data) {
+        /*<![CDATA[*/
+        var loginUrl = /*[[@{/login/login}]]*/ '';
+        /*]]>*/
+        $.post(loginUrl,$("#loginForm").serialize(),function (data) {
             if (data.code==0){
                 window.location.href=rootPath+"index/gotoIndex"
             }else{
