@@ -152,9 +152,9 @@
             return;
         }
         /*<![CDATA[*/
-        var loginUrl = /*[[@{/login/login}]]*/ '';
+        var rootPath = /*[[@{/}]]*/ '';
         /*]]>*/
-        $.post(loginUrl,$("#loginForm").serialize(),function (data) {
+        $.post(rootPath+"",$("#loginForm").serialize(),function (data) {
             if (data.code==0){
                 window.location.href=rootPath+"index/gotoIndex"
             }else{
