@@ -151,10 +151,8 @@
             layer.alert("图形验证码不能为空");
             return;
         }
-        /*<![CDATA[*/
-        var rootPath = /*[[@{/}]]*/ '';
-        /*]]>*/
-        $.post(rootPath+"login/login",$("#loginForm").serialize(),function (data) {
+        var loginPath = /*[[@{/login/login}]]*/'';
+        $.post(loginPath,$("#loginForm").serialize(),function (data) {
             if (data.code==0){
                 window.location.href=rootPath+"index/gotoIndex"
             }else{
