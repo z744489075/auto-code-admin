@@ -1,31 +1,5 @@
 # auto-code-admin
-欢迎使用auto-code-admin后台代码自动生成引擎.2.1.0再次升级.支持可视化生成`单表`, `一对一`, `一对多` ,`多对多`代码.
-不再需要写yaml文件,支持无限级联 [演示地址](http://106.13.119.110:8010/login/gotoLogin) 账号 `ztp`  密码 `111111`
-(服务器在美国,有时访问可能比较慢.)
-# 目录
-1. <a href="#1">项目介绍</a>
-    1. <a href="#1.1">项目的优势在哪里</a>
-    2. <a href="#1.2">什么情况选择该项目</a>
-    3. <a href="#1.3">为何会发起该项目</a>
-    4. <a href="#1.4">如果您觉得项目还行.请点赞</a>
-    5. <a href="#1.5">软件架构</a>
-    5. <a href="#1.6">项目模块介绍</a>
-2. <a href="#2">安装教程</a>
-    1. <a href="#2.1">代码生成教程</a>
-        1. <a href="#2.1.1">介绍</a>
-        2. <a href="#2.1.2">单表生成</a>
-        3. <a href="#2.1.3">一对一</a>
-        4. <a href="#2.1.4">一对多</a>
-        5.  <a href="#2.1.5">多对多</a>
-    2.  <a href="#2.2">生成代码注意事项</a>
-3. <a href="#3">进阶篇</a>
-    1. <a href="#3.1">如何进行项目集群</a>
-    2. <a href="#3.2">权限机制的实现</a>
-    3. <a href="#3.3">配置参数介绍</a>
-    4. <a href="#3.4">如何升级</a>
-4. <a href="#4">项目部分截图</a>
-    1. <a href="#4.1">PC端</a>
-    2. <a href="#4.2">移动端</a>
+欢迎使用auto-code-admin后台代码自动生成引擎  [演示地址](http://106.13.119.110:8010/login/gotoLogin) 账号 `ztp`  密码 `111111`(服务器在美国,有时访问可能比较慢.)
     
 ## 更新
 
@@ -37,6 +11,15 @@
     2. yaml 文件 globalConfig 增加  swagger: true 配置
     
 ## <a name="1">项目介绍</a>
+
+### 项目实现的功能介绍
+
+1.用户,角色,权限管理(权限控制到按钮)
+2.图片管理
+3.操作日志(针对于用户,每次点击的记录都会被记录)
+4.报表管理
+5.代码生成 (支持可视化生成`单表`, `一对一`, `一对多` ,`多对多`代码.)
+
 ### <a name="1.1">项目的优势在哪里</a>
 
 > 1.目前市面上的代码生成工具绝大多数仅仅支持生成单表,该项目支持 `单表`, `一对一`, `一对多` ,`多对多` 
@@ -57,11 +40,6 @@
 写虽然简单,不过极度耗时(controller,server,serverImpl,dao,xml) 
     所以才有了该项目,该项目能帮助我们减少后台开发的80%的工作量,让你专注于业务的实现.
  
-
-### <a name="1.4">如果您觉得项目还行.请点赞.您的支持是我最大的动力[项目地址](https://gitee.com/ztp/auto-code-admin)</a>
-
-![start](http://106.13.119.110/auto-code-web/start.png)
-
 ### <a name="1.5">软件架构</a>
 
     1.基于 springboot 2.0.7+mybatis+mysql
@@ -90,63 +68,14 @@
     7. 访问 http://localhost:8080
 
 
-### <a name="2.1">代码生成教程</a>
+### <a name="2.1">代码生成教程</a> 
 
-#### <a name="2.1.1">auto-code-generator代码生成介绍</a>
+登录之后点击 `代码生成页面`.然后就可以生成代码了 [更多配置请参见](https://gitee.com/ztp/auto-code)
 
-> 1.代码生成主要在 auto-code-generator 子模块中. 改模块基于 [auto-code](https://gitee.com/ztp/auto-code)
-做的扩展.扩展了怎么生成 `单表` `一对一` `一对多` `多对多` 的页面展示关系.
+![登录](http://106.13.119.110/auto-code-web/auto-code1.png)
 
-> 2. 在 `application.properties` 文件中填写参数(不填也没事,可以到页面配置.不过建议填写.当项目重新页面参数会重置的)
+![登录](http://106.13.119.110/auto-code-web/auto-code2.png)
 
-    # 代码生成器
-    #生成代码的项目根路径
-    auto-code.parentPath=E:\\resource\\workspaceJDB\\auto-code-admin\\auto-code-web
-    #生成代码的父包 如父包是com.zengtengpeng.test  controller将在com.zengtengpeng.test.controller下 bean 将在com.zengtengpeng.test.bean下 ,service,dao同理
-    auto-code.parentPack=com.zengtengpeng.simple
-    #添加权限到表的父id.如果为空则需要手动添加权限
-    auto-code.authParentId=89
-    
-> 3.这是代码生成的页面地址  http://localhost:8080/auto-code-ui/ui/index.html
-
-#### <a name="2.1.2">单表生成</a>
-
->1.界面选择单表生成.选择对应的表,点击`生成预览`. 最后点击`确认生成`. 完毕.
-
-![simple](http://106.13.119.110/auto-code-ui/simple.png)
-
->2.生成的文件如下:
-![select](http://106.13.119.110/auto-code-web/simple.png)
-
-#### <a name="2.1.3">一对一代码生成 对应 auto-code_one-to-one.yaml (代码采用追加的方式.无需担心代码被覆盖) </a>
-
->1. 打开界面.选择对应的表,一对一比单表多了一个外键id.
-比如界面两张表的关系就是通过 user_id来关联的 如下:
-
-    test_one_to_one_user.id=test_one_to_one_class.user_id
-
-![one-to-one](http://106.13.119.110/auto-code-ui/one-to-one1.png)
-![one-to-one](http://106.13.119.110/auto-code-ui/one-to-one2.png)
-
->2.点击生成完毕.生成的文件和单表是一样的.里面会增加新的方法
-
-#### <a name="2.1.4">一对多 代码生成 auto-code_one-to-many.yaml (代码采用追加的方式.无需担心代码被覆盖)</a>
-
->  `一对多`与`一对一`一样不再描述
-
-#### <a name="2.1.5">多对多 代码生成 auto-code_many-to-many.yaml (代码采用追加的方式.无需担心代码被覆盖)</a>
-
-
-> 1.打开界面.选择对应的表,`多对多`比`一对一`多了一个关系描述表
-    比如图片三张表的关系是通过 test_many_to_many_user_role来表述的.如下:
-    
-    test_many_to_many_user_role.user_id=test_many_to_many_user.id and test_many_to_many_user_role.role_id=test_many_to_many_role.id
-
-![many-to-many](http://106.13.119.110/auto-code-ui/many-to-many1.png)
-![many-to-many](http://106.13.119.110/auto-code-ui/many-to-many2.png)
-![many-to-many](http://106.13.119.110/auto-code-ui/many-to-many3.png)
-
->2.点击生成完毕.生成的文件和单表是一样的.里面会增加新的方法
 
 ### <a name="2.2">生成代码注意事项</a>
 
@@ -192,30 +121,50 @@ public String getStatus_(){
 
 ### <a name="3.1">如何进行项目集群</a>
 
-#### 集群非常简单只需要简单的3部就能完成
+#### 集群非常简单只需要简单的几部就能完成 
 
->1.安装redis 下载地址 redis官方是不支持windows的不过有社区版 下载地址
+>1.安装redis 
 
->2.使用spring-session将session放入redis中,修改 auto-code-admin/pom.xml
+>2.修改 auto-code-admin/pom.xml
     
 ```
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-data-redis</artifactId>
-</dependency>
-<dependency>
-  <groupId>org.springframework.session</groupId>
-  <artifactId>spring-session-data-redis</artifactId>
+    <groupId>com.zengtengpeng</groupId>
+    <artifactId>redisson-spring-boot-starter</artifactId>
+    <version>1.0.2</version>
 </dependency>
 ```
 > 3.修改 auto-code-web/application-dev.properties 配置文件 增加redis配置
 
 ```
-#redis
-spring.redis.host=127.0.0.1
-spring.redis.port=6379
+#单Redis节点模式
+redisson.singleServerConfig.address=127.0.0.1:6379
+server.port=8070
 ```
->4.到此为止,集群成功
+
+>4.在启动类上面加上 `@EnableRedissonHttpSession` 注解
+
+```
+@SpringBootApplication
+@EnableRedissonHttpSession
+public class RedissonApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RedissonApplication.class, args);
+    }
+
+}
+```
+
+
+>5.为何不使用 `spring-boot-starter-data-redis` 做集群?
+
+用spring-boot-starter-data-redis做集群也是可以的,不过该项目使用的是`jedis`客户端做的集群,
+往往项目一旦做了集群意味着要开始做分布式锁了.`jedis`在2.10.6版本以下会造成死锁.
+之后才增加了一个一个方法修复这个问题,然后这个锁只是单机的.`redlock`他是没有实现的.
+真正实现了`redlock` 的只有redssion. 本项目就是在redssion上做的一个starter. 只需要一个简单的注解
+`@Lock` 就是实现 `可重入锁`,`公平锁`,`联锁`,`红锁`,`读写锁`.支持各种集群模式.同时也支持MQ,以及存储数据.
+ 详情请参见:[redisson-spring-boot-starter源码地址](https://gitee.com/ztp/redisson-spring-boot-starter)
 
 ### <a name="3.2">权限机制的实现</a>
 

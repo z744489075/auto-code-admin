@@ -255,25 +255,45 @@ public String getStatus_(){
 			<p>
 				集群非常简单只需要简单的3部就能完成<br />
 				1.安装redis 下载地址 redis官方是不支持windows的不过有社区版 下载地址<br />
-				2.使用spring-session将session放入redis中,修改 auto-code-admin/pom.xml<br />
+				2.修改 auto-code-admin/pom.xml<br />
 			<pre class="layui-code" lay-title="java" lay-skin="notepad">
 &lt;dependency&gt;
-	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-	&lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;org.springframework.session&lt;/groupId&gt;
-	&lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt;
+    &lt;groupId&gt;com.zengtengpeng&lt;/groupId&gt;
+    &lt;artifactId&gt;redisson-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;1.0.2&lt;/version&gt;
 &lt;/dependency&gt;
 		</pre>
 				3.修改 auto-code-web/application-dev.properties 配置文件 增加redis配置<br />
 			<pre class="layui-code" lay-title="java" lay-skin="notepad">
-#redis
-spring.redis.host=127.0.0.1
-spring.redis.port=6379
+#单Redis节点模式
+redisson.singleServerConfig.address=127.0.0.1:6379
+server.port=8070
 			</pre>
-				4.到此为止,集群成功
+			4.在启动类上面加上 `@EnableRedissonHttpSession` 注解
+			<pre class="layui-code" lay-title="java" lay-skin="notepad">
+@SpringBootApplication
+@EnableRedissonHttpSession
+public class RedissonApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RedissonApplication.class, args);
+    }
+
+}
+			</pre>
+			5.为何不使用 `spring-boot-starter-data-redis` 做集群?
+
+			<pre class="layui-code" lay-title="java" lay-skin="notepad">
+用spring-boot-starter-data-redis做集群也是可以的,不过该项目使用的是`jedis`客户端做的集群,
+往往项目一旦做了集群意味着要开始做分布式锁了.`jedis`在2.10.6版本以下会造成死锁.
+之后才增加了一个一个方法修复这个问题,然后这个锁只是单机的.`redlock`他是没有实现的.
+真正实现了`redlock` 的只有redssion. 本项目就是在redssion上做的一个starter. 只需要一个简单的注解
+`@Lock` 就是实现 `可重入锁`,`公平锁`,`联锁`,`红锁`,`读写锁`.支持各种集群模式.同时也支持MQ,以及存储数据.
+详情请参见:[redisson-spring-boot-starter源码地址](https://gitee.com/ztp/redisson-spring-boot-starter)
+			</pre>
 			</p>
+
+
 		</div>
 	</li>
 	<li class="layui-timeline-item">
