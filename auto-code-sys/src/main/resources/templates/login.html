@@ -19,9 +19,7 @@
 
     <script th:src="@{/static/js/global.js}"></script>
     <script type="text/javascript" th:inline="javascript">
-        /*<![CDATA[*/
         var rootPath = /*[[@{/}]]*/ '';
-        /*]]>*/
         $(function () {
             init(rootPath);
         })
@@ -135,6 +133,7 @@
             }, 200);
         }
     });
+
     function login() {
         var loginName = $("#loginName").val();
         var password = $("#password").val();
@@ -152,9 +151,10 @@
             return;
         }
         var loginPath = /*[[@{/login/login}]]*/'';
+        var rPath = /*[[@{/index/gotoIndex}]]*/'';
         $.post(loginPath,$("#loginForm").serialize(),function (data) {
             if (data.code==0){
-                window.location.href=rootPath+"index/gotoIndex"
+                window.location.href=rPath
             }else{
                 layer.alert(data.message);
                 flushImage()
