@@ -8,20 +8,18 @@ import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
 
 
 /**
  *一对多收货地址 bean
  */
-@ApiModel(description="一对多收货地址")
 public class OneToManyAddr   extends Page  {
 
 	/**
 	 * 一对多用户
 	 */
-	@ApiModelProperty(hidden = true)
 	private OneToManyUser oneToManyUser;
 
 
@@ -29,42 +27,34 @@ public class OneToManyAddr   extends Page  {
 	/**
 	 * 用户收货地址id
 	 */
-	@ApiModelProperty(value = "用户收货地址id")
 	private Integer id;
 	/**
 	 * 用户id
 	 */
-	@ApiModelProperty(value = "用户id")
 	private Integer userId;
 	/**
 	 * 姓名
 	 */
-	@ApiModelProperty(value = "姓名")
 	private String addrName;
 	/**
 	 * 手机号码
 	 */
-	@ApiModelProperty(value = "手机号码")
 	private String phone;
 	/**
 	 * 收货地址
 	 */
-	@ApiModelProperty(value = "收货地址")
 	private String addr;
 	/**
 	 * {"name":"状态","1":"启用","2":"删除"}
 	 */
-	@ApiModelProperty(value = "{\"name\":\"状态\",\"1\":\"启用\",\"2\":\"删除\"}")
 	private Integer status;
 	/**
 	 * 创建时间
 	 */
-	@ApiModelProperty(value = "创建时间")
 	private Date createTime;
 	/**
 	 * 更新时间
 	 */
-	@ApiModelProperty(value = "更新时间")
 	private Date updateTime;
 	public Integer getId(){
 		return id;
