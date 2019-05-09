@@ -4,14 +4,14 @@
 	<springProperty scop="context" name="myLog_path" source="myLog.path" defaultValue=""/>
 
 	<property name="log_pattern"
-			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %C.%M:%L -- %msg%n"/>
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %logger -- %msg%n"/>
 
 
 	<appender name="file"
 			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${myLog_path}/info.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %logger -- %msg%n</pattern>
+			<pattern>${log_pattern}</pattern>
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -30,7 +30,7 @@
 			<totalSizeCap>20GB</totalSizeCap>-->
 		</rollingPolicy>
 		<encoder>
-			<pattern>${log_pattern}</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %C.%M:%L -- %msg%n</pattern>
 		</encoder>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>ERROR</level>
