@@ -8,20 +8,18 @@ import com.zengtengpeng.common.utils.DateUtils;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.zengtengpeng.autoCode.utils.MyStringUtils;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+
 
 
 /**
  *一对多用户 bean
  */
-@ApiModel(description="一对多用户")
 public class OneToManyUser   extends Page  {
 
 	/**
 	 * 一对多收货地址
 	 */
-	@ApiModelProperty(hidden = true)
 	private List<OneToManyAddr> oneToManyAddrList;
 
 
@@ -29,47 +27,38 @@ public class OneToManyUser   extends Page  {
 	/**
 	 * id
 	 */
-	@ApiModelProperty(value = "id")
 	private Integer id;
 	/**
 	 * 名称
 	 */
-	@ApiModelProperty(value = "名称")
 	private String name;
 	/**
 	 * 年龄
 	 */
-	@ApiModelProperty(value = "年龄")
 	private Integer age;
 	/**
 	 * {"name":"状态","1":"启用","0":"禁用"}
 	 */
-	@ApiModelProperty(value = "{\"name\":\"状态\",\"1\":\"启用\",\"0\":\"禁用\"}")
 	private Integer status;
 	/**
 	 * 生日
 	 */
-	@ApiModelProperty(value = "生日")
 	private Date birthday;
 	/**
 	 * 备注
 	 */
-	@ApiModelProperty(value = "备注")
 	private String remarks;
 	/**
 	 * 数字
 	 */
-	@ApiModelProperty(value = "数字")
 	private BigDecimal mun;
 	/**
 	 * 创建时间
 	 */
-	@ApiModelProperty(value = "创建时间")
 	private Date createTime;
 	/**
 	 * 更新时间
 	 */
-	@ApiModelProperty(value = "更新时间")
 	private Date updateTime;
 	public Integer getId(){
 		return id;

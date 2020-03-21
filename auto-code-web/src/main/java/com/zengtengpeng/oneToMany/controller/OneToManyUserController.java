@@ -4,7 +4,7 @@ import com.zengtengpeng.oneToMany.service.OneToManyAddrService;
 import com.zengtengpeng.oneToMany.bean.OneToManyAddr;
 import java.util.ArrayList;
 import com.zengtengpeng.common.annotation.Auth;
-import springfox.documentation.annotations.ApiIgnore;
+
 import javax.annotation.Resource;
 import com.zengtengpeng.common.utils.ExcelUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
+
 import com.zengtengpeng.oneToMany.bean.OneToManyUser;
 import com.zengtengpeng.oneToMany.service.OneToManyUserService;
 
@@ -25,7 +25,6 @@ import com.zengtengpeng.oneToMany.service.OneToManyUserService;
 /**
  *一对多用户 controller
  */
-@Api(description="一对多用户")
 @Controller
 public class OneToManyUserController  {
 
@@ -43,7 +42,6 @@ public class OneToManyUserController  {
 	 * 跳��到列表页面
 	 */
 	@RequestMapping("oneToManyUser/gotoList")
-	@ApiIgnore
 	public String gotoList(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return "oneToMany/test_one_to_many_user_list";
 	}
@@ -54,7 +52,6 @@ public class OneToManyUserController  {
 	 */
 	@RequestMapping("oneToManyUser/gotoDetail")
 	@Auth("oneToManyUser/save")
-	@ApiIgnore
 	public String gotoDetail(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		if(oneToManyUser.getId()!=null){
 			 request.setAttribute("test_one_to_many_user",oneToManyUserService.selectByPrimaryKey(oneToManyUser));
@@ -72,7 +69,6 @@ public class OneToManyUserController  {
 	@ResponseBody
 	@Auth("oneToManyUser/deleteByPrimaryKey")
 	@RequestMapping("oneToManyUser/deleteByPrimaryKey")
-	@ApiOperation(value="根据主键删除", notes="参数只用到了主键id,其他参数忽略" ,httpMethod="POST")
 	public DataRes deleteByPrimaryKey(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(oneToManyUserService.deleteByPrimaryKey(oneToManyUser));
 	}
@@ -83,7 +79,6 @@ public class OneToManyUserController  {
 	 */
 	@ResponseBody
 	@RequestMapping("oneToManyUser/save")
-	@ApiOperation(value="保存", notes="主键为空则增加否则修改" ,httpMethod="POST")
 	public DataRes save(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		if(oneToManyUser.getId()==null){
 			return DataRes.success(oneToManyUserService.insert(oneToManyUser));
@@ -99,7 +94,6 @@ public class OneToManyUserController  {
 	@ResponseBody
 	@Auth("oneToManyUser/selectAllByPaging")
 	@RequestMapping("oneToManyUser/selectByPrimaryKey")
-	@ApiOperation(value="根据主键查询", notes="参数只用到了主键." ,httpMethod="POST")
 	public DataRes selectByPrimaryKey(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(oneToManyUserService.selectByPrimaryKey(oneToManyUser));
 	}
@@ -111,7 +105,6 @@ public class OneToManyUserController  {
 	@ResponseBody
 	@Auth("oneToManyUser/selectAllByPaging")
 	@RequestMapping("oneToManyUser/selectByCondition")
-	@ApiOperation(value="根据条件查询", notes="参数为空则忽略." ,httpMethod="POST")
 	public DataRes selectByCondition(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(oneToManyUserService.selectByCondition(oneToManyUser));
 	}
@@ -123,7 +116,6 @@ public class OneToManyUserController  {
 	@ResponseBody
 	@Auth("oneToManyUser/selectAllByPaging")
 	@RequestMapping("oneToManyUser/selectAllByPaging")
-	@ApiOperation(value="分页查询", notes="默认page=1pageSize等于10详见Page类(所有bean都继承该类).参数为空则忽略" ,httpMethod="POST")
 	public DataRes selectAllByPaging(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(oneToManyUserService.selectAllByPaging(oneToManyUser));
 	}
@@ -133,7 +125,6 @@ public class OneToManyUserController  {
 	 * 导出报表->一对多用户
 	 */
 	@RequestMapping("oneToManyUser/export")
-	@ApiOperation(value="导出excel", notes="导出全部数据.参数为空则忽略." ,httpMethod="POST")
 	public void export(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		List<OneToManyUser> list= oneToManyUserService.selectAll(oneToManyUser);
 		Map<String, String> header = new LinkedHashMap<>();
@@ -157,7 +148,6 @@ public class OneToManyUserController  {
 	@Auth("oneToManyUser/selectAllByPaging")
 	@RequestMapping("oneToManyUser/selectOneToManyUserAndOneToManyAddr")
 	@ResponseBody
-	@ApiOperation(value="主表级联查询(带分页)", notes="主表级联查询(带分页)  默认 page=1 pageSize等于10 详见 Page类(所有bean都继承该类)" ,httpMethod="POST")
 	public DataRes selectOneToManyUserAndOneToManyAddr(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(oneToManyUserService.selectOneToManyUserAndOneToManyAddr(oneToManyUser));
 	}
@@ -169,7 +159,6 @@ public class OneToManyUserController  {
 	@Auth("oneToManyUser/selectAllByPaging")
 	@RequestMapping("oneToManyUser/selectOneToManyUserAndOneToManyAddrByCondition")
 	@ResponseBody
-	@ApiOperation(value="主表级联条件查询", notes="主表级联条件查询" ,httpMethod="POST")
 	public DataRes selectOneToManyUserAndOneToManyAddrByCondition(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(oneToManyUserService.selectOneToManyUserAndOneToManyAddrByCondition(oneToManyUser));
 	}
@@ -181,7 +170,6 @@ public class OneToManyUserController  {
 	@Auth("oneToManyUser/deleteByPrimaryKey")
 	@RequestMapping("oneToManyUser/deleteOneToManyUserAndOneToManyAddr")
 	@ResponseBody
-	@ApiOperation(value="主表级联删除(根据主键删除)", notes="主表级联删除(根据主键删除)" ,httpMethod="POST")
 	public DataRes deleteOneToManyUserAndOneToManyAddr(OneToManyUser oneToManyUser,HttpServletRequest request,HttpServletResponse response){
 		return DataRes.success(oneToManyUserService.deleteOneToManyUserAndOneToManyAddr(oneToManyUser));
 	}

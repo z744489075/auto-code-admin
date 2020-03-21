@@ -3,6 +3,17 @@
     
 ## 更新
 
+>2019-05-09: 版本 2.1.2
+
+1.移除Swagger(这个东西代码入侵性太强.里面也有一些BUG),
+如需使用请在自己的项目增加swagger jar包  然后将 globalConfig.sswagger 设置为true
+
+> 2019-05-08: 版本 2.1.1
+
+1.生成的bean不再忽略转译之前的get方法了
+
+2.`BaseDao`,`BaseService` 增加 `selectByConditionFirst`方法.返回第一条记录
+
 > 2019-03-22: 版本:2.1.0 生成代码增加可视化视图,不再需要写yaml文件配置了
 
 > 2019-03-18 增加 swagger api支持
