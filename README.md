@@ -1,5 +1,5 @@
 # auto-code-admin
-欢迎使用auto-code-admin后台代码自动生成引擎  [演示地址](http://106.13.119.110:8010/login/gotoLogin) 账号 `ztp`  密码 `111111`(服务器在美国,有时访问可能比较慢.)
+欢迎使用auto-code-admin后台代码自动生成引擎  [演示地址](http://106.13.101.206:8010/login/gotoLogin) 账号 `ztp`  密码 `111111`(服务器在美国,有时访问可能比较慢.)
     
 ## 更新
 
@@ -76,9 +76,8 @@
 
 登录之后点击 `代码生成页面`.然后就可以生成代码了 [更多配置请参见](https://gitee.com/ztp/auto-code)
 
-![登录](http://106.13.119.110/auto-code-web/auto-code1.png)
+![登录](http://106.13.101.206/auto-code-ui/login.png)
 
-![登录](http://106.13.119.110/auto-code-web/auto-code2.png)
 
 
 ### <a name="2.2">生成代码注意事项</a>
@@ -118,7 +117,7 @@ public String getStatus_(){
 }
 ```
 页面展示
-![select](http://106.13.119.110/auto-code-web/select.png)
+![select](http://106.13.101.206/auto-code-ui/select.png)
 
 
 ## <a name="3">进阶篇</a>
@@ -196,30 +195,3 @@ public class RedissonApplication {
     2.更新请将 auto-code-common,auto-code-generator,auto-code-sys 覆盖成最新的代码就行.
     3.如果数据库有更新我会在上面更新介绍更新的SQL文件
 
-## <a name="4">项目部分截图</a>
-
-### <a name="4.1">pc</a>
-
-![登录](http://106.13.119.110/auto-code-web/login.png)
-
-![主页](http://106.13.119.110/auto-code-web/welcome.png)
-
-![权限](http://106.13.119.110/auto-code-web/role.png)
-
-![用户](http://106.13.119.110/auto-code-web/user.png)
-
-![用户详情](http://106.13.119.110/auto-code-web/user_detail.png)
-
-### <a name="4.2">mobile</a>
-
-![登录](http://106.13.119.110/auto-code-web/mobile/login.png)
-
-![菜单](http://106.13.119.110/auto-code-web/mobile/menu.png)
-
-![主页](http://106.13.119.110/auto-code-web/mobile/welcome.png)
-
-![权限](http://106.13.119.110/auto-code-web/mobile/auth.png)
-
-![用户](http://106.13.119.110/auto-code-web/mobile/user.png)
-
-![用户详情](http://106.13.119.110/auto-code-web/mobile/user_detail.png)
